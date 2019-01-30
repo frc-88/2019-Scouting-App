@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
+import org.robotics.tj2.scout88.FireStoreInterface;
 
 
 public class MainActivity extends AppCompatActivity
@@ -21,9 +22,9 @@ public class MainActivity extends AppCompatActivity
         Pregame.OnFragmentInteractionListener{
 
     private Context context = this;
-    final Fragment goals_frag = new Ingame();
-    final Fragment pregame_frag = new Pregame();
-    final FragmentManager fm = getSupportFragmentManager();
+    private Fragment goals_frag = new Ingame();
+    private Fragment pregame_frag = new Pregame();
+    private FragmentManager fm = getSupportFragmentManager();
     Fragment active = pregame_frag;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -62,6 +63,10 @@ public class MainActivity extends AppCompatActivity
 
         fm.beginTransaction().add(R.id.main_container,goals_frag, "2").hide(goals_frag).commit();
         fm.beginTransaction().add(R.id.main_container,pregame_frag, "1").commit();
+
+        FireStoreInterface dbi = new FireStoreInterface();
+        dbi.initDB();
+        dbi.getTable("Teams");
     }
 
 

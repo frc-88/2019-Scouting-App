@@ -8,7 +8,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Spinner;
 
 
@@ -70,6 +73,25 @@ public class Pregame extends Fragment {
         Log.v("Lifecycle" , "Pregame.onCreateView() called.\n");
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_pregame, container, false);
+        final ImageButton panel_btn = (ImageButton) view.findViewById(R.id.panel_button);
+        final ImageButton cargo_btn = (ImageButton) view.findViewById(R.id.cargo_button);
+        final ImageView right_hab_btn = (ImageView) view.findViewById(R.id.right_hab_2_button);
+        final ImageView left_hab_btn = (ImageView) view.findViewById(R.id.left_hab_2_button);
+        final ImageView low_hab_btn = (ImageView) view.findViewById(R.id.bottom_hab_button);
+        panel_btn.setAlpha((float)0.4);
+        cargo_btn.setAlpha((float)0.4);
+        panel_btn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                panel_btn.setAlpha((float)1.0);
+                cargo_btn.setAlpha((float)0.3);
+            }
+        });
+        cargo_btn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                panel_btn.setAlpha((float)0.3);
+                cargo_btn.setAlpha((float)1.0);
+            }
+        });
         Spinner spinner = (Spinner) view.findViewById(R.id.alliance_dropdown);
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this.getContext(),
@@ -78,6 +100,31 @@ public class Pregame extends Fragment {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
+
+        right_hab_btn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                right_hab_btn.setImageResource(R.drawable.ic_starting_pos_check);
+                left_hab_btn.setImageResource(R.drawable.ic_starting_pos_uncheck);
+                low_hab_btn.setImageResource(R.drawable.ic_starting_pos_uncheck);
+            }
+        });
+        left_hab_btn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                right_hab_btn.setImageResource(R.drawable.ic_starting_pos_uncheck);
+                left_hab_btn.setImageResource(R.drawable.ic_starting_pos_check);
+                low_hab_btn.setImageResource(R.drawable.ic_starting_pos_uncheck);
+            }
+        });
+        low_hab_btn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                right_hab_btn.setImageResource(R.drawable.ic_starting_pos_uncheck);
+                left_hab_btn.setImageResource(R.drawable.ic_starting_pos_uncheck);
+                low_hab_btn.setImageResource(R.drawable.ic_starting_pos_check);
+            }
+        });
         return view;
     }
 

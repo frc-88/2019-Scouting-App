@@ -63,7 +63,7 @@
         app:layout_constraintLeft_toRightOf="@id/alliance_text"></Spinner>
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/cargo_button"
         android:layout_width="@dimen/cargo_panel_pregame"
         android:layout_height="@dimen/cargo_panel_pregame"
         android:layout_marginStart="32dp"
@@ -76,14 +76,54 @@
         app:layout_constraintTop_toBottomOf="@+id/starting_element_text" />
 
     <ImageButton
-        android:id="@+id/imageButton2"
+        android:id="@+id/panel_button"
         android:layout_width="@dimen/cargo_panel_pregame"
         android:layout_height="@dimen/cargo_panel_pregame"
         android:layout_marginStart="32dp"
+        android:background="@color/cell_background_color"
         android:focusable="false"
-        android:padding="0dp"
+        android:paddingRight="20dp"
         android:scaleType="centerCrop"
         android:src="@drawable/panel"
-        app:layout_constraintBottom_toBottomOf="@+id/imageButton"
-        app:layout_constraintStart_toEndOf="@+id/imageButton" />
+        app:layout_constraintBottom_toBottomOf="@+id/cargo_button"
+        app:layout_constraintStart_toEndOf="@+id/cargo_button" />
+
+    <ImageView
+        android:id="@+id/hab_img"
+        android:layout_width="521dp"
+        android:layout_height="307dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/steps_blue"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cargo_button" />
+
+    <ImageView
+        android:id="@+id/left_hab_2_button"
+        android:layout_width="114dp"
+        android:layout_height="136dp"
+        android:layout_marginStart="76dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/ic_starting_pos_uncheck"
+        app:layout_constraintStart_toStartOf="@+id/hab_img"
+        app:layout_constraintTop_toTopOf="@+id/hab_img" />
+
+    <ImageView
+        android:id="@+id/right_hab_2_button"
+        android:layout_width="114dp"
+        android:layout_height="109dp"
+        android:layout_marginTop="150dp"
+        android:src="@drawable/ic_starting_pos_uncheck"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/hab_img" />
+    <ImageView
+        android:id="@+id/bottom_hab_button"
+        android:layout_width="114dp"
+        android:layout_height="136dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="76dp"
+        android:src="@drawable/ic_starting_pos_uncheck"
+        app:layout_constraintEnd_toEndOf="@+id/hab_img"
+        app:layout_constraintTop_toTopOf="@+id/hab_img" />
 </android.support.constraint.ConstraintLayout>

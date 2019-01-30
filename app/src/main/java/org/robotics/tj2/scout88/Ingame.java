@@ -67,7 +67,13 @@ public class Ingame extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_ingame, container, false);
-        ImageView cargo1 =(ImageView) view.findViewById(R.id.imageView20);
+        ImageView cargo1 =(ImageView) view.findViewById(R.id.cargo2);
+        ImageView[] cargo_ims = new ImageView[20];
+        ImageView[] panels_ims = new ImageView[20];
+
+        //CARGO BUTTONS
+        
+
         return view;
     }
 
