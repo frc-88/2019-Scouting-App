@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Pregame">
+
+    <TextView
+        android:id="@+id/starting_element_text"
+        android:layout_width="534dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="16dp"
+        android:text="What is the robot starting with?"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/team_number_text"
+        app:layout_constraintTop_toBottomOf="@+id/team_number_text" />
+
+    <TextView
+        android:id="@+id/alliance_text"
+        android:layout_width="307dp"
+        android:layout_height="49dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:text="Alliance/Position:"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/team_number_edit_text"
+        android:layout_width="104dp"
+        android:layout_height="49dp"
+        android:layout_marginStart="4dp"
+        android:ems="10"
+        android:hint="8888"
+        android:inputType="number"
+        android:textAlignment="center"
+        android:textSize="26sp"
+        app:layout_constraintBottom_toBottomOf="@id/team_number_text"
+        app:layout_constraintStart_toEndOf="@id/team_number_text" />
+
+    <TextView
+        android:id="@+id/team_number_text"
+        android:layout_width="251dp"
+        android:layout_height="49dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:text="Team Number:"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/alliance_text" />
+
+    <Spinner
+        android:id="@+id/alliance_dropdown"
+        android:layout_width="268dp"
+        android:layout_height="60dp"
+        app:layout_constraintBottom_toBottomOf="@id/alliance_text"
+        app:layout_constraintLeft_toRightOf="@id/alliance_text"></Spinner>
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="@dimen/cargo_panel_pregame"
+        android:layout_height="@dimen/cargo_panel_pregame"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:focusable="false"
+        android:padding="0dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/cargo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/starting_element_text" />
+
+    <ImageButton
+        android:id="@+id/imageButton2"
+        android:layout_width="@dimen/cargo_panel_pregame"
+        android:layout_height="@dimen/cargo_panel_pregame"
+        android:layout_marginStart="32dp"
+        android:focusable="false"
+        android:padding="0dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/panel"
+        app:layout_constraintBottom_toBottomOf="@+id/imageButton"
+        app:layout_constraintStart_toEndOf="@+id/imageButton" />
+</android.support.constraint.ConstraintLayout>

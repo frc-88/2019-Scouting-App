@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "390127107376",
+    "firebase_url": "https://scout88-4a3e0.firebaseio.com",
+    "project_id": "scout88-4a3e0",
+    "storage_bucket": "scout88-4a3e0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:390127107376:android:a5fc3153fb8e57e1",
+        "android_client_info": {
+          "package_name": "org.robotics.tj2.scout88"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "390127107376-oilk2dm9b97lob6eqqkocdbtug0lh5dv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDrV5Xy7jLe-KBuVYdR5GQ5EMcxvN6Y_WA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
