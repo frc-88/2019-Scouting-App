@@ -64,9 +64,8 @@ public class MainActivity extends AppCompatActivity
         fm.beginTransaction().add(R.id.main_container,goals_frag, "2").hide(goals_frag).commit();
         fm.beginTransaction().add(R.id.main_container,pregame_frag, "1").commit();
 
-        FireStoreInterface dbi = new FireStoreInterface();
-        dbi.initDB();
-        dbi.getTable("Teams");
+        FirebaseInterface fbi = new FirebaseInterface();
+
     }
 
 

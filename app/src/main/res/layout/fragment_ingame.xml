@@ -82,9 +82,9 @@
             android:id="@+id/cargo15"
             android:layout_width="@dimen/cargo_width"
             android:layout_height="@dimen/cargo_height"
-            app:srcCompat="@drawable/cargo"
-            tools:layout_editor_absoluteX="442dp"
-            tools:layout_editor_absoluteY="728dp" />
+            app:layout_constraintBottom_toTopOf="@+id/cargo17"
+            app:layout_constraintStart_toEndOf="@+id/cargo14"
+            app:srcCompat="@drawable/cargo" />
 
         <ImageView
             android:id="@+id/cargo18"
@@ -196,9 +196,9 @@
             android:id="@+id/cargo11"
             android:layout_width="@dimen/cargo_width"
             android:layout_height="@dimen/cargo_height"
-            app:srcCompat="@drawable/cargo"
-            tools:layout_editor_absoluteX="442dp"
-            tools:layout_editor_absoluteY="83dp" />
+            app:layout_constraintStart_toEndOf="@+id/cargo10"
+            app:layout_constraintTop_toBottomOf="@+id/cargo9"
+            app:srcCompat="@drawable/cargo" />
 
         <ImageView
             android:id="@+id/imageView32"
@@ -335,9 +335,11 @@
             android:id="@+id/imageView9"
             android:layout_width="@dimen/panel_width"
             android:layout_height="@dimen/panel_height"
-            app:srcCompat="@drawable/panel"
-            tools:layout_editor_absoluteX="8dp"
-            tools:layout_editor_absoluteY="250dp" />
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="250dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/panel" />
 
 
         <android.support.constraint.Constraints
