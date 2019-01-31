@@ -72,7 +72,7 @@ public class Ingame extends Fragment {
         ImageView[] panels_ims = new ImageView[20];
 
         //CARGO BUTTONS
-        
+
 
         return view;
     }

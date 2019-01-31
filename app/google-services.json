@@ -8,12 +8,20 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:390127107376:android:a5fc3153fb8e57e1",
+        "mobilesdk_app_id": "1:390127107376:android:c5a0a2814df5e2f5",
         "android_client_info": {
           "package_name": "org.robotics.tj2.scout88"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "390127107376-em2qndg5lpc5ng7grk96b3lm85njbmth.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.robotics.tj2.scout88",
+            "certificate_hash": "0ed84a9e48dffdceb012a91434a116cddaf75b27"
+          }
+        },
         {
           "client_id": "390127107376-oilk2dm9b97lob6eqqkocdbtug0lh5dv.apps.googleusercontent.com",
           "client_type": 3
@@ -29,8 +37,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "390127107376-oilk2dm9b97lob6eqqkocdbtug0lh5dv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2

@@ -13,9 +13,6 @@ public class TeamTableActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_team_table);
 
-        FireStoreInterface fbi = new FireStoreInterface();
-        fbi.initDB();
-        fbi.getTable("Teams");
 
         String path = "/data/data/" + getPackageName() + "/sample.db";
         DBInterface.initDB(path);

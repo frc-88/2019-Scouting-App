@@ -1,5 +1,6 @@
 package org.robotics.tj2.scout88;
 
+import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -14,7 +15,10 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
-import org.robotics.tj2.scout88.FireStoreInterface;
+
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 
 public class MainActivity extends AppCompatActivity
@@ -64,7 +68,11 @@ public class MainActivity extends AppCompatActivity
         fm.beginTransaction().add(R.id.main_container,goals_frag, "2").hide(goals_frag).commit();
         fm.beginTransaction().add(R.id.main_container,pregame_frag, "1").commit();
 
-        FirebaseInterface fbi = new FirebaseInterface();
+        //Application app = new Application();
+
+        //FirebaseDatabase database = FirebaseDatabase.getInstance();
+        //DatabaseReference myRef = database.getReference("test1");
+        FirebaseInterface fbi = new FirebaseInterface(this);
 
     }
 
