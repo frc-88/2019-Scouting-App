@@ -13,7 +13,7 @@
         android:layout_height="49dp"
         android:layout_marginStart="8dp"
         android:ems="10"
-        android:hint="8888"
+        android:hint="22"
         android:inputType="number"
         android:textAlignment="center"
         android:textSize="26sp"
@@ -35,11 +35,12 @@
         android:layout_width="155dp"
         android:layout_height="49dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="75dp"
         android:text="Your Name:"
         android:textSize="28sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/alliance_dropdown"
-        app:layout_constraintTop_toTopOf="@+id/alliance_text" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/starting_element_text"
@@ -64,18 +65,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cargo_button" />
 
-    <TextView
-        android:id="@+id/alliance_text"
-        android:layout_width="91dp"
-        android:layout_height="49dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="68dp"
-        android:text="Robot: "
-        android:textSize="28sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <EditText
         android:id="@+id/team_number_edit_text"
         android:layout_width="104dp"
@@ -94,20 +83,12 @@
         android:layout_width="193dp"
         android:layout_height="49dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="8dp"
         android:text="Team Number:"
         android:textSize="28sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/alliance_text" />
-
-    <Spinner
-        android:id="@+id/alliance_dropdown"
-        android:layout_width="117dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/alliance_text"
-        app:layout_constraintStart_toEndOf="@+id/alliance_text"></Spinner>
+        app:layout_constraintTop_toBottomOf="@+id/team_number_text2" />
 
     <ImageButton
         android:id="@+id/cargo_button"
@@ -171,7 +152,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Name"
+        android:hint="Douglas Bradley"
         app:layout_constraintStart_toEndOf="@+id/team_number_text2"
         app:layout_constraintTop_toTopOf="@+id/team_number_text2" />
 </android.support.constraint.ConstraintLayout>

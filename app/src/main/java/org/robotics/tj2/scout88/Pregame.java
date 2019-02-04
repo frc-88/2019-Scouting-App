@@ -1,8 +1,10 @@
 package org.robotics.tj2.scout88;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -103,6 +105,7 @@ public class Pregame extends Fragment {
             }
         });
 
+
         EditText teamNumberBox = (EditText) view.findViewById(R.id.team_number_edit_text);
         teamNumberBox.addTextChangedListener(new TextWatcher() {
             @Override
@@ -153,26 +156,6 @@ public class Pregame extends Fragment {
             @Override
             public void afterTextChanged(Editable s) {
                 currentMatch.setScouter(s.toString());
-            }
-        });
-        Spinner spinner = (Spinner) view.findViewById(R.id.alliance_dropdown);
-        // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this.getContext(),
-                R.array.team_pos_array, android.R.layout.simple_spinner_dropdown_item);
-        // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // Apply the adapter to the spinner
-        spinner.setAdapter(adapter);
-
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
             }
         });
 
