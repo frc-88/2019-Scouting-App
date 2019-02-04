@@ -7,11 +7,45 @@
     android:layout_height="match_parent"
     tools:context=".Pregame">
 
+    <EditText
+        android:id="@+id/match_number_edit_text_box"
+        android:layout_width="104dp"
+        android:layout_height="49dp"
+        android:layout_marginStart="8dp"
+        android:ems="10"
+        android:hint="8888"
+        android:inputType="number"
+        android:textAlignment="center"
+        android:textSize="26sp"
+        app:layout_constraintBottom_toBottomOf="@+id/team_number_edit_text"
+        app:layout_constraintStart_toEndOf="@+id/match_number_text" />
+
+    <TextView
+        android:id="@+id/match_number_text"
+        android:layout_width="90dp"
+        android:layout_height="49dp"
+        android:text="Match:"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/team_number_text"
+        app:layout_constraintStart_toEndOf="@+id/team_number_edit_text" />
+
+    <TextView
+        android:id="@+id/team_number_text2"
+        android:layout_width="155dp"
+        android:layout_height="49dp"
+        android:layout_marginStart="8dp"
+        android:text="Your Name:"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/alliance_dropdown"
+        app:layout_constraintTop_toTopOf="@+id/alliance_text" />
+
     <TextView
         android:id="@+id/starting_element_text"
         android:layout_width="534dp"
         android:layout_height="49dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="12dp"
         android:text="What is the robot starting with?"
         android:textSize="36sp"
         android:textStyle="bold"
@@ -19,13 +53,25 @@
         app:layout_constraintTop_toBottomOf="@+id/team_number_text" />
 
     <TextView
-        android:id="@+id/alliance_text"
-        android:layout_width="307dp"
+        android:id="@+id/starting_element_text2"
+        android:layout_width="534dp"
         android:layout_height="49dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:text="Alliance/Position:"
+        android:layout_marginTop="8dp"
+        android:text="Where is the robot starting?"
         android:textSize="36sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cargo_button" />
+
+    <TextView
+        android:id="@+id/alliance_text"
+        android:layout_width="91dp"
+        android:layout_height="49dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="68dp"
+        android:text="Robot: "
+        android:textSize="28sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -45,28 +91,29 @@
 
     <TextView
         android:id="@+id/team_number_text"
-        android:layout_width="251dp"
+        android:layout_width="193dp"
         android:layout_height="49dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="12dp"
         android:text="Team Number:"
-        android:textSize="36sp"
+        android:textSize="28sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/alliance_text" />
 
     <Spinner
         android:id="@+id/alliance_dropdown"
-        android:layout_width="268dp"
+        android:layout_width="117dp"
         android:layout_height="60dp"
-        app:layout_constraintBottom_toBottomOf="@id/alliance_text"
-        app:layout_constraintLeft_toRightOf="@id/alliance_text"></Spinner>
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/alliance_text"
+        app:layout_constraintStart_toEndOf="@+id/alliance_text"></Spinner>
 
     <ImageButton
         android:id="@+id/cargo_button"
         android:layout_width="@dimen/cargo_panel_pregame"
         android:layout_height="@dimen/cargo_panel_pregame"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="48dp"
         android:layout_marginTop="8dp"
         android:focusable="false"
         android:padding="0dp"
@@ -79,51 +126,52 @@
         android:id="@+id/panel_button"
         android:layout_width="@dimen/cargo_panel_pregame"
         android:layout_height="@dimen/cargo_panel_pregame"
-        android:layout_marginStart="32dp"
+        android:layout_marginEnd="48dp"
         android:background="@color/cell_background_color"
         android:focusable="false"
         android:paddingRight="20dp"
         android:scaleType="centerCrop"
         android:src="@drawable/panel"
         app:layout_constraintBottom_toBottomOf="@+id/cargo_button"
-        app:layout_constraintStart_toEndOf="@+id/cargo_button" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <ImageView
         android:id="@+id/hab_img"
         android:layout_width="521dp"
-        android:layout_height="307dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="16dp"
-        android:src="@drawable/steps_blue"
+        android:layout_height="93dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="160dp"
+        android:src="@drawable/hab_img"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cargo_button" />
 
     <ImageView
-        android:id="@+id/left_hab_2_button"
+        android:id="@+id/level_2_hab_start"
         android:layout_width="114dp"
         android:layout_height="136dp"
-        android:layout_marginStart="76dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="56dp"
         android:src="@drawable/ic_starting_pos_uncheck"
         app:layout_constraintStart_toStartOf="@+id/hab_img"
-        app:layout_constraintTop_toTopOf="@+id/hab_img" />
+        app:layout_constraintTop_toBottomOf="@+id/cargo_button" />
 
     <ImageView
-        android:id="@+id/right_hab_2_button"
+        android:id="@+id/level_1_hab_start"
         android:layout_width="114dp"
         android:layout_height="109dp"
-        android:layout_marginTop="150dp"
-        android:src="@drawable/ic_starting_pos_uncheck"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/hab_img" />
-    <ImageView
-        android:id="@+id/bottom_hab_button"
-        android:layout_width="114dp"
-        android:layout_height="136dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="76dp"
+        android:layout_marginTop="44dp"
+        android:layout_marginEnd="188dp"
         android:src="@drawable/ic_starting_pos_uncheck"
         app:layout_constraintEnd_toEndOf="@+id/hab_img"
-        app:layout_constraintTop_toTopOf="@+id/hab_img" />
+        app:layout_constraintTop_toTopOf="@+id/level_2_hab_start" />
+
+    <EditText
+        android:id="@+id/scouter_edit_text_box"
+        android:layout_width="208dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name"
+        app:layout_constraintStart_toEndOf="@+id/team_number_text2"
+        app:layout_constraintTop_toTopOf="@+id/team_number_text2" />
 </android.support.constraint.ConstraintLayout>

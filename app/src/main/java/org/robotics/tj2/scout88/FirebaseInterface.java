@@ -1,6 +1,7 @@
 package org.robotics.tj2.scout88;
 
 import android.content.Context;
+import android.icu.util.Freezable;
 import android.util.Log;
 
 import com.google.firebase.FirebaseApp;
@@ -11,12 +12,25 @@ import java.util.ArrayList;
 
 public class FirebaseInterface {
 
-    public FirebaseInterface(Context context){
+    private final String COMPETITION_NAME = "TestCompetition";
+    private final String COMPETITION_FLAG = "TC_";
+
+    private FirebaseDatabase database;
+    private DatabaseReference myRef;
+
+    public FirebaseInterface(){
+        database = FirebaseDatabase.getInstance();
+        database.setPersistenceEnabled(true);
+        database.setPersistenceCacheSizeBytes(100000000);
+        myRef = database.getReference(COMPETITION_NAME);
+    }
+
+    public boolean testConnection(){
         //FirebaseApp.initializeApp(context);
         //FirebaseApp fba = FirebaseApp.getInstance();
         //Log.v("databse" , fba.getName());
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("test1");
+        DatabaseReference myRef = database.getReference();
 
         Performance p = new Performance();
         ArrayList<String> cgo = new ArrayList<>();
@@ -27,15 +41,20 @@ public class FirebaseInterface {
         }
         //String[] cgo = {"teleop","teleop","teleop","teleop","teleop","teleop","teleop","teleop","teleop","teleop","teleop","teleop","teleop","teleop","teleop","teleop","teleop","teleop","teleop","teleop"};
         p.setCargo(cgo);
-        p.setComments("this was a good match");
+        p.setComments("this was a great match");
         p.setDefense(20.5);
         p.setLevelOfClimb(2);
-        p.setMatchNumber(1);
+        p.setMatchNumber(5);
         p.setTeamNumber(8888);
         p.setStartingLevel(2);
         //String[] pnls = {"teleop","teleop","teleop","teleop","teleop","teleop","teleop","teleop","teleop","teleop","teleop","teleop","teleop","teleop","teleop","teleop","teleop","teleop","teleop","teleop"};
         p.setPanels(pnls);
 
-        myRef.setValue(p);
+        myRef.child("performances").child(COMPETITION_FLAG+p.getMatchNumber()+"_"+p.getTeamNumber()).setValue(p);
+        return true;
+    }
+
+    public void addPerformance(Performance p){
+        myRef.child("performances").child(COMPETITION_FLAG+p.getMatchNumber()+"_"+p.getTeamNumber()).setValue(p);
     }
 }

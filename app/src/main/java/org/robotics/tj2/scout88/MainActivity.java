@@ -3,14 +3,20 @@ package org.robotics.tj2.scout88;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -20,16 +26,22 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.prefs.Preferences;
+
 
 public class MainActivity extends AppCompatActivity
         implements Ingame.OnFragmentInteractionListener,
-        Pregame.OnFragmentInteractionListener{
+        Pregame.OnFragmentInteractionListener,
+        Postgame.OnFragmentInteractionListener{
 
     private Context context = this;
-    private Fragment goals_frag = new Ingame();
-    private Fragment pregame_frag = new Pregame();
+    public Performance currentMatch = new Performance();
+    private Ingame goals_frag = new Ingame(currentMatch);
+    private Pregame pregame_frag = new Pregame(currentMatch);
+    private Postgame postgame_frag = new Postgame(currentMatch);
     private FragmentManager fm = getSupportFragmentManager();
     Fragment active = pregame_frag;
+    private DrawerLayout mDrawerLayout;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -50,7 +62,8 @@ public class MainActivity extends AppCompatActivity
                     return true;
                 case R.id.navigation_notifications:
                     Toast.makeText(context , "Screen 3" , Toast.LENGTH_LONG);
-                    fm.beginTransaction().hide(active);
+                    fm.beginTransaction().hide(active).show(postgame_frag).commit();
+                    active = postgame_frag;
                     return true;
             }
             return false;
@@ -66,19 +79,67 @@ public class MainActivity extends AppCompatActivity
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         fm.beginTransaction().add(R.id.main_container,goals_frag, "2").hide(goals_frag).commit();
+        fm.beginTransaction().add(R.id.main_container,postgame_frag, "3").hide(postgame_frag).commit();
         fm.beginTransaction().add(R.id.main_container,pregame_frag, "1").commit();
 
-        //Application app = new Application();
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-        //FirebaseDatabase database = FirebaseDatabase.getInstance();
-        //DatabaseReference myRef = database.getReference("test1");
-        FirebaseInterface fbi = new FirebaseInterface(this);
 
+        SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+
+
+        sharedPref.registerOnSharedPreferenceChangeListener(new SharedPreferences.OnSharedPreferenceChangeListener() {
+            @Override
+            public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+                String teamPref = sharedPreferences.getString(key , "Def");
+                getSupportActionBar().setTitle("Scout88: " + teamPref);
+            }
+        });
+
+        ActionBar actionbar = getSupportActionBar();
+        actionbar.setDisplayHomeAsUpEnabled(true);
+        actionbar.setHomeAsUpIndicator(R.drawable.ic_hamburger);
+
+        mDrawerLayout = findViewById(R.id.drawer_layout);
+
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(
+                new NavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(MenuItem menuItem) {
+                        // set item as selected to persist highlight
+                        menuItem.setChecked(true);
+                        Log.v("88settings" , menuItem.getOrder() + "");
+                        switch(menuItem.getTitle().toString()){
+                            case "Settings":
+                                Intent intent = new Intent();
+                                intent.setClass(MainActivity.this , SettingsActivity.class);
+                                startActivity(intent);
+                                break;
+                        }
+                        // close drawer when item is tapped
+                        mDrawerLayout.closeDrawers();
+
+
+                        return true;
+                    }
+                });
     }
 
 
     public void onFragmentInteraction(Uri uri){
         //leave blank
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                mDrawerLayout.openDrawer(GravityCompat.START);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 

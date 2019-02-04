@@ -4,12 +4,15 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -35,8 +38,14 @@ public class Pregame extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
+    private Performance currentMatch;
+
     public Pregame() {
         // Required empty public constructor
+    }
+
+    public Pregame(Performance currentMatch){
+        this.currentMatch = currentMatch;
     }
 
     /**
@@ -75,21 +84,75 @@ public class Pregame extends Fragment {
         View view = inflater.inflate(R.layout.fragment_pregame, container, false);
         final ImageButton panel_btn = (ImageButton) view.findViewById(R.id.panel_button);
         final ImageButton cargo_btn = (ImageButton) view.findViewById(R.id.cargo_button);
-        final ImageView right_hab_btn = (ImageView) view.findViewById(R.id.right_hab_2_button);
-        final ImageView left_hab_btn = (ImageView) view.findViewById(R.id.left_hab_2_button);
-        final ImageView low_hab_btn = (ImageView) view.findViewById(R.id.bottom_hab_button);
+        final ImageView level_1_hab_start_btn = (ImageView) view.findViewById(R.id.level_1_hab_start);
+        final ImageView level_2_hab_start_btn = (ImageView) view.findViewById(R.id.level_2_hab_start);
         panel_btn.setAlpha((float)0.4);
         cargo_btn.setAlpha((float)0.4);
         panel_btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 panel_btn.setAlpha((float)1.0);
                 cargo_btn.setAlpha((float)0.3);
+                currentMatch.setStartingElement("panel");
             }
         });
         cargo_btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 panel_btn.setAlpha((float)0.3);
                 cargo_btn.setAlpha((float)1.0);
+                currentMatch.setStartingElement("cargo");
+            }
+        });
+
+        EditText teamNumberBox = (EditText) view.findViewById(R.id.team_number_edit_text);
+        teamNumberBox.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                currentMatch.setTeamNumber(Integer.parseInt(s.toString()));
+            }
+        });
+
+        EditText matchNumberBox = (EditText) view.findViewById(R.id.match_number_edit_text_box);
+        matchNumberBox.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                currentMatch.setMatchNumber(Integer.parseInt(s.toString()));
+            }
+        });
+        EditText scoutNameBox = (EditText) view.findViewById(R.id.scouter_edit_text_box);
+        scoutNameBox.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                currentMatch.setScouter(s.toString());
             }
         });
         Spinner spinner = (Spinner) view.findViewById(R.id.alliance_dropdown);
@@ -101,28 +164,32 @@ public class Pregame extends Fragment {
         // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
 
-        right_hab_btn.setOnClickListener(new View.OnClickListener(){
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onClick(View v) {
-                right_hab_btn.setImageResource(R.drawable.ic_starting_pos_check);
-                left_hab_btn.setImageResource(R.drawable.ic_starting_pos_uncheck);
-                low_hab_btn.setImageResource(R.drawable.ic_starting_pos_uncheck);
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
             }
         });
-        left_hab_btn.setOnClickListener(new View.OnClickListener(){
+
+        level_1_hab_start_btn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                right_hab_btn.setImageResource(R.drawable.ic_starting_pos_uncheck);
-                left_hab_btn.setImageResource(R.drawable.ic_starting_pos_check);
-                low_hab_btn.setImageResource(R.drawable.ic_starting_pos_uncheck);
+                level_1_hab_start_btn.setImageResource(R.drawable.ic_starting_pos_check);
+                level_2_hab_start_btn.setImageResource(R.drawable.ic_starting_pos_uncheck);
+                currentMatch.setStartingLevel(1);
             }
         });
-        low_hab_btn.setOnClickListener(new View.OnClickListener(){
+        level_2_hab_start_btn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                right_hab_btn.setImageResource(R.drawable.ic_starting_pos_uncheck);
-                left_hab_btn.setImageResource(R.drawable.ic_starting_pos_uncheck);
-                low_hab_btn.setImageResource(R.drawable.ic_starting_pos_check);
+                level_1_hab_start_btn.setImageResource(R.drawable.ic_starting_pos_uncheck);
+                level_2_hab_start_btn.setImageResource(R.drawable.ic_starting_pos_check);
+                currentMatch.setStartingLevel(2);
             }
         });
         return view;

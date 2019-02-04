@@ -4,28 +4,26 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.Button;
+import android.widget.EditText;
 
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link Ingame.OnFragmentInteractionListener} interface
+ * {@link Postgame.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link Ingame#newInstance} factory method to
+ * Use the {@link Postgame#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Ingame extends Fragment {
+public class Postgame extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
-
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -35,12 +33,12 @@ public class Ingame extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public Ingame() {
+    public Postgame() {
         // Required empty public constructor
     }
 
-    public Ingame(Performance p){
-        this.currentMatch = p;
+    public Postgame(Performance p){
+        currentMatch = p;
     }
 
     /**
@@ -49,11 +47,11 @@ public class Ingame extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment Ingame.
+     * @return A new instance of fragment Postgame.
      */
     // TODO: Rename and change types and number of parameters
-    public static Ingame newInstance(String param1, String param2) {
-        Ingame fragment = new Ingame();
+    public static Postgame newInstance(String param1, String param2) {
+        Postgame fragment = new Postgame();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -74,15 +72,24 @@ public class Ingame extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_ingame, container, false);
-        ImageView cargo1 =(ImageView) view.findViewById(R.id.cargo2);
-        ImageView[] cargo_ims = new ImageView[20];
-        ImageView[] panels_ims = new ImageView[20];
-
-        //CARGO BUTTONS
+        View view = inflater.inflate(R.layout.fragment_postgame, container, false);
+        final EditText commentBox = (EditText) view.findViewById(R.id.comment_box);
 
 
+        Button commitBtn = (Button) view.findViewById(R.id.commit_data_button);
+        commitBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                commitComments(commentBox);
+                FirebaseInterface fbi = new FirebaseInterface();
+                fbi.addPerformance(currentMatch);
+            }
+        });
         return view;
+    }
+
+    public void commitComments(EditText commentBox){
+        currentMatch.setComments(commentBox.getText().toString());
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -95,10 +102,11 @@ public class Ingame extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        try{
+        if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
-        } catch (Exception e) {
-            Log.v("fragmentz" , "Could not attach: " + e.toString());
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
         }
     }
 
