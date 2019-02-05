@@ -88,8 +88,14 @@ public class Pregame extends Fragment {
         final ImageButton cargo_btn = (ImageButton) view.findViewById(R.id.cargo_button);
         final ImageView level_1_hab_start_btn = (ImageView) view.findViewById(R.id.level_1_hab_start);
         final ImageView level_2_hab_start_btn = (ImageView) view.findViewById(R.id.level_2_hab_start);
-        panel_btn.setAlpha((float)0.4);
-        cargo_btn.setAlpha((float)0.4);
+        final ImageView deployed_true_btn = (ImageView) view.findViewById(R.id.deployArrow);
+        final ImageView deployed_false_btn = (ImageView) view.findViewById(R.id.deployCross);
+
+        panel_btn.setAlpha((float)0.3);
+        cargo_btn.setAlpha((float)0.3);
+        deployed_false_btn.setAlpha((float)0.3);
+        deployed_true_btn.setAlpha((float)0.3);
+
         panel_btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 panel_btn.setAlpha((float)1.0);
@@ -104,6 +110,23 @@ public class Pregame extends Fragment {
                 currentMatch.setStartingElement("cargo");
             }
         });
+        deployed_false_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deployed_false_btn.setAlpha((float)1.0);
+                deployed_true_btn.setAlpha((float)0.3);
+                currentMatch.setCrossInSandstorm(0);
+            }
+        });
+        deployed_true_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deployed_false_btn.setAlpha((float)0.3);
+                deployed_true_btn.setAlpha((float)1.0);
+                currentMatch.setCrossInSandstorm(1);
+            }
+        });
+
 
 
         EditText teamNumberBox = (EditText) view.findViewById(R.id.team_number_edit_text);

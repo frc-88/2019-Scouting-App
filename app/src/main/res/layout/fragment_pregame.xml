@@ -65,6 +65,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cargo_button" />
 
+    <TextView
+        android:id="@+id/starting_element_text3"
+        android:layout_width="590dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="8dp"
+        android:text="Did they fully cross the HAB line?"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/hab_img" />
+
     <EditText
         android:id="@+id/team_number_edit_text"
         android:layout_width="104dp"
@@ -155,4 +166,24 @@
         android:hint="Douglas Bradley"
         app:layout_constraintStart_toEndOf="@+id/team_number_text2"
         app:layout_constraintTop_toTopOf="@+id/team_number_text2" />
+
+    <ImageView
+        android:id="@+id/deployArrow"
+        android:layout_width="151dp"
+        android:layout_height="122dp"
+        android:layout_marginStart="158dp"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/ic_arrow"
+        app:layout_constraintStart_toEndOf="@+id/deployCross"
+        app:layout_constraintTop_toBottomOf="@+id/starting_element_text3" />
+
+    <ImageView
+        android:id="@+id/deployCross"
+        android:layout_width="102dp"
+        android:layout_height="122dp"
+        android:layout_marginStart="88dp"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/ic_cross"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/starting_element_text3" />
 </android.support.constraint.ConstraintLayout>

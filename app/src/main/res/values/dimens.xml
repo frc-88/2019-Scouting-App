@@ -36,5 +36,5 @@
     <dimen name="cargo_height">75dp</dimen>
     <dimen name="panel_height">75dp</dimen>
     <dimen name="panel_width">75dp</dimen>
-    <dimen name="cargo_panel_pregame">200dp</dimen>
+    <dimen name="cargo_panel_pregame">150dp</dimen>
 </resources>
