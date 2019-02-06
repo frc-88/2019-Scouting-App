@@ -10,10 +10,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Stack;
 
 
 /**
@@ -30,12 +32,39 @@ public class Ingame extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+    public class RocketChanges{
+        public int level;
+        public boolean trueIfCargo;
+        public int amount;
+
+        public RocketChanges(int l , boolean tic , int amt){
+            amount = amt;
+            level = l;
+            trueIfCargo = tic;
+        }
+    }
+
+    public class CargoBayChanges{
+        public int index;
+        //0 if unscored, 1 if scored, 2 if scored in sandstorm
+        public int scored;
+        public boolean trueIfCargo;
+
+        public CargoBayChanges(int i , int s , boolean tic){
+            index = i;
+            scored = s;
+            trueIfCargo = tic;
+        }
+    }
+
 
 
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
+    private Stack<CargoBayChanges> cargoBayChangesStack = new Stack<>();
+    private Stack<RocketChanges> rocketChangesStack = new Stack<>();
     private Performance currentMatch;
 
     private OnFragmentInteractionListener mListener;
@@ -155,10 +184,6 @@ public class Ingame extends Fragment {
                 public boolean onLongClick(View v) {
                     ssFlagsCargo[iii].setAlpha((float)1.0);
                     ArrayList<String> cargo = currentMatch.getCargo();
-                    if(cargo.get(iii).equals("sandstorm")){
-                        cargo.set(iii , "unscored");
-                        cargoBayCargo[iii].setAlpha((float)1.0);
-                    }
                     cargo.set(iii , "sandstorm");
                     currentMatch.setCargo(cargo);
                     return false;
@@ -169,10 +194,6 @@ public class Ingame extends Fragment {
                 public boolean onLongClick(View v) {
                     ssFlagsPanels[iii].setAlpha((float)1.0);
                     ArrayList<String> panels = currentMatch.getPanels();
-                    if(panels.get(iii).equals("sandstorm")){
-                        panels.set(iii , "unscored");
-                        cargoBayCargo[iii].setAlpha((float)1.0);
-                    }
                     panels.set(iii , "sandstorm");
                     currentMatch.setPanels(panels);
                     return false;
@@ -197,6 +218,8 @@ public class Ingame extends Fragment {
         cargoHigh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                RocketChanges rc = new RocketChanges(2 , true , currentMatch.getNumHighCargo());
+                rocketChangesStack.push(rc);
                 currentMatch.setNumHighCargo(currentMatch.getNumHighCargo() + 1);
                 cargoHighText.setText(currentMatch.getNumHighCargo() + "");
             }
@@ -205,6 +228,8 @@ public class Ingame extends Fragment {
         cargoMid.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                RocketChanges rc = new RocketChanges(1 , true , currentMatch.getNumMedCargo());
+                rocketChangesStack.push(rc);
                 currentMatch.setNumMedCargo(currentMatch.getNumMedCargo() + 1);
                 cargoMidText.setText(currentMatch.getNumMedCargo() + "");
             }
@@ -212,6 +237,8 @@ public class Ingame extends Fragment {
         cargoLow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                RocketChanges rc = new RocketChanges(0 , true , currentMatch.getNumLowCargo());
+                rocketChangesStack.push(rc);
                 currentMatch.setNumLowCargo(currentMatch.getNumLowCargo() + 1);
                 cargoLowText.setText(currentMatch.getNumLowCargo() + "");
             }
@@ -220,6 +247,8 @@ public class Ingame extends Fragment {
         panelHigh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                RocketChanges rc = new RocketChanges(2 , false , currentMatch.getNumHighPanels());
+                rocketChangesStack.push(rc);
                 currentMatch.setNumHighPanels(currentMatch.getNumHighPanels() + 1);
                 panelHighText.setText(currentMatch.getNumHighPanels() + "");
             }
@@ -228,6 +257,8 @@ public class Ingame extends Fragment {
         panelMid.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                RocketChanges rc = new RocketChanges(1 , false , currentMatch.getNumMedPanels());
+                rocketChangesStack.push(rc);
                 currentMatch.setNumMedPanels(currentMatch.getNumMedPanels() + 1);
                 panelMidText.setText(currentMatch.getNumMedPanels() + "");
             }
@@ -236,8 +267,58 @@ public class Ingame extends Fragment {
         panelLow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                RocketChanges rc = new RocketChanges(0 , false , currentMatch.getNumLowPanels());
+                rocketChangesStack.push(rc);
                 currentMatch.setNumLowPanels(currentMatch.getNumLowPanels() + 1);
                 panelLowText.setText(currentMatch.getNumLowPanels() + "");
+            }
+        });
+
+        Button undoRocketBtn = (Button) view.findViewById(R.id.undo_rocket_button);
+        undoRocketBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (rocketChangesStack.isEmpty()){
+                    return;
+                }
+                RocketChanges rc = rocketChangesStack.pop();
+                if (rc.trueIfCargo){
+                    switch(rc.level){
+                        case 0:
+                            currentMatch.setNumLowCargo(rc.amount);
+                            cargoLowText.setText(currentMatch.getNumLowCargo() + "");
+                            break;
+                        case 1:
+                            currentMatch.setNumMedCargo(rc.amount);
+                            cargoMidText.setText(currentMatch.getNumMedCargo() + "");
+                            break;
+                        case 2:
+                            currentMatch.setNumHighCargo(rc.amount);
+                            cargoHighText.setText(currentMatch.getNumHighCargo() + "");
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                else{
+                    switch(rc.level){
+                        case 0:
+                            currentMatch.setNumLowPanels(rc.amount);
+                            panelLowText.setText(currentMatch.getNumLowPanels() + "");
+                            break;
+                        case 1:
+                            currentMatch.setNumMedPanels(rc.amount);
+                            panelMidText.setText(currentMatch.getNumMedPanels() + "");
+                            break;
+                        case 2:
+                            currentMatch.setNumHighPanels(rc.amount);
+                            panelHighText.setText(currentMatch.getNumHighPanels() + "");
+                            break;
+                        default:
+                            break;
+                    }
+
+                }
             }
         });
 

@@ -15,7 +15,7 @@
 
         <TextView
             android:id="@+id/panel_low_number"
-            android:layout_width="22dp"
+            android:layout_width="147dp"
             android:layout_height="40dp"
             android:text="0"
             android:textColor="@android:color/black"
@@ -26,18 +26,18 @@
 
         <TextView
             android:id="@+id/cargo_low_number"
-            android:layout_width="22dp"
+            android:layout_width="135dp"
             android:layout_height="40dp"
             android:text="0"
             android:textColor="@android:color/black"
             android:textSize="30sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/cargo_low_text"
-            app:layout_constraintStart_toEndOf="@+id/cargo_low_text" />
+            app:layout_constraintStart_toEndOf="@+id/hatch_mid_text"
+            app:layout_constraintTop_toBottomOf="@+id/hatch_mid_text" />
 
         <TextView
             android:id="@+id/panel_med_number"
-            android:layout_width="22dp"
+            android:layout_width="132dp"
             android:layout_height="40dp"
             android:text="0"
             android:textColor="@android:color/black"
@@ -48,25 +48,25 @@
 
         <TextView
             android:id="@+id/cargo_med_number"
-            android:layout_width="22dp"
-            android:layout_height="40dp"
-            android:text="0"
-            android:textColor="@android:color/black"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/hatch_mid_text"
-            app:layout_constraintStart_toEndOf="@+id/cargo_med_text" />
-
-        <TextView
-            android:id="@+id/panel_high_number"
-            android:layout_width="22dp"
+            android:layout_width="98dp"
             android:layout_height="40dp"
             android:text="0"
             android:textColor="@android:color/black"
             android:textSize="30sp"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/hatch_high_text"
-            app:layout_constraintTop_toBottomOf="@+id/cargo_high_number" />
+            app:layout_constraintTop_toBottomOf="@+id/hatch_high_text" />
+
+        <TextView
+            android:id="@+id/panel_high_number"
+            android:layout_width="95dp"
+            android:layout_height="40dp"
+            android:text="0"
+            android:textColor="@android:color/black"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/cargo_high_text"
+            app:layout_constraintTop_toBottomOf="@+id/cargo_high_text" />
 
         <TextView
             android:id="@+id/hatch_low_text"
@@ -242,14 +242,14 @@
 
         <TextView
             android:id="@+id/cargo_high_number"
-            android:layout_width="22dp"
+            android:layout_width="109dp"
             android:layout_height="40dp"
             android:text="0"
             android:textColor="@android:color/black"
             android:textSize="30sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/cargo_high_text"
-            app:layout_constraintStart_toEndOf="@+id/cargo_high_text" />
+            app:layout_constraintStart_toEndOf="@+id/hatch_high_text"
+            app:layout_constraintTop_toTopOf="@+id/cargo_high_text" />
 
         <ImageView
             android:id="@+id/cargo5"
@@ -546,6 +546,18 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@+id/cargo6"
             app:layout_constraintTop_toBottomOf="@+id/cargo2" />
+
+        <Button
+            android:id="@+id/undo_rocket_button"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="88dp"
+            android:layout_height="96dp"
+            android:layout_marginStart="88dp"
+            android:layout_marginTop="69dp"
+            android:background="@drawable/ic_undo"
+            android:backgroundTint="@android:color/black"
+            app:layout_constraintStart_toEndOf="@+id/cargo_low_text"
+            app:layout_constraintTop_toTopOf="@+id/cargo_high_text" />
 
     </android.support.constraint.ConstraintLayout>
 
