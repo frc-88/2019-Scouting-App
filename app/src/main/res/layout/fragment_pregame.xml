@@ -68,7 +68,7 @@
     <TextView
         android:id="@+id/starting_element_text3"
         android:layout_width="590dp"
-        android:layout_height="57dp"
+        android:layout_height="46dp"
         android:layout_marginTop="8dp"
         android:text="Did they fully cross the HAB line?"
         android:textSize="36sp"
@@ -105,7 +105,7 @@
         android:id="@+id/cargo_button"
         android:layout_width="@dimen/cargo_panel_pregame"
         android:layout_height="@dimen/cargo_panel_pregame"
-        android:layout_marginStart="48dp"
+        android:layout_marginStart="100dp"
         android:layout_marginTop="8dp"
         android:focusable="false"
         android:padding="0dp"
@@ -116,9 +116,9 @@
 
     <ImageButton
         android:id="@+id/panel_button"
-        android:layout_width="@dimen/cargo_panel_pregame"
+        android:layout_width="173dp"
         android:layout_height="@dimen/cargo_panel_pregame"
-        android:layout_marginEnd="48dp"
+        android:layout_marginEnd="100dp"
         android:background="@color/cell_background_color"
         android:focusable="false"
         android:paddingRight="20dp"
@@ -171,17 +171,17 @@
         android:id="@+id/deployArrow"
         android:layout_width="151dp"
         android:layout_height="122dp"
-        android:layout_marginStart="158dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="125dp"
         android:src="@drawable/ic_arrow"
-        app:layout_constraintStart_toEndOf="@+id/deployCross"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/starting_element_text3" />
 
     <ImageView
         android:id="@+id/deployCross"
-        android:layout_width="102dp"
-        android:layout_height="122dp"
-        android:layout_marginStart="88dp"
+        android:layout_width="112dp"
+        android:layout_height="116dp"
+        android:layout_marginStart="125dp"
         android:layout_marginTop="8dp"
         android:src="@drawable/ic_cross"
         app:layout_constraintStart_toStartOf="parent"

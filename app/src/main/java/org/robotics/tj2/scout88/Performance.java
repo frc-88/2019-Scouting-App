@@ -6,7 +6,18 @@ public class Performance {
     private String scouter;
     private int teamNumber;
     private int matchNumber;
-    //0=not scored, 1=scored in teleop, 2=scored in sandstorm
+    private int numHighPanels;
+    private int numHighPanelsSS;
+    private int numHighCargo;
+    private int numHighCargoSS;
+    private int numMedPanels;
+    private int numMedPanelsSS;
+    private int numMedCargo;
+    private int numMedCargoSS;
+    private int numLowPanels;
+    private int numLowPanelsSS;
+    private int numLowCargo;
+    private int numLowCargoSS;
     private ArrayList<String> cargo;
     //0=not scored, 1=scored in teleop, 2=scored in sandstorm, 3=null panel
     private ArrayList<String> panels;
@@ -121,6 +132,102 @@ public class Performance {
         this.scouter = scouter;
     }
 
+    public int getNumHighCargo() {
+        return numHighCargo;
+    }
+
+    public int getNumHighCargoSS() {
+        return numHighCargoSS;
+    }
+
+    public int getNumHighPanels() {
+        return numHighPanels;
+    }
+
+    public int getNumHighPanelsSS() {
+        return numHighPanelsSS;
+    }
+
+    public int getNumLowCargo() {
+        return numLowCargo;
+    }
+
+    public int getNumLowCargoSS() {
+        return numLowCargoSS;
+    }
+
+    public int getNumLowPanels() {
+        return numLowPanels;
+    }
+
+    public int getNumLowPanelsSS() {
+        return numLowPanelsSS;
+    }
+
+    public int getNumMedCargo() {
+        return numMedCargo;
+    }
+
+    public int getNumMedCargoSS() {
+        return numMedCargoSS;
+    }
+
+    public int getNumMedPanels() {
+        return numMedPanels;
+    }
+
+    public int getNumMedPanelsSS() {
+        return numMedPanelsSS;
+    }
+
+    public void setNumHighCargo(int numHighCargo) {
+        this.numHighCargo = numHighCargo;
+    }
+
+    public void setNumHighPanels(int numHighPanels) {
+        this.numHighPanels = numHighPanels;
+    }
+
+    public void setNumHighCargoSS(int numHighCargoSS) {
+        this.numHighCargoSS = numHighCargoSS;
+    }
+
+    public void setNumHighPanelsSS(int numHighPanelsSS) {
+        this.numHighPanelsSS = numHighPanelsSS;
+    }
+
+    public void setNumLowCargo(int numLowCargo) {
+        this.numLowCargo = numLowCargo;
+    }
+
+    public void setNumMedPanels(int numMedPanels) {
+        this.numMedPanels = numMedPanels;
+    }
+
+    public void setNumLowCargoSS(int numLowCargoSS) {
+        this.numLowCargoSS = numLowCargoSS;
+    }
+
+    public void setNumMedCargo(int numMedCargo) {
+        this.numMedCargo = numMedCargo;
+    }
+
+    public void setNumLowPanels(int numLowPanels) {
+        this.numLowPanels = numLowPanels;
+    }
+
+    public void setNumLowPanelsSS(int numLowPanelsSS) {
+        this.numLowPanelsSS = numLowPanelsSS;
+    }
+
+    public void setNumMedCargoSS(int numMedCargoSS) {
+        this.numMedCargoSS = numMedCargoSS;
+    }
+
+    public void setNumMedPanelsSS(int numMedPanelsSS) {
+        this.numMedPanelsSS = numMedPanelsSS;
+    }
+
     public String getStartingElement() {
         return startingElement;
     }
@@ -135,7 +242,7 @@ public class Performance {
 
     private ArrayList<String> fillArrayList(){
         ArrayList<String> al = new ArrayList<>();
-        for (int i = 0; i < 20; i++){
+        for (int i = 0; i < 8; i++){
             al.add("unscored");
         }
         return al;

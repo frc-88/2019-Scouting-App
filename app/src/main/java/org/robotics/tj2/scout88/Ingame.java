@@ -1,14 +1,19 @@
 package org.robotics.tj2.scout88;
 
 import android.content.Context;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
+
+import java.util.ArrayList;
 
 
 /**
@@ -75,11 +80,166 @@ public class Ingame extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_ingame, container, false);
-        ImageView cargo1 =(ImageView) view.findViewById(R.id.cargo2);
-        ImageView[] cargo_ims = new ImageView[20];
-        ImageView[] panels_ims = new ImageView[20];
+        final ImageView[] cargoBayCargo = new ImageView[8];
+        cargoBayCargo[0] = (ImageView) view.findViewById(R.id.cargo0);
+        cargoBayCargo[1] = (ImageView) view.findViewById(R.id.cargo1);
+        cargoBayCargo[2] = (ImageView) view.findViewById(R.id.cargo2);
+        cargoBayCargo[3] = (ImageView) view.findViewById(R.id.cargo3);
+        cargoBayCargo[4] = (ImageView) view.findViewById(R.id.cargo4);
+        cargoBayCargo[5] = (ImageView) view.findViewById(R.id.cargo5);
+        cargoBayCargo[6] = (ImageView) view.findViewById(R.id.cargo6);
+        cargoBayCargo[7] = (ImageView) view.findViewById(R.id.cargo7);
 
-        //CARGO BUTTONS
+        final ImageView[] cargoBayPanels = new ImageView[8];
+        cargoBayPanels[0] = (ImageView) view.findViewById(R.id.panel0);
+        cargoBayPanels[1] = (ImageView) view.findViewById(R.id.panel1);
+        cargoBayPanels[2] = (ImageView) view.findViewById(R.id.panel2);
+        cargoBayPanels[3] = (ImageView) view.findViewById(R.id.panel3);
+        cargoBayPanels[4] = (ImageView) view.findViewById(R.id.panel4);
+        cargoBayPanels[5] = (ImageView) view.findViewById(R.id.panel5);
+        cargoBayPanels[6] = (ImageView) view.findViewById(R.id.panel6);
+        cargoBayPanels[7] = (ImageView) view.findViewById(R.id.panel7);
+
+        final TextView[] ssFlagsCargo = new TextView[8];
+        ssFlagsCargo[0] = (TextView) view.findViewById(R.id.ss_flag_cargo0);
+        ssFlagsCargo[1] = (TextView) view.findViewById(R.id.ss_flag_cargo1);
+        ssFlagsCargo[2] = (TextView) view.findViewById(R.id.ss_flag_cargo2);
+        ssFlagsCargo[3] = (TextView) view.findViewById(R.id.ss_flag_cargo3);
+        ssFlagsCargo[4] = (TextView) view.findViewById(R.id.ss_flag_cargo4);
+        ssFlagsCargo[5] = (TextView) view.findViewById(R.id.ss_flag_cargo5);
+        ssFlagsCargo[6] = (TextView) view.findViewById(R.id.ss_flag_cargo6);
+        ssFlagsCargo[7] = (TextView) view.findViewById(R.id.ss_flag_cargo7);
+
+        final TextView[] ssFlagsPanels = new TextView[8];
+        ssFlagsPanels[0] = (TextView) view.findViewById(R.id.ss_flag_panel0);
+        ssFlagsPanels[1] = (TextView) view.findViewById(R.id.ss_flag_panel1);
+        ssFlagsPanels[2] = (TextView) view.findViewById(R.id.ss_flag_panel2);
+        ssFlagsPanels[3] = (TextView) view.findViewById(R.id.ss_flag_panel3);
+        ssFlagsPanels[4] = (TextView) view.findViewById(R.id.ss_flag_panel4);
+        ssFlagsPanels[5] = (TextView) view.findViewById(R.id.ss_flag_panel5);
+        ssFlagsPanels[6] = (TextView) view.findViewById(R.id.ss_flag_panel6);
+        ssFlagsPanels[7] = (TextView) view.findViewById(R.id.ss_flag_panel7);
+
+        for(int ii = 0; ii < cargoBayCargo.length; ii++){
+            final int iii = ii;
+            ssFlagsCargo[ii].setAlpha((float)0.0);
+            ssFlagsPanels[ii].setAlpha((float)0.0);
+            cargoBayCargo[ii].setAlpha((float)0.4);
+            cargoBayPanels[ii].setAlpha((float)0.4);
+            cargoBayCargo[ii].setLongClickable(true);
+            cargoBayPanels[ii].setLongClickable(true);
+            cargoBayCargo[ii].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //TODO: implement on CargoBayCargo click
+                    cargoBayCargo[iii].setAlpha((float)1.0);
+                    ArrayList<String> cargo = currentMatch.getCargo();
+                    cargo.set(iii , "teleop");
+                    currentMatch.setCargo(cargo);
+
+                }
+            });
+            cargoBayPanels[ii].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //TODO: implement on CargoBayPanels click
+                    cargoBayPanels[iii].setAlpha((float)1.0);
+                    ArrayList<String> panels = currentMatch.getPanels();
+                    panels.set(iii , "teleop");
+                    currentMatch.setPanels(panels);
+                }
+            });
+
+            cargoBayCargo[ii].setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    ssFlagsCargo[iii].setAlpha((float)1.0);
+                    ArrayList<String> cargo = currentMatch.getCargo();
+                    if(cargo.get(iii).equals("sandstorm")){
+                        cargo.set(iii , "unscored");
+                        cargoBayCargo[iii].setAlpha((float)1.0);
+                    }
+                    cargo.set(iii , "sandstorm");
+                    currentMatch.setCargo(cargo);
+                    return false;
+                }
+            });
+            cargoBayPanels[ii].setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    ssFlagsPanels[iii].setAlpha((float)1.0);
+                    ArrayList<String> panels = currentMatch.getPanels();
+                    if(panels.get(iii).equals("sandstorm")){
+                        panels.set(iii , "unscored");
+                        cargoBayCargo[iii].setAlpha((float)1.0);
+                    }
+                    panels.set(iii , "sandstorm");
+                    currentMatch.setPanels(panels);
+                    return false;
+                }
+            });
+
+        }
+
+        final ImageView cargoHigh = (ImageView) view.findViewById(R.id.high_cargo);
+        final ImageView cargoMid = (ImageView) view.findViewById(R.id.mid_cargo);
+        final ImageView cargoLow = (ImageView) view.findViewById(R.id.low_cargo);
+        final ImageView panelHigh = (ImageView) view.findViewById(R.id.high_panel);
+        final ImageView panelMid = (ImageView) view.findViewById(R.id.mid_panel);
+        final ImageView panelLow = (ImageView) view.findViewById(R.id.low_panel);
+        final TextView cargoHighText = (TextView) view.findViewById(R.id.cargo_high_number);
+        final TextView cargoMidText = (TextView) view.findViewById(R.id.cargo_med_number);
+        final TextView cargoLowText = (TextView) view.findViewById(R.id.cargo_low_number);
+        final TextView panelHighText = (TextView) view.findViewById(R.id.panel_high_number);
+        final TextView panelMidText = (TextView) view.findViewById(R.id.panel_med_number);
+        final TextView panelLowText = (TextView) view.findViewById(R.id.panel_low_number);
+
+        cargoHigh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentMatch.setNumHighCargo(currentMatch.getNumHighCargo() + 1);
+                cargoHighText.setText(currentMatch.getNumHighCargo() + "");
+            }
+        });
+
+        cargoMid.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentMatch.setNumMedCargo(currentMatch.getNumMedCargo() + 1);
+                cargoMidText.setText(currentMatch.getNumMedCargo() + "");
+            }
+        });
+        cargoLow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentMatch.setNumLowCargo(currentMatch.getNumLowCargo() + 1);
+                cargoLowText.setText(currentMatch.getNumLowCargo() + "");
+            }
+        });
+
+        panelHigh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentMatch.setNumHighPanels(currentMatch.getNumHighPanels() + 1);
+                panelHighText.setText(currentMatch.getNumHighPanels() + "");
+            }
+        });
+
+        panelMid.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentMatch.setNumMedPanels(currentMatch.getNumMedPanels() + 1);
+                panelMidText.setText(currentMatch.getNumMedPanels() + "");
+            }
+        });
+
+        panelLow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentMatch.setNumLowPanels(currentMatch.getNumLowPanels() + 1);
+                panelLowText.setText(currentMatch.getNumLowPanels() + "");
+            }
+        });
 
 
         return view;
@@ -122,4 +282,5 @@ public class Ingame extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
 }
