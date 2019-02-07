@@ -13,6 +13,17 @@
         android:layout_height="match_parent"
         tools:context=".MainActivity">
 
+        <Button
+            android:id="@+id/undo_ship_button"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="88dp"
+            android:layout_height="96dp"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/ic_undo"
+            android:backgroundTint="@android:color/black"
+            app:layout_constraintStart_toStartOf="@+id/undo_rocket_button"
+            app:layout_constraintTop_toTopOf="@+id/panel3" />
+
         <TextView
             android:id="@+id/panel_low_number"
             android:layout_width="147dp"

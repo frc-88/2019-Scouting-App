@@ -18,9 +18,9 @@ public class Performance {
     private int numLowPanelsSS;
     private int numLowCargo;
     private int numLowCargoSS;
-    private ArrayList<String> cargo;
+    private ArrayList<Integer> cargo;
     //0=not scored, 1=scored in teleop, 2=scored in sandstorm, 3=null panel
-    private ArrayList<String> panels;
+    private ArrayList<Integer> panels;
     private int levelOfClimb;
     private int startingLevel;
     private String comments;
@@ -72,19 +72,19 @@ public class Performance {
         this.matchNumber = matchNumber;
     }
 
-    public ArrayList<String> getCargo() {
+    public ArrayList<Integer> getCargo() {
         return cargo;
     }
 
-    public void setCargo(ArrayList<String> cargo) {
+    public void setCargo(ArrayList<Integer> cargo) {
         this.cargo = cargo;
     }
 
-    public ArrayList<String> getPanels() {
+    public ArrayList<Integer> getPanels() {
         return panels;
     }
 
-    public void setPanels(ArrayList<String> panels) {
+    public void setPanels(ArrayList<Integer> panels) {
         this.panels = panels;
     }
 
@@ -240,10 +240,10 @@ public class Performance {
         crossInSandstorm = v;
     }
 
-    private ArrayList<String> fillArrayList(){
-        ArrayList<String> al = new ArrayList<>();
+    private ArrayList<Integer> fillArrayList(){
+        ArrayList<Integer> al = new ArrayList<>();
         for (int i = 0; i < 8; i++){
-            al.add("unscored");
+            al.add(0);
         }
         return al;
     }

@@ -160,10 +160,10 @@ public class Ingame extends Fragment {
             cargoBayCargo[ii].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //TODO: implement on CargoBayCargo click
+                    cargoBayChangesStack.push(new CargoBayChanges(iii, currentMatch.getCargo().get(iii) , true));
                     cargoBayCargo[iii].setAlpha((float)1.0);
-                    ArrayList<String> cargo = currentMatch.getCargo();
-                    cargo.set(iii , "teleop");
+                    ArrayList<Integer> cargo = currentMatch.getCargo();
+                    cargo.set(iii , 1);
                     currentMatch.setCargo(cargo);
 
                 }
@@ -171,10 +171,10 @@ public class Ingame extends Fragment {
             cargoBayPanels[ii].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //TODO: implement on CargoBayPanels click
+                    cargoBayChangesStack.push(new CargoBayChanges(iii, currentMatch.getPanels().get(iii) , false));
                     cargoBayPanels[iii].setAlpha((float)1.0);
-                    ArrayList<String> panels = currentMatch.getPanels();
-                    panels.set(iii , "teleop");
+                    ArrayList<Integer> panels = currentMatch.getPanels();
+                    panels.set(iii , 1);
                     currentMatch.setPanels(panels);
                 }
             });
@@ -182,21 +182,23 @@ public class Ingame extends Fragment {
             cargoBayCargo[ii].setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
+                    cargoBayChangesStack.push(new CargoBayChanges(iii, currentMatch.getCargo().get(iii) , true));
                     ssFlagsCargo[iii].setAlpha((float)1.0);
-                    ArrayList<String> cargo = currentMatch.getCargo();
-                    cargo.set(iii , "sandstorm");
+                    ArrayList<Integer> cargo = currentMatch.getCargo();
+                    cargo.set(iii , 2);
                     currentMatch.setCargo(cargo);
-                    return false;
+                    return true;
                 }
             });
             cargoBayPanels[ii].setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
+                    cargoBayChangesStack.push(new CargoBayChanges(iii, currentMatch.getCargo().get(iii) , false));
                     ssFlagsPanels[iii].setAlpha((float)1.0);
-                    ArrayList<String> panels = currentMatch.getPanels();
-                    panels.set(iii , "sandstorm");
+                    ArrayList<Integer> panels = currentMatch.getPanels();
+                    panels.set(iii , 2);
                     currentMatch.setPanels(panels);
-                    return false;
+                    return true;
                 }
             });
 
@@ -318,6 +320,22 @@ public class Ingame extends Fragment {
                             break;
                     }
 
+                }
+            }
+        });
+
+        Button undoShipBtn = (Button) view.findViewById(R.id.undo_ship_button);
+        undoShipBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (cargoBayChangesStack.isEmpty()){
+                    return;
+                }
+                CargoBayChanges cbc = cargoBayChangesStack.pop();
+                if(cbc.trueIfCargo){
+                    if(cbc.scored >= 1){
+                        cargoBayCargo[cbc.index].setAlpha(1);
+                    }
                 }
             }
         });
