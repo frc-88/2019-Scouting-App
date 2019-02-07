@@ -247,4 +247,12 @@ public class Performance {
         }
         return al;
     }
+
+    public void setIndividualCargoBayCargo(int scored , int index){
+        cargo.set(index , scored);
+    }
+
+    public void setIndividualCargoBayPanel(int scored , int index){
+        panels.set(index , scored);
+    }
 }

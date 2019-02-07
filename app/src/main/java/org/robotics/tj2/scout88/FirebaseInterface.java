@@ -40,7 +40,7 @@ public class FirebaseInterface {
             pnls.add("teleop");
         }
         //String[] cgo = {"teleop","teleop","teleop","teleop","teleop","teleop","teleop","teleop","teleop","teleop","teleop","teleop","teleop","teleop","teleop","teleop","teleop","teleop","teleop","teleop"};
-        p.setCargo(cgo);
+        //p.setCargo(cgo);
         p.setComments("this was a great match");
         p.setDefense(20.5);
         p.setLevelOfClimb(2);
@@ -48,7 +48,7 @@ public class FirebaseInterface {
         p.setTeamNumber(8888);
         p.setStartingLevel(2);
         //String[] pnls = {"teleop","teleop","teleop","teleop","teleop","teleop","teleop","teleop","teleop","teleop","teleop","teleop","teleop","teleop","teleop","teleop","teleop","teleop","teleop","teleop"};
-        p.setPanels(pnls);
+        //p.setPanels(pnls);
 
         myRef.child("performances").child(COMPETITION_FLAG+p.getMatchNumber()+"_"+p.getTeamNumber()).setValue(p);
         return true;

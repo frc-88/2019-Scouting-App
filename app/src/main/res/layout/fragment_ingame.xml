@@ -13,6 +13,18 @@
         android:layout_height="match_parent"
         tools:context=".MainActivity">
 
+        <TextView
+            android:id="@+id/carg_bay_title"
+            android:layout_width="207dp"
+            android:layout_height="53dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="Cargo Bay"
+            android:textColor="#000000"
+            android:textSize="36sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/divider" />
+
         <Button
             android:id="@+id/undo_ship_button"
             style="@style/Widget.AppCompat.Button.Colored"
@@ -174,9 +186,9 @@
             android:layout_width="@dimen/cargo_width"
             android:layout_height="@dimen/cargo_height"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="88dp"
+            android:layout_marginTop="8dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rocket_ship_title"
             app:srcCompat="@drawable/cargo" />
 
         <ImageView
@@ -317,9 +329,9 @@
             android:layout_width="@dimen/panel_width"
             android:layout_height="@dimen/panel_height"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="8dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/divider"
+            app:layout_constraintTop_toBottomOf="@+id/carg_bay_title"
             app:srcCompat="@drawable/panel" />
 
 
@@ -557,6 +569,18 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@+id/cargo6"
             app:layout_constraintTop_toBottomOf="@+id/cargo2" />
+
+        <TextView
+            android:id="@+id/rocket_ship_title"
+            android:layout_width="207dp"
+            android:layout_height="53dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="75dp"
+            android:text="Rocket Ship"
+            android:textColor="#000000"
+            android:textSize="36sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/undo_rocket_button"

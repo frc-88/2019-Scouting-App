@@ -187,17 +187,19 @@ public class Ingame extends Fragment {
                     ArrayList<Integer> cargo = currentMatch.getCargo();
                     cargo.set(iii , 2);
                     currentMatch.setCargo(cargo);
+                    cargoBayCargo[iii].setAlpha((float)0.66);
                     return true;
                 }
             });
             cargoBayPanels[ii].setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-                    cargoBayChangesStack.push(new CargoBayChanges(iii, currentMatch.getCargo().get(iii) , false));
+                    cargoBayChangesStack.push(new CargoBayChanges(iii, currentMatch.getPanels().get(iii) , false));
                     ssFlagsPanels[iii].setAlpha((float)1.0);
                     ArrayList<Integer> panels = currentMatch.getPanels();
                     panels.set(iii , 2);
                     currentMatch.setPanels(panels);
+                    cargoBayPanels[iii].setAlpha((float)0.66);
                     return true;
                 }
             });
@@ -333,18 +335,44 @@ public class Ingame extends Fragment {
                 }
                 CargoBayChanges cbc = cargoBayChangesStack.pop();
                 if(cbc.trueIfCargo){
-                    if(cbc.scored >= 1){
-                        cargoBayCargo[cbc.index].setAlpha(1);
+                    ssFlagsCargo[cbc.index].setAlpha((float)0.0);
+                    currentMatch.setIndividualCargoBayCargo(cbc.scored , cbc.index);
+                    switch (cbc.scored){
+                        case 1:
+                            cargoBayCargo[cbc.index].setAlpha((float)1.0);
+                            break;
+                        case 2:
+                            cargoBayCargo[cbc.index].setAlpha((float).66);
+                            ssFlagsCargo[cbc.index].setAlpha((float)1.0);
+                            break;
+                        case 0:
+                            cargoBayCargo[cbc.index].setAlpha((float).4);
+                            break;
+                    }
+                }
+                else{
+                    ssFlagsPanels[cbc.index].setAlpha((float)0.0);
+                    currentMatch.setIndividualCargoBayPanel(cbc.scored , cbc.index);
+                    switch (cbc.scored){
+                        case 1:
+                            cargoBayPanels[cbc.index].setAlpha((float)1.0);
+                            break;
+                        case 2:
+                            cargoBayPanels[cbc.index].setAlpha((float).66);
+                            ssFlagsPanels[cbc.index].setAlpha((float)1.0);
+                            break;
+                        case 0:
+                            cargoBayPanels[cbc.index].setAlpha((float).4);
+                            break;
                     }
                 }
             }
         });
 
-
         return view;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
+
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
