@@ -89,6 +89,18 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        Intent inputIntent = getIntent();
+        Bundle inputBundle = inputIntent.getExtras();
+
+        if(inputBundle != null){
+            pregame_frag.currentScouterName = inputBundle.getString("scouter_name");
+            Log.v("activity_switch" , inputBundle.getString("scouter_name"));
+            pregame_frag.autoFillMatchNumber = inputBundle.getString("new_match_number");
+            Log.v("activity_switch" , inputBundle.getString("new_match_number"));
+        }
+        else{
+            FirebaseInterface fbi = new FirebaseInterface(true);
+        }
 
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
 

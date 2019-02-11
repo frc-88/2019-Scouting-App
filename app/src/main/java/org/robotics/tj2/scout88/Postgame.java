@@ -1,6 +1,7 @@
 package org.robotics.tj2.scout88;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 
 /**
@@ -83,8 +85,50 @@ public class Postgame extends Fragment {
                 commitComments(commentBox);
                 FirebaseInterface fbi = new FirebaseInterface();
                 fbi.addPerformance(currentMatch);
+
+                Intent intent = new Intent();
+                intent.setClass(getContext() , MainActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("scouter_name" , currentMatch.getScouter());
+                bundle.putString("new_match_number" , (currentMatch.getMatchNumber()+1) + "");
+                intent.putExtras(bundle);
+                startActivity(intent);
+
             }
         });
+
+        final ImageView highClimbBtn = (ImageView) view.findViewById(R.id.high_hab);
+        final ImageView midClimbBtn = (ImageView) view.findViewById(R.id.middle_hab);
+        final ImageView lowClimbBtn = (ImageView) view.findViewById(R.id.low_hab);
+
+        highClimbBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                highClimbBtn.setImageResource(R.drawable.ic_starting_pos_check);
+                midClimbBtn.setImageResource(R.drawable.ic_starting_pos_uncheck);
+                lowClimbBtn.setImageResource(R.drawable.ic_starting_pos_uncheck);
+                currentMatch.setLevelOfClimb(3);
+            }
+        });
+        midClimbBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                highClimbBtn.setImageResource(R.drawable.ic_starting_pos_uncheck);
+                midClimbBtn.setImageResource(R.drawable.ic_starting_pos_check);
+                lowClimbBtn.setImageResource(R.drawable.ic_starting_pos_uncheck);
+                currentMatch.setLevelOfClimb(2);
+            }
+        });
+        lowClimbBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                highClimbBtn.setImageResource(R.drawable.ic_starting_pos_uncheck);
+                midClimbBtn.setImageResource(R.drawable.ic_starting_pos_uncheck);
+                lowClimbBtn.setImageResource(R.drawable.ic_starting_pos_check);
+                currentMatch.setLevelOfClimb(1);
+            }
+        });
+
         return view;
     }
 

@@ -36,11 +36,13 @@ public class Ingame extends Fragment {
         public int level;
         public boolean trueIfCargo;
         public int amount;
+        public boolean trueIfSandstorm;
 
-        public RocketChanges(int l , boolean tic , int amt){
+        public RocketChanges(int l , boolean tic , int amt , boolean tis){
             amount = amt;
             level = l;
             trueIfCargo = tic;
+            trueIfSandstorm = tis;
         }
     }
 
@@ -212,6 +214,7 @@ public class Ingame extends Fragment {
         final ImageView panelHigh = (ImageView) view.findViewById(R.id.high_panel);
         final ImageView panelMid = (ImageView) view.findViewById(R.id.mid_panel);
         final ImageView panelLow = (ImageView) view.findViewById(R.id.low_panel);
+
         final TextView cargoHighText = (TextView) view.findViewById(R.id.cargo_high_number);
         final TextView cargoMidText = (TextView) view.findViewById(R.id.cargo_med_number);
         final TextView cargoLowText = (TextView) view.findViewById(R.id.cargo_low_number);
@@ -219,62 +222,142 @@ public class Ingame extends Fragment {
         final TextView panelMidText = (TextView) view.findViewById(R.id.panel_med_number);
         final TextView panelLowText = (TextView) view.findViewById(R.id.panel_low_number);
 
+        final TextView cargoHighTextSS = (TextView) view.findViewById(R.id.cargo_high_number_ss);
+        final TextView cargoMidTextSS = (TextView) view.findViewById(R.id.cargo_mid_number_ss);
+        final TextView cargoLowTextSS = (TextView) view.findViewById(R.id.cargo_low_number_ss);
+        final TextView panelHighTextSS = (TextView) view.findViewById(R.id.panel_high_number_ss);
+        final TextView panelMidTextSS = (TextView) view.findViewById(R.id.panel_mid_number_ss);
+        final TextView panelLowTextSS = (TextView) view.findViewById(R.id.panel_low_number_ss);
+
+        cargoHigh.setLongClickable(true);
         cargoHigh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RocketChanges rc = new RocketChanges(2 , true , currentMatch.getNumHighCargo());
+                RocketChanges rc = new RocketChanges(2 , true , currentMatch.getNumHighCargo() , false);
                 rocketChangesStack.push(rc);
                 currentMatch.setNumHighCargo(currentMatch.getNumHighCargo() + 1);
                 cargoHighText.setText(currentMatch.getNumHighCargo() + "");
             }
         });
+        cargoHigh.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                RocketChanges rc = new RocketChanges(2 , true , currentMatch.getNumHighCargoSS() , true);
+                rocketChangesStack.push(rc);
+                currentMatch.setNumHighCargoSS(currentMatch.getNumHighCargoSS() + 1);
+                cargoHighTextSS.setText(currentMatch.getNumHighCargoSS() + "");
+                cargoHighTextSS.setVisibility(View.VISIBLE);
+                return true;
+            }
+        });
 
+        cargoMid.setLongClickable(true);
         cargoMid.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RocketChanges rc = new RocketChanges(1 , true , currentMatch.getNumMedCargo());
+                RocketChanges rc = new RocketChanges(1 , true , currentMatch.getNumMedCargo() , false);
                 rocketChangesStack.push(rc);
                 currentMatch.setNumMedCargo(currentMatch.getNumMedCargo() + 1);
                 cargoMidText.setText(currentMatch.getNumMedCargo() + "");
             }
         });
+        cargoMid.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                RocketChanges rc = new RocketChanges(1 , true , currentMatch.getNumMedCargoSS() , true);
+                rocketChangesStack.push(rc);
+                currentMatch.setNumMedCargoSS(currentMatch.getNumMedCargoSS() + 1);
+                cargoMidTextSS.setText(currentMatch.getNumMedCargoSS() + "");
+                cargoMidTextSS.setVisibility(View.VISIBLE);
+                return true;
+            }
+        });
+
+        cargoLow.setLongClickable(true);
         cargoLow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RocketChanges rc = new RocketChanges(0 , true , currentMatch.getNumLowCargo());
+                RocketChanges rc = new RocketChanges(0 , true , currentMatch.getNumLowCargo() , false);
                 rocketChangesStack.push(rc);
                 currentMatch.setNumLowCargo(currentMatch.getNumLowCargo() + 1);
                 cargoLowText.setText(currentMatch.getNumLowCargo() + "");
             }
         });
+        cargoLow.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                RocketChanges rc = new RocketChanges(0 , true , currentMatch.getNumLowCargoSS() , true);
+                rocketChangesStack.push(rc);
+                currentMatch.setNumLowCargoSS(currentMatch.getNumLowCargoSS() + 1);
+                cargoLowTextSS.setText(currentMatch.getNumLowCargoSS() + "");
+                cargoLowTextSS.setVisibility(View.VISIBLE);
+                return true;
+            }
+        });
 
+        panelHigh.setLongClickable(true);
         panelHigh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RocketChanges rc = new RocketChanges(2 , false , currentMatch.getNumHighPanels());
+                RocketChanges rc = new RocketChanges(2 , false , currentMatch.getNumHighPanels() , false);
                 rocketChangesStack.push(rc);
                 currentMatch.setNumHighPanels(currentMatch.getNumHighPanels() + 1);
                 panelHighText.setText(currentMatch.getNumHighPanels() + "");
             }
         });
+        panelHigh.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                RocketChanges rc = new RocketChanges(2 , false , currentMatch.getNumHighPanelsSS() , true);
+                rocketChangesStack.push(rc);
+                currentMatch.setNumHighPanelsSS(currentMatch.getNumHighPanelsSS() + 1);
+                panelHighTextSS.setText(currentMatch.getNumHighPanelsSS() + "");
+                panelHighTextSS.setVisibility(View.VISIBLE);
+                return true;
+            }
+        });
 
+        panelMid.setLongClickable(true);
         panelMid.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RocketChanges rc = new RocketChanges(1 , false , currentMatch.getNumMedPanels());
+                RocketChanges rc = new RocketChanges(1 , false , currentMatch.getNumMedPanels() , false);
                 rocketChangesStack.push(rc);
                 currentMatch.setNumMedPanels(currentMatch.getNumMedPanels() + 1);
                 panelMidText.setText(currentMatch.getNumMedPanels() + "");
             }
         });
+        panelMid.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                RocketChanges rc = new RocketChanges(1 , false , currentMatch.getNumMedPanelsSS() , true);
+                rocketChangesStack.push(rc);
+                currentMatch.setNumMedPanelsSS(currentMatch.getNumMedPanelsSS() + 1);
+                panelMidTextSS.setText(currentMatch.getNumMedPanelsSS() + "");
+                panelMidTextSS.setVisibility(View.VISIBLE);
+                return true;
+            }
+        });
 
+        panelLow.setLongClickable(true);
         panelLow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RocketChanges rc = new RocketChanges(0 , false , currentMatch.getNumLowPanels());
+                RocketChanges rc = new RocketChanges(0 , false , currentMatch.getNumLowPanels() , false);
                 rocketChangesStack.push(rc);
                 currentMatch.setNumLowPanels(currentMatch.getNumLowPanels() + 1);
                 panelLowText.setText(currentMatch.getNumLowPanels() + "");
+            }
+        });
+        panelLow.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                RocketChanges rc = new RocketChanges(0 , false , currentMatch.getNumLowPanelsSS() , true);
+                rocketChangesStack.push(rc);
+                currentMatch.setNumLowPanelsSS(currentMatch.getNumLowPanelsSS() + 1);
+                panelLowTextSS.setText(currentMatch.getNumLowPanelsSS() + "");
+                panelLowTextSS.setVisibility(View.VISIBLE);
+                return true;
             }
         });
 
@@ -289,14 +372,38 @@ public class Ingame extends Fragment {
                 if (rc.trueIfCargo){
                     switch(rc.level){
                         case 0:
+                            if(rc.trueIfSandstorm){
+                                currentMatch.setNumLowCargoSS(rc.amount);
+                                cargoLowTextSS.setText(currentMatch.getNumLowCargoSS() + "");
+                                if(currentMatch.getNumLowCargoSS() == 0){
+                                    cargoLowTextSS.setVisibility(View.INVISIBLE);
+                                }
+                                break;
+                            }
                             currentMatch.setNumLowCargo(rc.amount);
                             cargoLowText.setText(currentMatch.getNumLowCargo() + "");
                             break;
                         case 1:
+                            if(rc.trueIfSandstorm){
+                                currentMatch.setNumMedCargoSS(rc.amount);
+                                cargoMidTextSS.setText(currentMatch.getNumMedCargoSS() + "");
+                                if(currentMatch.getNumMedCargoSS() == 0){
+                                    cargoMidTextSS.setVisibility(View.INVISIBLE);
+                                }
+                                break;
+                            }
                             currentMatch.setNumMedCargo(rc.amount);
                             cargoMidText.setText(currentMatch.getNumMedCargo() + "");
                             break;
                         case 2:
+                            if(rc.trueIfSandstorm){
+                                currentMatch.setNumHighCargoSS(rc.amount);
+                                cargoHighTextSS.setText(currentMatch.getNumHighCargoSS() + "");
+                                if(currentMatch.getNumHighCargoSS() == 0){
+                                    cargoHighTextSS.setVisibility(View.INVISIBLE);
+                                }
+                                break;
+                            }
                             currentMatch.setNumHighCargo(rc.amount);
                             cargoHighText.setText(currentMatch.getNumHighCargo() + "");
                             break;
@@ -307,14 +414,38 @@ public class Ingame extends Fragment {
                 else{
                     switch(rc.level){
                         case 0:
+                            if(rc.trueIfSandstorm){
+                                currentMatch.setNumLowPanelsSS(rc.amount);
+                                panelLowTextSS.setText(currentMatch.getNumLowPanelsSS() + "");
+                                if(currentMatch.getNumLowPanelsSS() == 0){
+                                    panelLowTextSS.setVisibility(View.INVISIBLE);
+                                }
+                                break;
+                            }
                             currentMatch.setNumLowPanels(rc.amount);
                             panelLowText.setText(currentMatch.getNumLowPanels() + "");
                             break;
                         case 1:
+                            if(rc.trueIfSandstorm){
+                                currentMatch.setNumMedPanelsSS(rc.amount);
+                                panelMidTextSS.setText(currentMatch.getNumMedPanelsSS() + "");
+                                if(currentMatch.getNumMedPanelsSS() == 0){
+                                    panelMidTextSS.setVisibility(View.INVISIBLE);
+                                }
+                                break;
+                            }
                             currentMatch.setNumMedPanels(rc.amount);
                             panelMidText.setText(currentMatch.getNumMedPanels() + "");
                             break;
                         case 2:
+                            if(rc.trueIfSandstorm){
+                                currentMatch.setNumHighPanelsSS(rc.amount);
+                                panelHighTextSS.setText(currentMatch.getNumHighPanelsSS() + "");
+                                if(currentMatch.getNumHighPanelsSS() == 0){
+                                    panelHighTextSS.setVisibility(View.INVISIBLE);
+                                }
+                                break;
+                            }
                             currentMatch.setNumHighPanels(rc.amount);
                             panelHighText.setText(currentMatch.getNumHighPanels() + "");
                             break;

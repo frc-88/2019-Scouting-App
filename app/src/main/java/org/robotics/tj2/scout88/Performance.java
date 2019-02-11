@@ -33,7 +33,7 @@ public class Performance {
         matchNumber = 1;
         cargo = fillArrayList();
         panels = fillArrayList();
-        levelOfClimb = -1;
+        levelOfClimb = 0;
         startingLevel = 0;
         comments = "";
         startingElement = "";

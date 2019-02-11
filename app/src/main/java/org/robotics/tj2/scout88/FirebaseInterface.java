@@ -20,9 +20,14 @@ public class FirebaseInterface {
 
     public FirebaseInterface(){
         database = FirebaseDatabase.getInstance();
-        database.setPersistenceEnabled(true);
-        database.setPersistenceCacheSizeBytes(100000000);
         myRef = database.getReference(COMPETITION_NAME);
+    }
+
+    public FirebaseInterface(boolean init){
+        database = FirebaseDatabase.getInstance();
+        init();
+        myRef = database.getReference(COMPETITION_NAME);
+        Log.v("databse" , "setPersistence YES");
     }
 
     public boolean testConnection(){
@@ -56,5 +61,9 @@ public class FirebaseInterface {
 
     public void addPerformance(Performance p){
         myRef.child("performances").child(COMPETITION_FLAG+p.getMatchNumber()+"_"+p.getTeamNumber()).setValue(p);
+    }
+    public void init(){
+        database.setPersistenceEnabled(true);
+        database.setPersistenceCacheSizeBytes(100000000);
     }
 }

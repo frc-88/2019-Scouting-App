@@ -42,6 +42,9 @@ public class Pregame extends Fragment {
 
     private Performance currentMatch;
 
+    public String currentScouterName = "";
+    public String autoFillMatchNumber;
+
     public Pregame() {
         // Required empty public constructor
     }
@@ -143,7 +146,12 @@ public class Pregame extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                currentMatch.setTeamNumber(Integer.parseInt(s.toString()));
+                try{
+                    currentMatch.setTeamNumber(Integer.parseInt(s.toString()));
+                }
+                catch(Exception e){
+
+                }
             }
         });
 
@@ -161,7 +169,12 @@ public class Pregame extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                currentMatch.setMatchNumber(Integer.parseInt(s.toString()));
+                try{
+                    currentMatch.setMatchNumber(Integer.parseInt(s.toString()));
+                } catch (Exception e){
+
+                }
+
             }
         });
         EditText scoutNameBox = (EditText) view.findViewById(R.id.scouter_edit_text_box);
@@ -178,7 +191,11 @@ public class Pregame extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                currentMatch.setScouter(s.toString());
+                try{
+                    currentMatch.setScouter(s.toString());
+                }catch (Exception e){
+
+                }
             }
         });
 
@@ -198,6 +215,12 @@ public class Pregame extends Fragment {
                 currentMatch.setStartingLevel(2);
             }
         });
+
+        Log.v("activity_switch" , "pregame" + currentScouterName);
+        scoutNameBox.setText(currentScouterName);
+        matchNumberBox.setText(autoFillMatchNumber);
+
+
         return view;
     }
 
