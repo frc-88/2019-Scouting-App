@@ -101,16 +101,29 @@ public class Pregame extends Fragment {
 
         panel_btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                panel_btn.setAlpha((float)1.0);
-                cargo_btn.setAlpha((float)0.3);
-                currentMatch.setStartingElement("panel");
+                if(!currentMatch.getStartingElement().equals("panel")){
+                    panel_btn.setAlpha((float)1.0);
+                    cargo_btn.setAlpha((float)0.3);
+                    currentMatch.setStartingElement("panel");
+                }
+                else{
+                    panel_btn.setAlpha((float)0.3);
+                    currentMatch.setStartingElement("none");
+                }
             }
         });
         cargo_btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                panel_btn.setAlpha((float)0.3);
-                cargo_btn.setAlpha((float)1.0);
-                currentMatch.setStartingElement("cargo");
+                if(!currentMatch.getStartingElement().equals("cargo")){
+                    panel_btn.setAlpha((float)0.3);
+                    cargo_btn.setAlpha((float)1.0);
+                    currentMatch.setStartingElement("cargo");
+                }
+                else{
+                    cargo_btn.setAlpha((float)0.3);
+                    currentMatch.setStartingElement("none");
+                }
+
             }
         });
         deployed_false_btn.setOnClickListener(new View.OnClickListener() {

@@ -36,7 +36,7 @@ public class Performance {
         levelOfClimb = 0;
         startingLevel = 0;
         comments = "";
-        startingElement = "";
+        startingElement = "none";
         defense = 0.0;
         crossInSandstorm = 0;
         scouter = "";
