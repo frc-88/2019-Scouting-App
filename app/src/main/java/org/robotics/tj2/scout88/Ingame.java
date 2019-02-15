@@ -32,41 +32,13 @@ public class Ingame extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    public class RocketChanges{
-        public int level;
-        public boolean trueIfCargo;
-        public int amount;
-        public boolean trueIfSandstorm;
-
-        public RocketChanges(int l , boolean tic , int amt , boolean tis){
-            amount = amt;
-            level = l;
-            trueIfCargo = tic;
-            trueIfSandstorm = tis;
-        }
-    }
-
-    public class CargoBayChanges{
-        public int index;
-        //0 if unscored, 1 if scored, 2 if scored in sandstorm
-        public int scored;
-        public boolean trueIfCargo;
-
-        public CargoBayChanges(int i , int s , boolean tic){
-            index = i;
-            scored = s;
-            trueIfCargo = tic;
-        }
-    }
-
-
+    private boolean trueIfRocket = false;
+    private int selectedItem = -1;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
-    private Stack<CargoBayChanges> cargoBayChangesStack = new Stack<>();
-    private Stack<RocketChanges> rocketChangesStack = new Stack<>();
     private Performance currentMatch;
 
     private OnFragmentInteractionListener mListener;
@@ -111,6 +83,8 @@ public class Ingame extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_ingame, container, false);
+
+
         final ImageView[] cargoBayCargo = new ImageView[8];
         cargoBayCargo[0] = (ImageView) view.findViewById(R.id.cargo0);
         cargoBayCargo[1] = (ImageView) view.findViewById(R.id.cargo1);
@@ -157,16 +131,17 @@ public class Ingame extends Fragment {
             ssFlagsPanels[ii].setAlpha((float)0.0);
             cargoBayCargo[ii].setAlpha((float)0.4);
             cargoBayPanels[ii].setAlpha((float)0.4);
-            cargoBayCargo[ii].setLongClickable(true);
-            cargoBayPanels[ii].setLongClickable(true);
+            cargoBayCargo[ii].setPadding(3,3,3,3);
             cargoBayCargo[ii].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    cargoBayChangesStack.push(new CargoBayChanges(iii, currentMatch.getCargo().get(iii) , true));
-                    cargoBayCargo[iii].setAlpha((float)1.0);
-                    ArrayList<Integer> cargo = currentMatch.getCargo();
-                    cargo.set(iii , 1);
-                    currentMatch.setCargo(cargo);
+                    selectedItem = iii;
+                    trueIfRocket = false;
+                    for(int n = 0;  n < cargoBayCargo.length; n++){
+                        if(n == selectedItem){
+                            cargoBayCargo[iii].setColorFilter();
+                        }
+                    }
 
                 }
             });
@@ -178,31 +153,6 @@ public class Ingame extends Fragment {
                     ArrayList<Integer> panels = currentMatch.getPanels();
                     panels.set(iii , 1);
                     currentMatch.setPanels(panels);
-                }
-            });
-
-            cargoBayCargo[ii].setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    cargoBayChangesStack.push(new CargoBayChanges(iii, currentMatch.getCargo().get(iii) , true));
-                    ssFlagsCargo[iii].setAlpha((float)1.0);
-                    ArrayList<Integer> cargo = currentMatch.getCargo();
-                    cargo.set(iii , 2);
-                    currentMatch.setCargo(cargo);
-                    cargoBayCargo[iii].setAlpha((float)0.66);
-                    return true;
-                }
-            });
-            cargoBayPanels[ii].setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    cargoBayChangesStack.push(new CargoBayChanges(iii, currentMatch.getPanels().get(iii) , false));
-                    ssFlagsPanels[iii].setAlpha((float)1.0);
-                    ArrayList<Integer> panels = currentMatch.getPanels();
-                    panels.set(iii , 2);
-                    currentMatch.setPanels(panels);
-                    cargoBayPanels[iii].setAlpha((float)0.66);
-                    return true;
                 }
             });
 
@@ -233,227 +183,125 @@ public class Ingame extends Fragment {
         cargoHigh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RocketChanges rc = new RocketChanges(2 , true , currentMatch.getNumHighCargo() , false);
-                rocketChangesStack.push(rc);
-                currentMatch.setNumHighCargo(currentMatch.getNumHighCargo() + 1);
-                cargoHighText.setText(currentMatch.getNumHighCargo() + "");
+                selectedItem = 0;
             }
         });
-        cargoHigh.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                RocketChanges rc = new RocketChanges(2 , true , currentMatch.getNumHighCargoSS() , true);
-                rocketChangesStack.push(rc);
-                currentMatch.setNumHighCargoSS(currentMatch.getNumHighCargoSS() + 1);
-                cargoHighTextSS.setText(currentMatch.getNumHighCargoSS() + "");
-                cargoHighTextSS.setVisibility(View.VISIBLE);
-                return true;
-            }
-        });
+//        cargoHigh.setOnLongClickListener(new View.OnLongClickListener() {
+//            @Override
+//            public boolean onLongClick(View v) {
+//                RocketChanges rc = new RocketChanges(2 , true , currentMatch.getNumHighCargoSS() , true);
+//                rocketChangesStack.push(rc);
+//                currentMatch.setNumHighCargoSS(currentMatch.getNumHighCargoSS() + 1);
+//                cargoHighTextSS.setText(currentMatch.getNumHighCargoSS() + "");
+//                cargoHighTextSS.setVisibility(View.VISIBLE);
+//                return true;
+//            }
+//        });
 
         cargoMid.setLongClickable(true);
         cargoMid.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RocketChanges rc = new RocketChanges(1 , true , currentMatch.getNumMedCargo() , false);
-                rocketChangesStack.push(rc);
-                currentMatch.setNumMedCargo(currentMatch.getNumMedCargo() + 1);
-                cargoMidText.setText(currentMatch.getNumMedCargo() + "");
+                selectedItem = 1;
             }
         });
-        cargoMid.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                RocketChanges rc = new RocketChanges(1 , true , currentMatch.getNumMedCargoSS() , true);
-                rocketChangesStack.push(rc);
-                currentMatch.setNumMedCargoSS(currentMatch.getNumMedCargoSS() + 1);
-                cargoMidTextSS.setText(currentMatch.getNumMedCargoSS() + "");
-                cargoMidTextSS.setVisibility(View.VISIBLE);
-                return true;
-            }
-        });
+//        cargoMid.setOnLongClickListener(new View.OnLongClickListener() {
+//            @Override
+//            public boolean onLongClick(View v) {
+//                RocketChanges rc = new RocketChanges(1 , true , currentMatch.getNumMedCargoSS() , true);
+//                rocketChangesStack.push(rc);
+//                currentMatch.setNumMedCargoSS(currentMatch.getNumMedCargoSS() + 1);
+//                cargoMidTextSS.setText(currentMatch.getNumMedCargoSS() + "");
+//                cargoMidTextSS.setVisibility(View.VISIBLE);
+//                return true;
+//            }
+//        });
 
         cargoLow.setLongClickable(true);
         cargoLow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RocketChanges rc = new RocketChanges(0 , true , currentMatch.getNumLowCargo() , false);
-                rocketChangesStack.push(rc);
-                currentMatch.setNumLowCargo(currentMatch.getNumLowCargo() + 1);
-                cargoLowText.setText(currentMatch.getNumLowCargo() + "");
+                selectedItem = 2;
             }
         });
-        cargoLow.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                RocketChanges rc = new RocketChanges(0 , true , currentMatch.getNumLowCargoSS() , true);
-                rocketChangesStack.push(rc);
-                currentMatch.setNumLowCargoSS(currentMatch.getNumLowCargoSS() + 1);
-                cargoLowTextSS.setText(currentMatch.getNumLowCargoSS() + "");
-                cargoLowTextSS.setVisibility(View.VISIBLE);
-                return true;
-            }
-        });
+//        cargoLow.setOnLongClickListener(new View.OnLongClickListener() {
+//            @Override
+//            public boolean onLongClick(View v) {
+//                RocketChanges rc = new RocketChanges(0 , true , currentMatch.getNumLowCargoSS() , true);
+//                rocketChangesStack.push(rc);
+//                currentMatch.setNumLowCargoSS(currentMatch.getNumLowCargoSS() + 1);
+//                cargoLowTextSS.setText(currentMatch.getNumLowCargoSS() + "");
+//                cargoLowTextSS.setVisibility(View.VISIBLE);
+//                return true;
+//            }
+//        });
 
         panelHigh.setLongClickable(true);
         panelHigh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RocketChanges rc = new RocketChanges(2 , false , currentMatch.getNumHighPanels() , false);
-                rocketChangesStack.push(rc);
-                currentMatch.setNumHighPanels(currentMatch.getNumHighPanels() + 1);
-                panelHighText.setText(currentMatch.getNumHighPanels() + "");
+                selectedItem = 3;
             }
         });
-        panelHigh.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                RocketChanges rc = new RocketChanges(2 , false , currentMatch.getNumHighPanelsSS() , true);
-                rocketChangesStack.push(rc);
-                currentMatch.setNumHighPanelsSS(currentMatch.getNumHighPanelsSS() + 1);
-                panelHighTextSS.setText(currentMatch.getNumHighPanelsSS() + "");
-                panelHighTextSS.setVisibility(View.VISIBLE);
-                return true;
-            }
-        });
+//        panelHigh.setOnLongClickListener(new View.OnLongClickListener() {
+//            @Override
+//            public boolean onLongClick(View v) {
+//                RocketChanges rc = new RocketChanges(2 , false , currentMatch.getNumHighPanelsSS() , true);
+//                rocketChangesStack.push(rc);
+//                currentMatch.setNumHighPanelsSS(currentMatch.getNumHighPanelsSS() + 1);
+//                panelHighTextSS.setText(currentMatch.getNumHighPanelsSS() + "");
+//                panelHighTextSS.setVisibility(View.VISIBLE);
+//                return true;
+//            }
+//        });
 
         panelMid.setLongClickable(true);
         panelMid.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RocketChanges rc = new RocketChanges(1 , false , currentMatch.getNumMedPanels() , false);
-                rocketChangesStack.push(rc);
-                currentMatch.setNumMedPanels(currentMatch.getNumMedPanels() + 1);
-                panelMidText.setText(currentMatch.getNumMedPanels() + "");
+                selectedItem = 4;
             }
         });
-        panelMid.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                RocketChanges rc = new RocketChanges(1 , false , currentMatch.getNumMedPanelsSS() , true);
-                rocketChangesStack.push(rc);
-                currentMatch.setNumMedPanelsSS(currentMatch.getNumMedPanelsSS() + 1);
-                panelMidTextSS.setText(currentMatch.getNumMedPanelsSS() + "");
-                panelMidTextSS.setVisibility(View.VISIBLE);
-                return true;
-            }
-        });
+//        panelMid.setOnLongClickListener(new View.OnLongClickListener() {
+//            @Override
+//            public boolean onLongClick(View v) {
+//                RocketChanges rc = new RocketChanges(1 , false , currentMatch.getNumMedPanelsSS() , true);
+//                rocketChangesStack.push(rc);
+//                currentMatch.setNumMedPanelsSS(currentMatch.getNumMedPanelsSS() + 1);
+//                panelMidTextSS.setText(currentMatch.getNumMedPanelsSS() + "");
+//                panelMidTextSS.setVisibility(View.VISIBLE);
+//                return true;
+//            }
+//        });
 
         panelLow.setLongClickable(true);
         panelLow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RocketChanges rc = new RocketChanges(0 , false , currentMatch.getNumLowPanels() , false);
-                rocketChangesStack.push(rc);
-                currentMatch.setNumLowPanels(currentMatch.getNumLowPanels() + 1);
-                panelLowText.setText(currentMatch.getNumLowPanels() + "");
-            }
-        });
-        panelLow.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                RocketChanges rc = new RocketChanges(0 , false , currentMatch.getNumLowPanelsSS() , true);
-                rocketChangesStack.push(rc);
-                currentMatch.setNumLowPanelsSS(currentMatch.getNumLowPanelsSS() + 1);
-                panelLowTextSS.setText(currentMatch.getNumLowPanelsSS() + "");
-                panelLowTextSS.setVisibility(View.VISIBLE);
-                return true;
+                selectedItem = 5;
             }
         });
 
-        Button undoRocketBtn = (Button) view.findViewById(R.id.undo_rocket_button);
-        undoRocketBtn.setOnClickListener(new View.OnClickListener() {
+//        panelLow.setOnLongClickListener(new View.OnLongClickListener() {
+//            @Override
+//            public boolean onLongClick(View v) {
+//                RocketChanges rc = new RocketChanges(0 , false , currentMatch.getNumLowPanelsSS() , true);
+//                rocketChangesStack.push(rc);
+//                currentMatch.setNumLowPanelsSS(currentMatch.getNumLowPanelsSS() + 1);
+//                panelLowTextSS.setText(currentMatch.getNumLowPanelsSS() + "");
+//                panelLowTextSS.setVisibility(View.VISIBLE);
+//                return true;
+//            }
+//        });
+
+        ImageView addButton = view.findViewById(R.id.add_button);
+        ImageView deleteButton = view.findViewById(R.id.delete_button);
+        Button sandstormButton = view.findViewById(R.id.sandstorm_button);
+
+        addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (rocketChangesStack.isEmpty()){
-                    return;
-                }
-                RocketChanges rc = rocketChangesStack.pop();
-                if (rc.trueIfCargo){
-                    switch(rc.level){
-                        case 0:
-                            if(rc.trueIfSandstorm){
-                                currentMatch.setNumLowCargoSS(rc.amount);
-                                cargoLowTextSS.setText(currentMatch.getNumLowCargoSS() + "");
-                                if(currentMatch.getNumLowCargoSS() == 0){
-                                    cargoLowTextSS.setVisibility(View.INVISIBLE);
-                                }
-                                break;
-                            }
-                            currentMatch.setNumLowCargo(rc.amount);
-                            cargoLowText.setText(currentMatch.getNumLowCargo() + "");
-                            break;
-                        case 1:
-                            if(rc.trueIfSandstorm){
-                                currentMatch.setNumMedCargoSS(rc.amount);
-                                cargoMidTextSS.setText(currentMatch.getNumMedCargoSS() + "");
-                                if(currentMatch.getNumMedCargoSS() == 0){
-                                    cargoMidTextSS.setVisibility(View.INVISIBLE);
-                                }
-                                break;
-                            }
-                            currentMatch.setNumMedCargo(rc.amount);
-                            cargoMidText.setText(currentMatch.getNumMedCargo() + "");
-                            break;
-                        case 2:
-                            if(rc.trueIfSandstorm){
-                                currentMatch.setNumHighCargoSS(rc.amount);
-                                cargoHighTextSS.setText(currentMatch.getNumHighCargoSS() + "");
-                                if(currentMatch.getNumHighCargoSS() == 0){
-                                    cargoHighTextSS.setVisibility(View.INVISIBLE);
-                                }
-                                break;
-                            }
-                            currentMatch.setNumHighCargo(rc.amount);
-                            cargoHighText.setText(currentMatch.getNumHighCargo() + "");
-                            break;
-                        default:
-                            break;
-                    }
-                }
-                else{
-                    switch(rc.level){
-                        case 0:
-                            if(rc.trueIfSandstorm){
-                                currentMatch.setNumLowPanelsSS(rc.amount);
-                                panelLowTextSS.setText(currentMatch.getNumLowPanelsSS() + "");
-                                if(currentMatch.getNumLowPanelsSS() == 0){
-                                    panelLowTextSS.setVisibility(View.INVISIBLE);
-                                }
-                                break;
-                            }
-                            currentMatch.setNumLowPanels(rc.amount);
-                            panelLowText.setText(currentMatch.getNumLowPanels() + "");
-                            break;
-                        case 1:
-                            if(rc.trueIfSandstorm){
-                                currentMatch.setNumMedPanelsSS(rc.amount);
-                                panelMidTextSS.setText(currentMatch.getNumMedPanelsSS() + "");
-                                if(currentMatch.getNumMedPanelsSS() == 0){
-                                    panelMidTextSS.setVisibility(View.INVISIBLE);
-                                }
-                                break;
-                            }
-                            currentMatch.setNumMedPanels(rc.amount);
-                            panelMidText.setText(currentMatch.getNumMedPanels() + "");
-                            break;
-                        case 2:
-                            if(rc.trueIfSandstorm){
-                                currentMatch.setNumHighPanelsSS(rc.amount);
-                                panelHighTextSS.setText(currentMatch.getNumHighPanelsSS() + "");
-                                if(currentMatch.getNumHighPanelsSS() == 0){
-                                    panelHighTextSS.setVisibility(View.INVISIBLE);
-                                }
-                                break;
-                            }
-                            currentMatch.setNumHighPanels(rc.amount);
-                            panelHighText.setText(currentMatch.getNumHighPanels() + "");
-                            break;
-                        default:
-                            break;
-                    }
 
-                }
             }
         });
 

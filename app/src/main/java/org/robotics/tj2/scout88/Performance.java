@@ -255,4 +255,56 @@ public class Performance {
     public void setIndividualCargoBayPanel(int scored , int index){
         panels.set(index , scored);
     }
+
+    public void setIndividualRocketItem(int scored , int index){
+        switch(index){
+            case 0:
+                setNumHighCargo(scored);
+                break;
+            case 1:
+                setNumMedCargo(scored);
+                break;
+            case 2:
+                setNumLowCargo(scored);
+                break;
+            case 3:
+                setNumHighPanels(scored);
+                break;
+            case 4:
+                setNumMedPanels(scored);
+                break;
+            case 5:
+                setNumLowPanels(scored);
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void setIndividualRocketItemSS(int scored , int index){
+        switch(index){
+            case 0:
+                setNumHighCargoSS(scored);
+                break;
+            case 1:
+                setNumMedCargoSS(scored);
+                break;
+            case 2:
+                setNumLowCargoSS(scored);
+                break;
+            case 3:
+                setNumHighPanelsSS(scored);
+                break;
+            case 4:
+                setNumMedPanelsSS(scored);
+                break;
+            case 5:
+                setNumLowPanelsSS(scored);
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void setRocketItem(int index , )
 }
