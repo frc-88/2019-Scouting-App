@@ -181,50 +181,86 @@ public class Performance {
     }
 
     public void setNumHighCargo(int numHighCargo) {
+        if (numHighCargo + numHighCargoSS > 4 || numHighCargo < 0){
+            return;
+        }
         this.numHighCargo = numHighCargo;
     }
 
     public void setNumHighPanels(int numHighPanels) {
+        if (numHighPanels + numHighPanelsSS > 4 || numHighPanels < 0){
+            return;
+        }
         this.numHighPanels = numHighPanels;
     }
 
     public void setNumHighCargoSS(int numHighCargoSS) {
+        if (numHighCargo + numHighCargoSS > 4 || numHighCargoSS < 0){
+            return;
+        }
         this.numHighCargoSS = numHighCargoSS;
     }
 
     public void setNumHighPanelsSS(int numHighPanelsSS) {
+        if (numHighPanels + numHighPanelsSS > 4 || numHighPanelsSS < 0){
+            return;
+        }
         this.numHighPanelsSS = numHighPanelsSS;
     }
 
     public void setNumLowCargo(int numLowCargo) {
+        if (numLowCargo + numLowCargoSS > 4 || numLowCargo < 0){
+            return;
+        }
         this.numLowCargo = numLowCargo;
     }
 
     public void setNumMedPanels(int numMedPanels) {
+        if (numMedPanels + numMedPanelsSS > 4 || numMedPanels < 0){
+            return;
+        }
         this.numMedPanels = numMedPanels;
     }
 
     public void setNumLowCargoSS(int numLowCargoSS) {
+        if (numLowCargo + numLowCargoSS > 4 || numLowCargoSS < 0){
+            return;
+        }
         this.numLowCargoSS = numLowCargoSS;
     }
 
     public void setNumMedCargo(int numMedCargo) {
+        if (numMedCargo + numMedCargoSS > 4 || numMedCargo < 0){
+            return;
+        }
         this.numMedCargo = numMedCargo;
     }
 
     public void setNumLowPanels(int numLowPanels) {
+        if (numLowPanels + numLowPanelsSS > 4 || numLowPanels < 0){
+            return;
+        }
         this.numLowPanels = numLowPanels;
     }
 
     public void setNumLowPanelsSS(int numLowPanelsSS) {
+        if (numLowPanels + numLowPanelsSS > 4 || numLowPanelsSS < 0){
+            return;
+        }
         this.numLowPanelsSS = numLowPanelsSS;
     }
 
     public void setNumMedCargoSS(int numMedCargoSS) {
+        if (numMedCargo + numMedCargoSS > 4 || numMedCargoSS < 0){
+            return;
+        }
         this.numMedCargoSS = numMedCargoSS;
     }
 
     public void setNumMedPanelsSS(int numMedPanelsSS) {
+        if (numMedPanels + numMedPanelsSS > 4 || numMedPanelsSS < 0){
+            return;
+        }
         this.numMedPanelsSS = numMedPanelsSS;
     }
 
@@ -256,55 +292,5 @@ public class Performance {
         panels.set(index , scored);
     }
 
-    public void setIndividualRocketItem(int scored , int index){
-        switch(index){
-            case 0:
-                setNumHighCargo(scored);
-                break;
-            case 1:
-                setNumMedCargo(scored);
-                break;
-            case 2:
-                setNumLowCargo(scored);
-                break;
-            case 3:
-                setNumHighPanels(scored);
-                break;
-            case 4:
-                setNumMedPanels(scored);
-                break;
-            case 5:
-                setNumLowPanels(scored);
-                break;
-            default:
-                break;
-        }
-    }
 
-    public void setIndividualRocketItemSS(int scored , int index){
-        switch(index){
-            case 0:
-                setNumHighCargoSS(scored);
-                break;
-            case 1:
-                setNumMedCargoSS(scored);
-                break;
-            case 2:
-                setNumLowCargoSS(scored);
-                break;
-            case 3:
-                setNumHighPanelsSS(scored);
-                break;
-            case 4:
-                setNumMedPanelsSS(scored);
-                break;
-            case 5:
-                setNumLowPanelsSS(scored);
-                break;
-            default:
-                break;
-        }
-    }
-
-    public void setRocketItem(int index , )
 }

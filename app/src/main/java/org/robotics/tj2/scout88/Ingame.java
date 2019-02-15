@@ -34,6 +34,7 @@ public class Ingame extends Fragment {
 
     private boolean trueIfRocket = false;
     private int selectedItem = -1;
+    private boolean trueIfCargo = false;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -82,7 +83,7 @@ public class Ingame extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_ingame, container, false);
+        final View view = inflater.inflate(R.layout.fragment_ingame, container, false);
 
 
         final ImageView[] cargoBayCargo = new ImageView[8];
@@ -125,39 +126,6 @@ public class Ingame extends Fragment {
         ssFlagsPanels[6] = (TextView) view.findViewById(R.id.ss_flag_panel6);
         ssFlagsPanels[7] = (TextView) view.findViewById(R.id.ss_flag_panel7);
 
-        for(int ii = 0; ii < cargoBayCargo.length; ii++){
-            final int iii = ii;
-            ssFlagsCargo[ii].setAlpha((float)0.0);
-            ssFlagsPanels[ii].setAlpha((float)0.0);
-            cargoBayCargo[ii].setAlpha((float)0.4);
-            cargoBayPanels[ii].setAlpha((float)0.4);
-            cargoBayCargo[ii].setPadding(3,3,3,3);
-            cargoBayCargo[ii].setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    selectedItem = iii;
-                    trueIfRocket = false;
-                    for(int n = 0;  n < cargoBayCargo.length; n++){
-                        if(n == selectedItem){
-                            cargoBayCargo[iii].setColorFilter();
-                        }
-                    }
-
-                }
-            });
-            cargoBayPanels[ii].setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    cargoBayChangesStack.push(new CargoBayChanges(iii, currentMatch.getPanels().get(iii) , false));
-                    cargoBayPanels[iii].setAlpha((float)1.0);
-                    ArrayList<Integer> panels = currentMatch.getPanels();
-                    panels.set(iii , 1);
-                    currentMatch.setPanels(panels);
-                }
-            });
-
-        }
-
         final ImageView cargoHigh = (ImageView) view.findViewById(R.id.high_cargo);
         final ImageView cargoMid = (ImageView) view.findViewById(R.id.mid_cargo);
         final ImageView cargoLow = (ImageView) view.findViewById(R.id.low_cargo);
@@ -179,170 +147,394 @@ public class Ingame extends Fragment {
         final TextView panelMidTextSS = (TextView) view.findViewById(R.id.panel_mid_number_ss);
         final TextView panelLowTextSS = (TextView) view.findViewById(R.id.panel_low_number_ss);
 
-        cargoHigh.setLongClickable(true);
+        for(int ii = 0; ii < cargoBayCargo.length; ii++){
+            final int iii = ii;
+            ssFlagsCargo[ii].setVisibility(View.INVISIBLE);
+            ssFlagsPanels[ii].setVisibility(View.INVISIBLE);
+            cargoBayCargo[ii].setAlpha((float)0.4);
+            cargoBayPanels[ii].setAlpha((float)0.4);
+            cargoBayCargo[ii].setPadding(3,3,3,3);
+            cargoBayCargo[ii].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    selectedItem = iii;
+                    trueIfRocket = false;
+                    trueIfCargo = true;
+
+                    cargoHigh.setImageResource(R.drawable.cargo);
+                    cargoMid.setImageResource(R.drawable.cargo);
+                    cargoLow.setImageResource(R.drawable.cargo);
+                    panelHigh.setImageResource(R.drawable.panel);
+                    panelMid.setImageResource(R.drawable.panel);
+                    panelLow.setImageResource(R.drawable.panel);
+
+                    for(int n = 0;  n < cargoBayCargo.length; n++){
+                        cargoBayCargo[n].setImageResource(R.drawable.cargo);
+                        cargoBayPanels[n].setImageResource(R.drawable.panel);
+                    }
+                    cargoBayCargo[iii].setImageResource(R.drawable.cargo_selected);
+
+                }
+            });
+            cargoBayPanels[ii].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    selectedItem = iii;
+                    trueIfRocket = false;
+                    trueIfCargo = false;
+
+                    cargoHigh.setImageResource(R.drawable.cargo);
+                    cargoMid.setImageResource(R.drawable.cargo);
+                    cargoLow.setImageResource(R.drawable.cargo);
+                    panelHigh.setImageResource(R.drawable.panel);
+                    panelMid.setImageResource(R.drawable.panel);
+                    panelLow.setImageResource(R.drawable.panel);
+
+                    for(int n = 0;  n < cargoBayPanels.length; n++){
+                        cargoBayCargo[n].setImageResource(R.drawable.cargo);
+                        cargoBayPanels[n].setImageResource(R.drawable.panel);
+                    }
+                    cargoBayPanels[iii].setImageResource(R.drawable.panel_selected);
+                }
+            });
+
+        }
+
         cargoHigh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 selectedItem = 0;
+                trueIfRocket = true;
+                trueIfCargo = true;
+
+                cargoHigh.setImageResource(R.drawable.cargo_selected);
+                cargoMid.setImageResource(R.drawable.cargo);
+                cargoLow.setImageResource(R.drawable.cargo);
+                panelHigh.setImageResource(R.drawable.panel);
+                panelMid.setImageResource(R.drawable.panel);
+                panelLow.setImageResource(R.drawable.panel);
+
+                for(int n = 0;  n < cargoBayPanels.length; n++){
+                    cargoBayCargo[n].setImageResource(R.drawable.cargo);
+                    cargoBayPanels[n].setImageResource(R.drawable.panel);
+                }
             }
         });
-//        cargoHigh.setOnLongClickListener(new View.OnLongClickListener() {
-//            @Override
-//            public boolean onLongClick(View v) {
-//                RocketChanges rc = new RocketChanges(2 , true , currentMatch.getNumHighCargoSS() , true);
-//                rocketChangesStack.push(rc);
-//                currentMatch.setNumHighCargoSS(currentMatch.getNumHighCargoSS() + 1);
-//                cargoHighTextSS.setText(currentMatch.getNumHighCargoSS() + "");
-//                cargoHighTextSS.setVisibility(View.VISIBLE);
-//                return true;
-//            }
-//        });
 
-        cargoMid.setLongClickable(true);
         cargoMid.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 selectedItem = 1;
+                trueIfRocket = true;
+                trueIfCargo = true;
+
+                cargoHigh.setImageResource(R.drawable.cargo);
+                cargoMid.setImageResource(R.drawable.cargo_selected);
+                cargoLow.setImageResource(R.drawable.cargo);
+                panelHigh.setImageResource(R.drawable.panel);
+                panelMid.setImageResource(R.drawable.panel);
+                panelLow.setImageResource(R.drawable.panel);
+
+                for(int n = 0;  n < cargoBayPanels.length; n++){
+                    cargoBayCargo[n].setImageResource(R.drawable.cargo);
+                    cargoBayPanels[n].setImageResource(R.drawable.panel);
+                }
             }
         });
-//        cargoMid.setOnLongClickListener(new View.OnLongClickListener() {
-//            @Override
-//            public boolean onLongClick(View v) {
-//                RocketChanges rc = new RocketChanges(1 , true , currentMatch.getNumMedCargoSS() , true);
-//                rocketChangesStack.push(rc);
-//                currentMatch.setNumMedCargoSS(currentMatch.getNumMedCargoSS() + 1);
-//                cargoMidTextSS.setText(currentMatch.getNumMedCargoSS() + "");
-//                cargoMidTextSS.setVisibility(View.VISIBLE);
-//                return true;
-//            }
-//        });
 
-        cargoLow.setLongClickable(true);
         cargoLow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 selectedItem = 2;
+                trueIfRocket = true;
+                trueIfCargo = true;
+
+                cargoHigh.setImageResource(R.drawable.cargo);
+                cargoMid.setImageResource(R.drawable.cargo);
+                cargoLow.setImageResource(R.drawable.cargo_selected);
+                panelHigh.setImageResource(R.drawable.panel);
+                panelMid.setImageResource(R.drawable.panel);
+                panelLow.setImageResource(R.drawable.panel);
+
+                for(int n = 0;  n < cargoBayPanels.length; n++){
+                    cargoBayCargo[n].setImageResource(R.drawable.cargo);
+                    cargoBayPanels[n].setImageResource(R.drawable.panel);
+                }
             }
         });
-//        cargoLow.setOnLongClickListener(new View.OnLongClickListener() {
-//            @Override
-//            public boolean onLongClick(View v) {
-//                RocketChanges rc = new RocketChanges(0 , true , currentMatch.getNumLowCargoSS() , true);
-//                rocketChangesStack.push(rc);
-//                currentMatch.setNumLowCargoSS(currentMatch.getNumLowCargoSS() + 1);
-//                cargoLowTextSS.setText(currentMatch.getNumLowCargoSS() + "");
-//                cargoLowTextSS.setVisibility(View.VISIBLE);
-//                return true;
-//            }
-//        });
 
-        panelHigh.setLongClickable(true);
         panelHigh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 selectedItem = 3;
+                trueIfRocket = true;
+                trueIfCargo = false;
+
+                cargoHigh.setImageResource(R.drawable.cargo);
+                cargoMid.setImageResource(R.drawable.cargo);
+                cargoLow.setImageResource(R.drawable.cargo);
+                panelHigh.setImageResource(R.drawable.panel_selected);
+                panelMid.setImageResource(R.drawable.panel);
+                panelLow.setImageResource(R.drawable.panel);
+
+                for(int n = 0;  n < cargoBayPanels.length; n++){
+                    cargoBayCargo[n].setImageResource(R.drawable.cargo);
+                    cargoBayPanels[n].setImageResource(R.drawable.panel);
+                }
             }
         });
-//        panelHigh.setOnLongClickListener(new View.OnLongClickListener() {
-//            @Override
-//            public boolean onLongClick(View v) {
-//                RocketChanges rc = new RocketChanges(2 , false , currentMatch.getNumHighPanelsSS() , true);
-//                rocketChangesStack.push(rc);
-//                currentMatch.setNumHighPanelsSS(currentMatch.getNumHighPanelsSS() + 1);
-//                panelHighTextSS.setText(currentMatch.getNumHighPanelsSS() + "");
-//                panelHighTextSS.setVisibility(View.VISIBLE);
-//                return true;
-//            }
-//        });
 
-        panelMid.setLongClickable(true);
         panelMid.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 selectedItem = 4;
+                trueIfRocket = true;
+                trueIfCargo = false;
+
+                cargoHigh.setImageResource(R.drawable.cargo);
+                cargoMid.setImageResource(R.drawable.cargo);
+                cargoLow.setImageResource(R.drawable.cargo);
+                panelHigh.setImageResource(R.drawable.panel);
+                panelMid.setImageResource(R.drawable.panel_selected);
+                panelLow.setImageResource(R.drawable.panel);
+
+                for(int n = 0;  n < cargoBayPanels.length; n++){
+                    cargoBayCargo[n].setImageResource(R.drawable.cargo);
+                    cargoBayPanels[n].setImageResource(R.drawable.panel);
+                }
             }
         });
-//        panelMid.setOnLongClickListener(new View.OnLongClickListener() {
-//            @Override
-//            public boolean onLongClick(View v) {
-//                RocketChanges rc = new RocketChanges(1 , false , currentMatch.getNumMedPanelsSS() , true);
-//                rocketChangesStack.push(rc);
-//                currentMatch.setNumMedPanelsSS(currentMatch.getNumMedPanelsSS() + 1);
-//                panelMidTextSS.setText(currentMatch.getNumMedPanelsSS() + "");
-//                panelMidTextSS.setVisibility(View.VISIBLE);
-//                return true;
-//            }
-//        });
 
-        panelLow.setLongClickable(true);
         panelLow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 selectedItem = 5;
+                trueIfRocket = true;
+                trueIfCargo = false;
+
+                cargoHigh.setImageResource(R.drawable.cargo);
+                cargoMid.setImageResource(R.drawable.cargo);
+                cargoLow.setImageResource(R.drawable.cargo);
+                panelHigh.setImageResource(R.drawable.panel);
+                panelMid.setImageResource(R.drawable.panel);
+                panelLow.setImageResource(R.drawable.panel_selected);
+
+                for(int n = 0;  n < cargoBayPanels.length; n++){
+                    cargoBayCargo[n].setImageResource(R.drawable.cargo);
+                    cargoBayPanels[n].setImageResource(R.drawable.panel);
+                }
             }
         });
 
-//        panelLow.setOnLongClickListener(new View.OnLongClickListener() {
-//            @Override
-//            public boolean onLongClick(View v) {
-//                RocketChanges rc = new RocketChanges(0 , false , currentMatch.getNumLowPanelsSS() , true);
-//                rocketChangesStack.push(rc);
-//                currentMatch.setNumLowPanelsSS(currentMatch.getNumLowPanelsSS() + 1);
-//                panelLowTextSS.setText(currentMatch.getNumLowPanelsSS() + "");
-//                panelLowTextSS.setVisibility(View.VISIBLE);
-//                return true;
-//            }
-//        });
 
         ImageView addButton = view.findViewById(R.id.add_button);
         ImageView deleteButton = view.findViewById(R.id.delete_button);
         Button sandstormButton = view.findViewById(R.id.sandstorm_button);
+        Button sandstormDelButton = view.findViewById(R.id.sandstorm_button_del);
 
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-            }
-        });
-
-        Button undoShipBtn = (Button) view.findViewById(R.id.undo_ship_button);
-        undoShipBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (cargoBayChangesStack.isEmpty()){
+                if(selectedItem == -1) {
                     return;
                 }
-                CargoBayChanges cbc = cargoBayChangesStack.pop();
-                if(cbc.trueIfCargo){
-                    ssFlagsCargo[cbc.index].setAlpha((float)0.0);
-                    currentMatch.setIndividualCargoBayCargo(cbc.scored , cbc.index);
-                    switch (cbc.scored){
+                if(trueIfRocket){
+                    switch (selectedItem){
+                        case 0:
+                            currentMatch.setNumHighCargo(currentMatch.getNumHighCargo() + 1);
+                            cargoHighText.setText(currentMatch.getNumHighCargo() + "");
+                            break;
                         case 1:
-                            cargoBayCargo[cbc.index].setAlpha((float)1.0);
+                            currentMatch.setNumMedCargo(currentMatch.getNumMedCargo() + 1);
+                            cargoMidText.setText(currentMatch.getNumMedCargo() + "");
                             break;
                         case 2:
-                            cargoBayCargo[cbc.index].setAlpha((float).66);
-                            ssFlagsCargo[cbc.index].setAlpha((float)1.0);
+                            currentMatch.setNumLowCargo(currentMatch.getNumLowCargo() + 1);
+                            cargoLowText.setText(currentMatch.getNumLowCargo() + "");
                             break;
-                        case 0:
-                            cargoBayCargo[cbc.index].setAlpha((float).4);
+                        case 3:
+                            currentMatch.setNumHighPanels(currentMatch.getNumHighPanels() + 1);
+                            panelHighText.setText(currentMatch.getNumHighPanels() + "");
+                            break;
+                        case 4:
+                            currentMatch.setNumMedPanels(currentMatch.getNumMedPanels() + 1);
+                            panelMidText.setText(currentMatch.getNumMedPanels() + "");
+                            break;
+                        case 5:
+                            currentMatch.setNumLowPanels(currentMatch.getNumLowPanels() + 1);
+                            panelLowText.setText(currentMatch.getNumLowPanels() + "");
+                            break;
+                        default:
                             break;
                     }
                 }
                 else{
-                    ssFlagsPanels[cbc.index].setAlpha((float)0.0);
-                    currentMatch.setIndividualCargoBayPanel(cbc.scored , cbc.index);
-                    switch (cbc.scored){
+                    if(trueIfCargo){
+                        currentMatch.setIndividualCargoBayCargo(1 , selectedItem);
+                        cargoBayCargo[selectedItem].setAlpha((float)1.0);
+                    }else{
+                        currentMatch.setIndividualCargoBayPanel(1 , selectedItem);
+                        cargoBayPanels[selectedItem].setAlpha((float)1.0);
+                    }
+                }
+            }
+        });
+
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(selectedItem == -1) {
+                    return;
+                }
+                if(trueIfRocket){
+                    switch (selectedItem){
+                        case 0:
+                            currentMatch.setNumHighCargo(currentMatch.getNumHighCargo() - 1);
+                            cargoHighText.setText(currentMatch.getNumHighCargo() + "");
+                            break;
                         case 1:
-                            cargoBayPanels[cbc.index].setAlpha((float)1.0);
+                            currentMatch.setNumMedCargo(currentMatch.getNumMedCargo() - 1);
+                            cargoMidText.setText(currentMatch.getNumMedCargo() + "");
                             break;
                         case 2:
-                            cargoBayPanels[cbc.index].setAlpha((float).66);
-                            ssFlagsPanels[cbc.index].setAlpha((float)1.0);
+                            currentMatch.setNumLowCargo(currentMatch.getNumLowCargo() - 1);
+                            cargoLowText.setText(currentMatch.getNumLowCargo() + "");
                             break;
+                        case 3:
+                            currentMatch.setNumHighPanels(currentMatch.getNumHighPanels() - 1);
+                            panelHighText.setText(currentMatch.getNumHighPanels() + "");
+                            break;
+                        case 4:
+                            currentMatch.setNumMedPanels(currentMatch.getNumMedPanels() - 1);
+                            panelMidText.setText(currentMatch.getNumMedPanels() + "");
+                            break;
+                        case 5:
+                            currentMatch.setNumLowPanels(currentMatch.getNumLowPanels() - 1);
+                            panelLowText.setText(currentMatch.getNumLowPanels() + "");
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                else{
+                    if(trueIfCargo){
+                        currentMatch.setIndividualCargoBayCargo(0, selectedItem);
+                        cargoBayCargo[selectedItem].setAlpha((float)0.4);
+                        ssFlagsCargo[selectedItem].setVisibility(View.INVISIBLE);
+                    }else{
+                        currentMatch.setIndividualCargoBayPanel(0 , selectedItem);
+                        cargoBayPanels[selectedItem].setAlpha((float)0.4);
+                        ssFlagsPanels[selectedItem].setVisibility(View.INVISIBLE);
+                    }
+                }
+            }
+        });
+
+        sandstormButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(selectedItem == -1) {
+                    return;
+                }
+                if(trueIfRocket){
+                    switch (selectedItem){
                         case 0:
-                            cargoBayPanels[cbc.index].setAlpha((float).4);
+                            currentMatch.setNumHighCargoSS(currentMatch.getNumHighCargoSS() + 1);
+                            cargoHighTextSS.setText(currentMatch.getNumHighCargoSS() + "");
+                            cargoHighTextSS.setVisibility(View.VISIBLE);
                             break;
+                        case 1:
+                            currentMatch.setNumMedCargoSS(currentMatch.getNumMedCargoSS() + 1);
+                            cargoMidTextSS.setText(currentMatch.getNumMedCargoSS() + "");
+                            cargoMidTextSS.setVisibility(View.VISIBLE);
+                            break;
+                        case 2:
+                            currentMatch.setNumLowCargoSS(currentMatch.getNumLowCargoSS() + 1);
+                            cargoLowTextSS.setText(currentMatch.getNumLowCargoSS() + "");
+                            cargoLowTextSS.setVisibility(View.VISIBLE);
+                            break;
+                        case 3:
+                            currentMatch.setNumHighPanelsSS(currentMatch.getNumHighPanelsSS() + 1);
+                            panelHighTextSS.setText(currentMatch.getNumHighPanelsSS() + "");
+                            panelHighTextSS.setVisibility(View.VISIBLE);
+                            break;
+                        case 4:
+                            currentMatch.setNumMedPanelsSS(currentMatch.getNumMedPanelsSS() + 1);
+                            panelMidTextSS.setText(currentMatch.getNumMedPanelsSS() + "");
+                            panelMidTextSS.setVisibility(View.VISIBLE);
+                            break;
+                        case 5:
+                            currentMatch.setNumLowPanelsSS(currentMatch.getNumLowPanelsSS() + 1);
+                            panelLowTextSS.setText(currentMatch.getNumLowPanelsSS() + "");
+                            panelLowTextSS.setVisibility(View.VISIBLE);
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                else{
+                    if(trueIfCargo){
+                        currentMatch.setIndividualCargoBayCargo(2, selectedItem);
+                        cargoBayCargo[selectedItem].setAlpha((float)0.6);
+                        ssFlagsCargo[selectedItem].setVisibility(View.VISIBLE);
+                        ssFlagsCargo[selectedItem].bringToFront();
+                    }else{
+                        currentMatch.setIndividualCargoBayPanel(2 , selectedItem);
+                        cargoBayPanels[selectedItem].setAlpha((float)0.6);
+                        ssFlagsPanels[selectedItem].setVisibility(View.VISIBLE);
+                        ssFlagsPanels[selectedItem].bringToFront();
+                    }
+                }
+            }
+        });
+
+        sandstormDelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(selectedItem == -1) {
+                    return;
+                }
+                if(trueIfRocket){
+                    switch (selectedItem){
+                        case 0:
+                            currentMatch.setNumHighCargoSS(currentMatch.getNumHighCargoSS() - 1);
+                            cargoHighTextSS.setText(currentMatch.getNumHighCargoSS() + "");
+                            break;
+                        case 1:
+                            currentMatch.setNumMedCargoSS(currentMatch.getNumMedCargoSS() - 1);
+                            cargoMidTextSS.setText(currentMatch.getNumMedCargoSS() + "");
+                            break;
+                        case 2:
+                            currentMatch.setNumLowCargoSS(currentMatch.getNumLowCargoSS() - 1);
+                            cargoLowTextSS.setText(currentMatch.getNumLowCargoSS() + "");
+                            break;
+                        case 3:
+                            currentMatch.setNumHighPanelsSS(currentMatch.getNumHighPanelsSS() - 1);
+                            panelHighTextSS.setText(currentMatch.getNumHighPanelsSS() + "");
+                            break;
+                        case 4:
+                            currentMatch.setNumMedPanelsSS(currentMatch.getNumMedPanelsSS() - 1);
+                            panelMidTextSS.setText(currentMatch.getNumMedPanelsSS() + "");
+                            break;
+                        case 5:
+                            currentMatch.setNumLowPanelsSS(currentMatch.getNumLowPanelsSS() - 1);
+                            panelLowTextSS.setText(currentMatch.getNumLowPanelsSS() + "");
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                else{
+                    if(trueIfCargo){
+                        currentMatch.setIndividualCargoBayCargo(0, selectedItem);
+                        cargoBayCargo[selectedItem].setAlpha((float)0.4);
+                        ssFlagsCargo[selectedItem].setVisibility(View.INVISIBLE);
+                        ssFlagsCargo[selectedItem].bringToFront();
+                    }else{
+                        currentMatch.setIndividualCargoBayPanel(2 , selectedItem);
+                        cargoBayPanels[selectedItem].setAlpha((float)0.6);
+                        ssFlagsPanels[selectedItem].setVisibility(View.INVISIBLE);
+                        ssFlagsPanels[selectedItem].bringToFront();
                     }
                 }
             }

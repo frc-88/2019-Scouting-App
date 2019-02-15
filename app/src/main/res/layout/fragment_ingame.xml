@@ -13,6 +13,18 @@
         android:layout_height="match_parent"
         tools:context=".MainActivity">
 
+        <Button
+            android:id="@+id/sandstorm_button_del"
+            android:layout_width="97dp"
+            android:layout_height="103dp"
+            android:layout_marginStart="20dp"
+            android:backgroundTint="@android:color/holo_red_dark"
+            android:text="Storm"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@+id/sandstorm_button"
+            app:layout_constraintTop_toTopOf="@+id/sandstorm_button" />
+
         <TextView
             android:id="@+id/cargo_high_number_ss"
             android:layout_width="52dp"
@@ -624,7 +636,7 @@
             android:layout_width="207dp"
             android:layout_height="53dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="75dp"
             android:text="Rocket Ship"
             android:textColor="#000000"
             android:textSize="36sp"
@@ -633,34 +645,35 @@
 
         <ImageView
             android:id="@+id/add_button"
-            android:layout_width="123dp"
-            android:layout_height="134dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="168dp"
+            android:layout_width="106dp"
+            android:layout_height="112dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="200dp"
             android:src="@drawable/ic_add_circle_black_24dp"
-            app:layout_constraintStart_toEndOf="@+id/cargo_high_number_ss"
-            app:layout_constraintTop_toTopOf="@+id/rocket_ship_title" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/hatch_low_text" />
 
         <ImageView
             android:id="@+id/delete_button"
-            android:layout_width="118dp"
-            android:layout_height="126dp"
+            android:layout_width="110dp"
+            android:layout_height="117dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="12dp"
             android:src="@drawable/ic_delete_black_24dp"
-            app:layout_constraintStart_toEndOf="@+id/panel_mid_number_ss"
-            app:layout_constraintTop_toBottomOf="@+id/add_button" />
+            app:layout_constraintStart_toEndOf="@+id/add_button"
+            app:layout_constraintTop_toTopOf="@+id/add_button" />
 
         <Button
             android:id="@+id/sandstorm_button"
-            android:layout_width="121dp"
+            android:layout_width="97dp"
             android:layout_height="103dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="8dp"
+            android:backgroundTint="@android:color/holo_green_dark"
             android:text="Storm"
+            android:textColor="#FFFFFF"
             android:textSize="18sp"
-            app:layout_constraintStart_toEndOf="@+id/cargo_low_number_ss"
-            app:layout_constraintTop_toBottomOf="@+id/delete_button" />
+            app:layout_constraintStart_toStartOf="@+id/add_button"
+            app:layout_constraintTop_toBottomOf="@+id/cargo7" />
 
     </android.support.constraint.ConstraintLayout>
 
