@@ -100,6 +100,8 @@ public class Postgame extends Fragment {
         final ImageView highClimbBtn = (ImageView) view.findViewById(R.id.high_hab);
         final ImageView midClimbBtn = (ImageView) view.findViewById(R.id.middle_hab);
         final ImageView lowClimbBtn = (ImageView) view.findViewById(R.id.low_hab);
+        final ImageView noClimnBtn = (ImageView) view.findViewById(R.id.no_climb);
+        noClimnBtn.setAlpha((float)0.3);
 
         highClimbBtn.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -107,6 +109,7 @@ public class Postgame extends Fragment {
                 highClimbBtn.setImageResource(R.drawable.ic_starting_pos_check);
                 midClimbBtn.setImageResource(R.drawable.ic_starting_pos_uncheck);
                 lowClimbBtn.setImageResource(R.drawable.ic_starting_pos_uncheck);
+                noClimnBtn.setAlpha((float)0.3);
                 currentMatch.setLevelOfClimb(3);
             }
         });
@@ -116,6 +119,7 @@ public class Postgame extends Fragment {
                 highClimbBtn.setImageResource(R.drawable.ic_starting_pos_uncheck);
                 midClimbBtn.setImageResource(R.drawable.ic_starting_pos_check);
                 lowClimbBtn.setImageResource(R.drawable.ic_starting_pos_uncheck);
+                noClimnBtn.setAlpha((float)0.3);
                 currentMatch.setLevelOfClimb(2);
             }
         });
@@ -125,7 +129,81 @@ public class Postgame extends Fragment {
                 highClimbBtn.setImageResource(R.drawable.ic_starting_pos_uncheck);
                 midClimbBtn.setImageResource(R.drawable.ic_starting_pos_uncheck);
                 lowClimbBtn.setImageResource(R.drawable.ic_starting_pos_check);
+                noClimnBtn.setAlpha((float)0.3);
                 currentMatch.setLevelOfClimb(1);
+            }
+        });
+
+        noClimnBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                highClimbBtn.setImageResource(R.drawable.ic_starting_pos_uncheck);
+                midClimbBtn.setImageResource(R.drawable.ic_starting_pos_uncheck);
+                lowClimbBtn.setImageResource(R.drawable.ic_starting_pos_uncheck);
+                currentMatch.setLevelOfClimb(0);
+                noClimnBtn.setAlpha((float)1.0);
+            }
+        });
+
+        final ImageView emoji100 = view.findViewById(R.id.emoji_100);
+        final ImageView emojiFlex = view.findViewById(R.id.emoji_flex);
+        final ImageView emojiFacepalm = view.findViewById(R.id.emoji_facepalm);
+        final ImageView emojiBroken = view.findViewById(R.id.emoji_broken);
+
+        emoji100.setAlpha((float)0.4);
+        emojiFlex.setAlpha((float)0.4);
+        emojiFacepalm.setAlpha((float)0.4);
+        emojiBroken.setAlpha((float)0.4);
+
+        emoji100.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(currentMatch.getMvp() == 1){
+                    emoji100.setAlpha((float)0.4);
+                    currentMatch.setMvp(0);
+                    return;
+                }
+                currentMatch.setMvp(1);
+                emoji100.setAlpha((float)1.0);
+            }
+        });
+
+        emojiFlex.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(currentMatch.getStrongDefense() == 1){
+                    emojiFlex.setAlpha((float)0.4);
+                    currentMatch.setStrongDefense(0);
+                    return;
+                }
+                currentMatch.setStrongDefense(1);
+                emojiFlex.setAlpha((float)1.0);
+            }
+        });
+
+        emojiBroken.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(currentMatch.getBroken() == 1){
+                    emojiBroken.setAlpha((float)0.4);
+                    currentMatch.setBroken(0);
+                    return;
+                }
+                currentMatch.setBroken(1);
+                emojiBroken.setAlpha((float)1.0);
+            }
+        });
+
+        emojiFacepalm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(currentMatch.getBeans() == 1){
+                    emojiFacepalm.setAlpha((float)0.4);
+                    currentMatch.setBeans(0);
+                    return;
+                }
+                currentMatch.setBeans(1);
+                emojiFacepalm.setAlpha((float)1.0);
             }
         });
 

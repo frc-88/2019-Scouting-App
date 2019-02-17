@@ -215,6 +215,10 @@ public class Pregame extends Fragment {
         level_1_hab_start_btn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                if(currentMatch.getStartingLevel() == 1){
+                    level_1_hab_start_btn.setImageResource(R.drawable.ic_starting_pos_uncheck);
+                    currentMatch.setStartingLevel(0);
+                }
                 level_1_hab_start_btn.setImageResource(R.drawable.ic_starting_pos_check);
                 level_2_hab_start_btn.setImageResource(R.drawable.ic_starting_pos_uncheck);
                 currentMatch.setStartingLevel(1);
@@ -223,6 +227,10 @@ public class Pregame extends Fragment {
         level_2_hab_start_btn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                if(currentMatch.getStartingLevel() == 2){
+                    level_2_hab_start_btn.setImageResource(R.drawable.ic_starting_pos_uncheck);
+                    currentMatch.setStartingLevel(0);
+                }
                 level_1_hab_start_btn.setImageResource(R.drawable.ic_starting_pos_uncheck);
                 level_2_hab_start_btn.setImageResource(R.drawable.ic_starting_pos_check);
                 currentMatch.setStartingLevel(2);

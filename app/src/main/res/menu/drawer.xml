@@ -5,5 +5,9 @@
             android:id="@+id/settings_menu_button"
             android:icon="@drawable/ic_settings"
             android:title="Settings" />
+        <item
+            android:id="@+id/data_and_sync"
+            android:icon="@drawable/ic_sync"
+            android:title="Data and Sync"/>
     </group>
 </menu>

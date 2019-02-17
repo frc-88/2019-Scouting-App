@@ -98,9 +98,9 @@ public class MainActivity extends AppCompatActivity
             pregame_frag.autoFillMatchNumber = inputBundle.getString("new_match_number");
             Log.v("activity_switch" , inputBundle.getString("new_match_number"));
         }
-        else{
-            FirebaseInterface fbi = new FirebaseInterface(true);
-        }
+//        else{
+//            FirebaseInterface fbi = new FirebaseInterface(true);
+//        }
 
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
 
@@ -127,10 +127,18 @@ public class MainActivity extends AppCompatActivity
                         menuItem.setChecked(true);
                         Log.v("88settings" , menuItem.getOrder() + "");
                         switch(menuItem.getTitle().toString()){
+
                             case "Settings":
                                 Intent intent = new Intent();
                                 intent.setClass(MainActivity.this , SettingsActivity.class);
                                 startActivity(intent);
+                                break;
+                            case "Data and Sync":
+                                Intent intent1 = new Intent();
+                                intent1.setClass(MainActivity.this , DataSyncActivity.class);
+                                startActivity(intent1);
+                                break;
+                            default:
                                 break;
                         }
                         // close drawer when item is tapped

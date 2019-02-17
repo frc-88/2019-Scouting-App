@@ -25,7 +25,6 @@
             android:layout_width="568dp"
             android:layout_height="141dp"
             android:layout_marginLeft="16dp"
-            android:layout_marginTop="24dp"
             android:ems="10"
             android:hint="Comments..."
             android:inputType="textMultiLine"
@@ -36,11 +35,11 @@
             android:id="@+id/commit_data_button"
             android:layout_width="189dp"
             android:layout_height="88dp"
-            android:layout_marginStart="204dp"
-            android:layout_marginTop="45dp"
+            android:layout_marginStart="196dp"
+            android:layout_marginTop="50dp"
             android:text="Commit Data"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/comment_box" />
+            app:layout_constraintTop_toBottomOf="@+id/emoji_flex" />
 
         <ImageView
             android:id="@+id/low_hab"
@@ -57,7 +56,7 @@
             android:layout_width="568dp"
             android:layout_height="125dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="125dp"
+            android:layout_marginTop="100dp"
             android:src="@drawable/endgame_climb"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/endgame_text" />
@@ -77,10 +76,67 @@
             android:layout_width="362dp"
             android:layout_height="70dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="75dp"
             android:text="Where did they end?"
             android:textSize="36sp"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/emoji_100"
+            android:layout_width="95dp"
+            android:layout_height="120dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:src="@drawable/emoji_100"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/comment_box" />
+
+        <ImageView
+            android:id="@+id/emoji_flex"
+            android:layout_width="98dp"
+            android:layout_height="115dp"
+            android:layout_marginStart="50dp"
+            android:src="@drawable/emoji_flexing"
+            app:layout_constraintStart_toEndOf="@+id/emoji_100"
+            app:layout_constraintTop_toTopOf="@+id/emoji_100" />
+
+        <ImageView
+            android:id="@+id/emoji_facepalm"
+            android:layout_width="100dp"
+            android:layout_height="115dp"
+            android:layout_marginStart="50dp"
+            android:src="@drawable/emoji_face_palm"
+            app:layout_constraintStart_toEndOf="@+id/emoji_flex"
+            app:layout_constraintTop_toTopOf="@+id/emoji_flex" />
+
+        <ImageView
+            android:id="@+id/emoji_broken"
+            android:layout_width="120dp"
+            android:layout_height="117dp"
+            android:layout_marginStart="50dp"
+            android:src="@drawable/emoji_broken"
+            app:layout_constraintStart_toEndOf="@+id/emoji_facepalm"
+            app:layout_constraintTop_toTopOf="@+id/emoji_facepalm" />
+
+        <ImageView
+            android:id="@+id/no_climb"
+            android:layout_width="114dp"
+            android:layout_height="104dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="8dp"
+            android:src="@drawable/ic_cross"
+            app:layout_constraintBottom_toTopOf="@+id/low_hab"
+            app:layout_constraintStart_toStartOf="@+id/low_hab" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="142dp"
+            android:layout_height="38dp"
+            android:layout_marginTop="72dp"
+            android:text="Not on Platform:"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@+id/no_climb"
             app:layout_constraintTop_toTopOf="parent" />
     </android.support.constraint.ConstraintLayout>
 </FrameLayout>

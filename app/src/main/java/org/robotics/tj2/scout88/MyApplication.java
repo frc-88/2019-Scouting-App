@@ -18,6 +18,7 @@ public class MyApplication extends Application {
         Log.v("databse" , fba.toString());
         FirebaseDatabase database = FirebaseDatabase.getInstance();;
         database.setPersistenceEnabled(true);
+        Log.v("databse" , "persistence = TRUE");
         database.setPersistenceCacheSizeBytes(100000000);
     }
 }

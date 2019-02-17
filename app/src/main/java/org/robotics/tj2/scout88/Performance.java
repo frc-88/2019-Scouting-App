@@ -26,7 +26,12 @@ public class Performance {
     private String comments;
     private String startingElement;
     private int crossInSandstorm;
-    private double defense; //time in seconds spent on defense
+    private int mvp;
+    private int strongDefense;
+    private int broken;
+    private int beans;
+    //private double defense; //time in seconds spent on defense
+
 
     public Performance() {
         teamNumber = 0;
@@ -37,7 +42,7 @@ public class Performance {
         startingLevel = 0;
         comments = "";
         startingElement = "none";
-        defense = 0.0;
+        //defense = 0.0;
         crossInSandstorm = 0;
         scouter = "";
     }
@@ -50,10 +55,42 @@ public class Performance {
                 "panels: " + panels + "\n" +
                 "ss: " + crossInSandstorm + "\n" +
                 "start level: " + startingLevel + "with" + startingElement + "\n" +
-                "def time: " + defense + "\n" +
+                //"def time: " + defense + "\n" +
                 "climb level: " + levelOfClimb + "\n" +
                 "comments: " + comments + "\n";
 
+    }
+
+    public int getBeans() {
+        return beans;
+    }
+
+    public int getMvp() {
+        return mvp;
+    }
+
+    public int getBroken() {
+        return broken;
+    }
+
+    public int getStrongDefense() {
+        return strongDefense;
+    }
+
+    public void setBeans(int beans) {
+        this.beans = beans;
+    }
+
+    public void setBroken(int broken) {
+        this.broken = broken;
+    }
+
+    public void setMvp(int mvp) {
+        this.mvp = mvp;
+    }
+
+    public void setStrongDefense(int strongDefense) {
+        this.strongDefense = strongDefense;
     }
 
     public int getTeamNumber() {
@@ -104,13 +141,13 @@ public class Performance {
         this.startingLevel = startingLevel;
     }
 
-    public double getDefense() {
-        return defense;
-    }
-
-    public void setDefense(double defense) {
-        this.defense = defense;
-    }
+//    public double getDefense() {
+//        return defense;
+//    }
+//
+//    public void setDefense(double defense) {
+//        this.defense = defense;
+//    }
 
     public String getComments() {
         return comments;
