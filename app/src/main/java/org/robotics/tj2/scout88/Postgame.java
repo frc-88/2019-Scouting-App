@@ -2,9 +2,12 @@ package org.robotics.tj2.scout88;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +24,7 @@ import android.widget.ImageView;
  * Use the {@link Postgame#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Postgame extends Fragment {
+public class Postgame extends Fragment{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -77,15 +80,19 @@ public class Postgame extends Fragment {
         View view = inflater.inflate(R.layout.fragment_postgame, container, false);
         final EditText commentBox = (EditText) view.findViewById(R.id.comment_box);
 
-
         Button commitBtn = (Button) view.findViewById(R.id.commit_data_button);
+        if(currentMatch.getNoShow() == 1){
+            Log.v("performance" , "NO SHOW POSTGAME: " + currentMatch.getNoShow());
+            commitBtn.setBackgroundColor(Color.RED);
+            commitBtn.setText("Commit No Show");
+        }
+
         commitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 commitComments(commentBox);
                 FirebaseInterface fbi = new FirebaseInterface();
                 fbi.addPerformance(currentMatch);
-
                 Intent intent = new Intent();
                 intent.setClass(getContext() , MainActivity.class);
                 Bundle bundle = new Bundle();

@@ -30,6 +30,8 @@
     <color name="cell_text_color">#1f1f1f</color>
     <color name="header_line_color">@android:color/holo_red_light</color>
 
+    <color name="success_green">@android:color/holo_green_dark</color>
+
 
     <!-- Material Design TableView Colors -->
     <color name="md_cell_text_color">#1f1f1f</color>

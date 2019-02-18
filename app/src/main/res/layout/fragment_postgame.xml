@@ -35,8 +35,8 @@
             android:id="@+id/commit_data_button"
             android:layout_width="189dp"
             android:layout_height="88dp"
-            android:layout_marginStart="196dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginStart="204dp"
+            android:layout_marginTop="48dp"
             android:text="Commit Data"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/emoji_flex" />
@@ -138,5 +138,6 @@
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="@+id/no_climb"
             app:layout_constraintTop_toTopOf="parent" />
+
     </android.support.constraint.ConstraintLayout>
 </FrameLayout>

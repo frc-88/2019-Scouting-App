@@ -93,6 +93,7 @@ public class Pregame extends Fragment {
         final ImageView level_2_hab_start_btn = (ImageView) view.findViewById(R.id.level_2_hab_start);
         final ImageView deployed_true_btn = (ImageView) view.findViewById(R.id.deployArrow);
         final ImageView deployed_false_btn = (ImageView) view.findViewById(R.id.deployCross);
+        final ImageView no_show_button = (ImageView) view.findViewById(R.id.no_show_button);
 
         panel_btn.setAlpha((float)0.3);
         cargo_btn.setAlpha((float)0.3);
@@ -218,10 +219,11 @@ public class Pregame extends Fragment {
                 if(currentMatch.getStartingLevel() == 1){
                     level_1_hab_start_btn.setImageResource(R.drawable.ic_starting_pos_uncheck);
                     currentMatch.setStartingLevel(0);
+                }else {
+                    level_1_hab_start_btn.setImageResource(R.drawable.ic_starting_pos_check);
+                    level_2_hab_start_btn.setImageResource(R.drawable.ic_starting_pos_uncheck);
+                    currentMatch.setStartingLevel(1);
                 }
-                level_1_hab_start_btn.setImageResource(R.drawable.ic_starting_pos_check);
-                level_2_hab_start_btn.setImageResource(R.drawable.ic_starting_pos_uncheck);
-                currentMatch.setStartingLevel(1);
             }
         });
         level_2_hab_start_btn.setOnClickListener(new View.OnClickListener(){
@@ -231,9 +233,25 @@ public class Pregame extends Fragment {
                     level_2_hab_start_btn.setImageResource(R.drawable.ic_starting_pos_uncheck);
                     currentMatch.setStartingLevel(0);
                 }
-                level_1_hab_start_btn.setImageResource(R.drawable.ic_starting_pos_uncheck);
-                level_2_hab_start_btn.setImageResource(R.drawable.ic_starting_pos_check);
-                currentMatch.setStartingLevel(2);
+                else {
+                    level_1_hab_start_btn.setImageResource(R.drawable.ic_starting_pos_uncheck);
+                    level_2_hab_start_btn.setImageResource(R.drawable.ic_starting_pos_check);
+                    currentMatch.setStartingLevel(2);
+                }
+            }
+        });
+        no_show_button.setAlpha((float)0.4);
+        no_show_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(currentMatch.getNoShow() == 1){
+                    no_show_button.setAlpha((float)0.4);
+                    currentMatch.setNoShow(0);
+                }else{
+                    no_show_button.setAlpha((float)1.0);
+                    currentMatch.setNoShow(1);
+                }
+                Log.v("performance" , "NO SHOW: " + currentMatch.getNoShow());
             }
         });
 

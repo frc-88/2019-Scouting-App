@@ -30,6 +30,7 @@ public class Performance {
     private int strongDefense;
     private int broken;
     private int beans;
+    private int noShow;
     //private double defense; //time in seconds spent on defense
 
 
@@ -59,6 +60,14 @@ public class Performance {
                 "climb level: " + levelOfClimb + "\n" +
                 "comments: " + comments + "\n";
 
+    }
+
+    public void setNoShow(int noShow) {
+        this.noShow = noShow;
+    }
+
+    public int getNoShow() {
+        return noShow;
     }
 
     public int getBeans() {
