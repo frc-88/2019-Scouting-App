@@ -98,9 +98,6 @@ public class MainActivity extends AppCompatActivity
             pregame_frag.autoFillMatchNumber = inputBundle.getString("new_match_number");
             Log.v("activity_switch" , inputBundle.getString("new_match_number"));
         }
-//        else{
-//            FirebaseInterface fbi = new FirebaseInterface(true);
-//        }
 
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
 
@@ -138,6 +135,10 @@ public class MainActivity extends AppCompatActivity
                                 intent1.setClass(MainActivity.this , DataSyncActivity.class);
                                 startActivity(intent1);
                                 break;
+                            case "Match Preview":
+                                Intent intent2 = new Intent();
+                                intent2.setClass(MainActivity.this , PreMatchPreviewActivity.class);
+                                startActivity(intent2);
                             default:
                                 break;
                         }

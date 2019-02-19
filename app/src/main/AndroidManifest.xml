@@ -12,7 +12,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".DataSyncActivity"></activity>
+        <activity android:name=".PreMatchPreviewActivity"></activity>
+        <activity
+            android:name=".MatchPreviewActivity"
+            android:label="@string/title_activity_match_preview"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".DataSyncActivity" />
         <activity
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings" />
