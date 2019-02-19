@@ -147,6 +147,9 @@ public class Pregame extends Fragment {
 
 
         EditText teamNumberBox = (EditText) view.findViewById(R.id.team_number_edit_text);
+
+        teamNumberBox.requestFocus();
+
         teamNumberBox.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

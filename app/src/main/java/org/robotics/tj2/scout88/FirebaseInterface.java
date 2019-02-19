@@ -32,8 +32,8 @@ import java.util.Map;
 
 public class FirebaseInterface {
 
-    private final String COMPETITION_NAME = "Test_Competition";
-    private final String COMPETITION_FLAG = "TC_";
+    private final String COMPETITION_NAME = "Granite State";
+    private final String COMPETITION_FLAG = "GS_";
 
     private FirebaseDatabase database;
     private FirebaseStorage storage;
@@ -61,7 +61,6 @@ public class FirebaseInterface {
         this.context = context;
         FirebaseStorage storage = FirebaseStorage.getInstance();
         // Create a storage reference from our app
-        csvStorageRef = storage.getReferenceFromUrl("gs://scout88-4a3e0.appspot.com/" + COMPETITION_NAME + ".csv");
 
         // Create a reference to "mountains.jpg"
         //csvStorageRef = storageRef.child(COMPETITION_FLAG + ".csv");
@@ -122,7 +121,7 @@ public class FirebaseInterface {
 
                     String csvHeader = "Team Number,Match Number,High Cargo,Middle Cargo,Low Cargo,High Cargo Sandstorm,Middle Cargo Sandstorm,Low Cargo Sandstorm,Rocket Cargo,High Panels,Middle Panels,Low Panels,High Panels Sandstorm,Middle Panels Sandstorm,Low Panels Sandstorm,Rocket Panels,Total Rocket,Cargo 0,Cargo 1,Cargo 2,Cargo 3,Cargo 4,Cargo 5,Cargo 6,Cargo 7,Ship Cargo,Panel 0,Panel 1,Panel 2,Panel 3,Panel 4,Panel 5,Panel 6,Panel 7,Ship Panels,Total Cargo,Total Panels,Total Pieces,Starting Element,Starting Level,Sandstorm Cross,Endgame Level,MVP,Strong Defense,Oof,Broken,No Show\n";
                     osw.write(csvHeader.getBytes());
-
+                    int lastLastMatchNumber = 0;
                     for (DataSnapshot ds : dsi) {
                         Performance p = ds.getValue(Performance.class);
                         Log.v("databse", p.toString());
@@ -184,8 +183,18 @@ public class FirebaseInterface {
 
                         Log.v("databse" , "csvRow: " + row);
                         osw.write(row.getBytes());
+                        try{
+                            if(p.getMatchNumber() > lastLastMatchNumber){
+                                lastLastMatchNumber = p.getMatchNumber();
+                            }
+                        } catch(Exception e){
+                            Log.v("databse" , e.toString());
+                        }
+
                     }
                     osw.close();
+                    FirebaseStorage storage = FirebaseStorage.getInstance();
+                    csvStorageRef = storage.getReferenceFromUrl("gs://scout88-4a3e0.appspot.com/" + COMPETITION_FLAG + "uptoMatch" + lastLastMatchNumber + ".csv");
                     writeCsvToCloud(context.getFilesDir() + "/" + context.getString(R.string.COMPETITION) + ".csv" , uploadBtn);
                     Log.v("databse" , "got to end of writeCSV");
 
@@ -207,6 +216,7 @@ public class FirebaseInterface {
 
         File testFile = new File(filepath);
 
+
         Log.v("databse" , "file readable: " + testFile.canRead());
         Log.v("databse" , "file path: " + testFile.getAbsolutePath());
 
@@ -218,6 +228,7 @@ public class FirebaseInterface {
                 Log.v("databse" , "Upload Storage Failed: " + e.toString());
                 e.printStackTrace();
                 returnVal = false;
+                uploadBtn.setText("Upload Failed.");
                 uploadBtn.setBackgroundColor(Color.RED);
             }
         }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -225,7 +236,8 @@ public class FirebaseInterface {
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 Log.v("databse" , "Upload Storage Success!");
                 returnVal = true;
-                uploadBtn.setBackgroundColor(context.getColor(R.color.success_green));
+                uploadBtn.setText("Upload Successful");
+                uploadBtn.setBackgroundColor(Color.parseColor("green"));
             }
         });
         return returnVal;

@@ -26,7 +26,7 @@
             android:layout_height="141dp"
             android:layout_marginLeft="16dp"
             android:ems="10"
-            android:hint="Comments..."
+            android:hint="Comments (i.e. Buddy Climb, Red Cards...)"
             android:inputType="textMultiLine"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView" />

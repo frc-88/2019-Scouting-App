@@ -33,6 +33,8 @@ public class DataSyncActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                csvBtn.setText("Working...");
+                csvBtn.setBackgroundColor(Color.parseColor("magenta"));
                 boolean success = fbi.createAndUploadCSV(csvBtn);
 
 

@@ -6,6 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".DataSyncActivity">
 
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="284dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="264dp"
+        android:layout_marginTop="344dp"
+        android:text="This one right here."
+        android:textSize="30sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <Button
         android:id="@+id/upload_csv_button"
         style="@style/Widget.AppCompat.Button.Colored"
@@ -14,6 +25,28 @@
         android:layout_marginStart="180dp"
         android:layout_marginTop="224dp"
         android:text="Upload CSV"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="284dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="128dp"
+        android:text="Hey this is a button."
+        android:textSize="30sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="424dp"
+        android:text="Click it."
+        android:textSize="30sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>

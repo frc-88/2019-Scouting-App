@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity
     public Performance currentMatch = new Performance();
     private Ingame goals_frag = new Ingame(currentMatch);
     private Pregame pregame_frag = new Pregame(currentMatch);
-    private Postgame postgame_frag = new Postgame(currentMatch);
+    public Postgame postgame_frag = new Postgame(currentMatch);
     private FragmentManager fm = getSupportFragmentManager();
     Fragment active = pregame_frag;
     private DrawerLayout mDrawerLayout;
