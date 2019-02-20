@@ -9,5 +9,9 @@
             android:id="@+id/data_and_sync"
             android:icon="@drawable/ic_sync"
             android:title="Data and Sync"/>
+        <item
+            android:id="@+id/match_preview"
+            android:icon="@drawable/ic_match_preview"
+            android:title="Match Preview"/>
     </group>
 </menu>
