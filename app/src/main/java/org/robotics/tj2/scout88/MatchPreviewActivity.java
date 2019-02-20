@@ -8,8 +8,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class MatchPreviewActivity extends AppCompatActivity {
 
@@ -29,17 +31,18 @@ public class MatchPreviewActivity extends AppCompatActivity {
         }
 
         final FirebaseInterface fbi = new FirebaseInterface();
-        ArrayList<Performance> alp = fbi.getMatchPreviewData(teamNums);
+        ArrayList<Performance> alpBlue = fbi.getMatchPreviewData(Arrays.copyOfRange(teamNums , 0 , 2));
+        ArrayList<Performance> alpRed = fbi.getMatchPreviewData(Arrays.copyOfRange(teamNums , 3 , 5));
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        TextView blue1Number = (TextView) findViewById(R.id.blue1);
+        TextView blue2Number = (TextView) findViewById(R.id.blue2);
+        TextView blue3Number = (TextView) findViewById(R.id.blue3);
+        TextView red1Number = (TextView) findViewById(R.id.red1);
 
+        blue1Number.setText(teamNums[0] + "");
+        blue2Number.setText(teamNums[1] + "");
+        blue3Number.setText(teamNums[2] + "");
+        red1Number.setText(teamNums[3] + "");
 
     }
 }

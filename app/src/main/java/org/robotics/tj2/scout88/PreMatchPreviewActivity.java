@@ -3,6 +3,7 @@ package org.robotics.tj2.scout88;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -32,16 +33,23 @@ public class PreMatchPreviewActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 int[] teamNums = new int[6];
-                for(int n = 0; n < inputBoxes.length; n++){
-                    teamNums[n] = Integer.parseInt(inputBoxes[n].getText().toString());
+                int n = 0;
+                try {
+                    for (n = 0; n < inputBoxes.length; n++) {
+                        teamNums[n] = Integer.parseInt(inputBoxes[n].getText().toString());
+                    }
+                    Intent intent = new Intent();
+                    intent.setClass(PreMatchPreviewActivity.this , MatchPreviewActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putIntArray("team_numbers" , teamNums);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                }catch (Exception e){
+                    Log.v("activity_switch" , "team number could not be parsed" + e.toString());
+                    inputBoxes[n].setError("Enter team Number");
                 }
 
-                Intent intent = new Intent();
-                intent.setClass(PreMatchPreviewActivity.this , MatchPreviewActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putIntArray("team_numbers" , teamNums);
-                intent.putExtras(bundle);
-                startActivity(intent);
+
             }
         });
     }
