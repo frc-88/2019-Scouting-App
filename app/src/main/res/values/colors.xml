@@ -32,6 +32,11 @@
 
     <color name="success_green">@android:color/holo_green_dark</color>
 
+    <color name="neutral_activity_status_bar">@android:color/holo_orange_dark</color>
+    <color name="neutral_activity_app_bar">@android:color/holo_orange_light</color>
+
+    <color name="black">@android:color/black</color>
+
 
     <!-- Material Design TableView Colors -->
     <color name="md_cell_text_color">#1f1f1f</color>

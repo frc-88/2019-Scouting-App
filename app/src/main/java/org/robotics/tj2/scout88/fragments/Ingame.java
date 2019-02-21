@@ -1,10 +1,8 @@
-package org.robotics.tj2.scout88;
+package org.robotics.tj2.scout88.fragments;
 
 import android.content.Context;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,8 +12,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.Stack;
+import org.robotics.tj2.scout88.etc.Performance;
+import org.robotics.tj2.scout88.R;
 
 
 /**

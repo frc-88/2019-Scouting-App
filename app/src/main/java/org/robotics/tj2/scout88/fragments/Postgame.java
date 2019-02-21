@@ -1,4 +1,4 @@
-package org.robotics.tj2.scout88;
+package org.robotics.tj2.scout88.fragments;
 
 import android.content.Context;
 import android.content.Intent;
@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +13,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+
+import org.robotics.tj2.scout88.R;
+import org.robotics.tj2.scout88.activities.MainActivity;
+import org.robotics.tj2.scout88.etc.FirebaseInterface;
+import org.robotics.tj2.scout88.etc.Performance;
 
 
 /**

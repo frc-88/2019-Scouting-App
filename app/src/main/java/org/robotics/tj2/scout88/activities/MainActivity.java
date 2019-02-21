@@ -1,6 +1,5 @@
-package org.robotics.tj2.scout88;
+package org.robotics.tj2.scout88.activities;
 
-import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -12,7 +11,6 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -23,20 +21,19 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
-import java.util.prefs.Preferences;
+import org.robotics.tj2.scout88.etc.Performance;
+import org.robotics.tj2.scout88.fragments.Postgame;
+import org.robotics.tj2.scout88.fragments.Pregame;
+import org.robotics.tj2.scout88.R;
+import org.robotics.tj2.scout88.fragments.Ingame;
 
 
 public class MainActivity extends AppCompatActivity
         implements Ingame.OnFragmentInteractionListener,
         Pregame.OnFragmentInteractionListener,
-        Postgame.OnFragmentInteractionListener{
+        Postgame.OnFragmentInteractionListener {
 
     private Context context = this;
     public Performance currentMatch = new Performance();

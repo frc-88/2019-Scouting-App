@@ -1,4 +1,4 @@
-package org.robotics.tj2.scout88;
+package org.robotics.tj2.scout88.extensions;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,7 @@ public abstract class AppCompatPreferenceActivity extends PreferenceActivity {
         getDelegate().installViewFactory();
         getDelegate().onCreate(savedInstanceState);
         super.onCreate(savedInstanceState);
+        Log.v("activity_switch" , "AppComptPref called();");
     }
 
     @Override

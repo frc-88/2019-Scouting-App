@@ -1,14 +1,17 @@
-package org.robotics.tj2.scout88;
+package org.robotics.tj2.scout88.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 
-import java.util.ArrayList;
+import org.robotics.tj2.scout88.R;
 
 public class PreMatchPreviewActivity extends AppCompatActivity {
 
@@ -17,7 +20,8 @@ public class PreMatchPreviewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pre_match_preview);
 
-
+        Window window = getWindow();
+        window.setStatusBarColor(getResources().getColor(R.color.neutral_activity_status_bar));
 
         Button goToNextBtn = (Button) findViewById(R.id.go_to_match_preview);
 

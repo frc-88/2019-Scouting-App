@@ -1,4 +1,4 @@
-package org.robotics.tj2.scout88;
+package org.robotics.tj2.scout88.etc;
 
 import java.util.ArrayList;
 
@@ -31,6 +31,13 @@ public class Performance {
     private int broken;
     private int beans;
     private int noShow;
+
+    private int totalEandSS;
+    private int totalPoints;
+    private int earnedRP;
+    private int totalCargo;
+    private int totalPanel;
+
     //private double defense; //time in seconds spent on defense
 
 
@@ -62,12 +69,61 @@ public class Performance {
 
     }
 
+    @Override
+    public boolean equals(Object o){
+        if(o.getClass() == this.getClass()){
+            Performance p = (Performance) o;
+            return (this.getMatchNumber() == p.getMatchNumber() && p.getTeamNumber() == this.getTeamNumber());
+        }
+        return false;
+    }
+
     public void setNoShow(int noShow) {
         this.noShow = noShow;
     }
 
     public int getNoShow() {
         return noShow;
+    }
+
+    public int getEarnedRP() {
+        return earnedRP;
+    }
+
+    public int getTotalCargo() {
+        return totalCargo;
+    }
+
+    public int getTotalEandSS() {
+        return totalEandSS;
+    }
+
+    public int getTotalPanel() {
+        return totalPanel;
+    }
+
+    public int getTotalPoints() {
+        return totalPoints;
+    }
+
+    public void setEarnedRP(int earnedRP) {
+        this.earnedRP = earnedRP;
+    }
+
+    public void setTotalCargo(int totalCargo) {
+        this.totalCargo = totalCargo;
+    }
+
+    public void setTotalEandSS(int totalEandSS) {
+        this.totalEandSS = totalEandSS;
+    }
+
+    public void setTotalPanel(int totalPanel) {
+        this.totalPanel = totalPanel;
+    }
+
+    public void setTotalPoints(int totalPoints) {
+        this.totalPoints = totalPoints;
     }
 
     public int getBeans() {
@@ -338,5 +394,61 @@ public class Performance {
         panels.set(index , scored);
     }
 
+    public int getEndPoints() {
+        switch(levelOfClimb) {
+            case 1:
+                return(3);
+            case 2:
+                return(6);
+            case 3:
+                return(12);
+            default:
+                return(0);
+        }
+    }
+
+    public void totals(){
+
+        //panels and cargo
+        totalCargo = numHighCargo + numLowCargo + numMedCargo + numHighCargoSS + numLowCargoSS + numHighCargoSS;
+        totalPanel = numHighPanels + numLowPanels + numMedPanels + numHighPanelsSS + numLowPanelsSS + numMedPanelsSS;
+
+        for(int i = 0; i < cargo.size(); i++) {
+            if (cargo.get(i)== 1|| cargo.get(i) == 2) {
+                totalCargo++;
+            }
+        }
+        for(int i = 0; i < panels.size(); i++) {
+            if (panels.get(i)== 1|| panels.get(i) == 2) {
+                totalPanel++;
+            }
+        }
+        //endgame and sandstorm
+        switch(crossInSandstorm) {
+            case 1:
+                totalEandSS = 3;
+                break;
+            case 2:
+                totalEandSS = 6;
+                break;
+            default:
+                totalEandSS = 0;
+                break;
+        }
+        switch(levelOfClimb) {
+            case 1:
+                totalEandSS+=3;
+                break;
+            case 2:
+                totalEandSS+=6;
+                break;
+            case 3:
+                totalEandSS+=12;
+                break;
+            default:
+                break;
+        }
+        totalPoints = totalEandSS + (2* totalPanel) + (3* totalCargo);
+    }
 
 }

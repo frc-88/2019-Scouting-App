@@ -1,17 +1,14 @@
-package org.robotics.tj2.scout88;
+package org.robotics.tj2.scout88.etc;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.icu.util.Freezable;
 import android.net.Uri;
-import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.Button;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -22,20 +19,16 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import org.robotics.tj2.scout88.R;
+
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.OutputStreamWriter;
-import java.sql.Time;
-import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
 
 public class FirebaseInterface {
 
-    private final String COMPETITION_NAME = "Granite State";
-    private final String COMPETITION_FLAG = "GS_";
+    private final String COMPETITION_NAME = "TestPreviewCalcs";
+    private final String COMPETITION_FLAG = "TP_";
 
     private FirebaseDatabase database;
     private FirebaseStorage storage;
@@ -43,6 +36,9 @@ public class FirebaseInterface {
     private StorageReference csvStorageRef;
     private DatabaseReference myRef;
     private Context context;
+
+    private ArrayList<Performance> alp = new ArrayList<>();
+    private boolean gotCurrentPerfs = false;
 
     public FirebaseInterface(){
         database = FirebaseDatabase.getInstance();
@@ -66,6 +62,14 @@ public class FirebaseInterface {
 
         // Create a reference to "mountains.jpg"
         //csvStorageRef = storageRef.child(COMPETITION_FLAG + ".csv");
+    }
+
+    public ArrayList<Performance> getCurrentlyLoadedPerformances() {
+        return alp;
+    }
+
+    public boolean isGotCurrentPerfs() {
+        return gotCurrentPerfs;
     }
 
     public boolean testConnection(){
@@ -96,6 +100,7 @@ public class FirebaseInterface {
         myRef.child("performances").child(COMPETITION_FLAG+p.getMatchNumber()+"_"+p.getTeamNumber()).setValue(p);
         return true;
     }
+
 
     public void addPerformance(Performance p){
         myRef.child("performances").child(COMPETITION_FLAG+p.getMatchNumber()+"_"+p.getTeamNumber()).setValue(p);
@@ -245,8 +250,9 @@ public class FirebaseInterface {
         return returnVal;
     }
 
-    public  ArrayList<Performance> getMatchPreviewData(int[] teams){
-        final ArrayList<Performance> alp = new ArrayList<>();
+    public void startMatchPreviewData(int[] teams){
+        gotCurrentPerfs = false;
+        alp.clear();
         for(int n = 0; n < teams.length; n++) {
             Query q = myRef.child("performances").orderByChild("teamNumber").equalTo(teams[n]);
             q.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -259,6 +265,7 @@ public class FirebaseInterface {
                             Log.v("databse" , "Added match for preview: " + p.getTeamNumber() + " " + p.getMatchNumber());
                         }
                     }
+                    gotCurrentPerfs = true;
                 }
 
                 @Override
@@ -267,7 +274,10 @@ public class FirebaseInterface {
                 }
             });
         }
+    }
 
-        return alp;
+    public void startMatchPreviewData(int teamNumber){
+        int[] tn = {teamNumber};
+        startMatchPreviewData(tn);
     }
 }

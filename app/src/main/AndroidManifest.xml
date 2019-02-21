@@ -5,24 +5,24 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name=".MyApplication"
+        android:name=".extensions.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".PreMatchPreviewActivity"></activity>
+        <activity android:name=".activities.PreMatchPreviewActivity"></activity>
         <activity
-            android:name=".MatchPreviewActivity"
+            android:name=".activities.MatchPreviewActivity"
             android:label="@string/title_activity_match_preview"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".DataSyncActivity" />
+        <activity android:name=".activities.DataSyncActivity" />
         <activity
-            android:name=".SettingsActivity"
+            android:name=".activities.SettingsActivity"
             android:label="@string/title_activity_settings" />
-        <activity android:name=".TeamTableActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".activities.TeamTableActivity" />
+        <activity android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

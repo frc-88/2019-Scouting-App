@@ -1,21 +1,13 @@
-package org.robotics.tj2.scout88;
+package org.robotics.tj2.scout88.activities;
 
-import android.content.Context;
 import android.graphics.Color;
-import android.icu.text.SimpleDateFormat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import com.google.firebase.database.DataSnapshot;
-
-import java.io.File;
-import java.io.FileWriter;
-import java.io.OutputStreamWriter;
-import java.util.ArrayList;
-import java.util.Calendar;
+import org.robotics.tj2.scout88.etc.FirebaseInterface;
+import org.robotics.tj2.scout88.R;
 
 
 public class DataSyncActivity extends AppCompatActivity {

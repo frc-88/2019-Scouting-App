@@ -16,7 +16,7 @@
   -->
 
 <resources>
-    <string name="COMPETITION">GraniteState</string>
+    <string name="COMPETITION">TestPreviewCalcs</string>
     <string name="app_name">Scout88</string>
     <string name="title_postgame">Post-Game</string>
     <string name="title_ingame">In-Game</string>

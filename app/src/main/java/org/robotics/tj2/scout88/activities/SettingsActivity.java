@@ -1,9 +1,8 @@
-package org.robotics.tj2.scout88;
+package org.robotics.tj2.scout88.activities;
 
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
@@ -19,6 +18,9 @@ import android.preference.PreferenceManager;
 import android.preference.RingtonePreference;
 import android.text.TextUtils;
 import android.view.MenuItem;
+
+import org.robotics.tj2.scout88.R;
+import org.robotics.tj2.scout88.extensions.AppCompatPreferenceActivity;
 
 import java.util.List;
 
