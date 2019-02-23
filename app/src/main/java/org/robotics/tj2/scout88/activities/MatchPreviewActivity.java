@@ -24,6 +24,18 @@ public class MatchPreviewActivity extends AppCompatActivity {
 
     private int progressStatus = 50;
     private Handler handler = new Handler();
+    public int gotThisManyTeamsData = 0;
+
+    private final TextView textBlueWinPerc = (TextView) findViewById(R.id.blue_win_perc_text);
+    private final TextView textRedWinPerc = (TextView) findViewById(R.id.red_win_perc_text);
+    final ProgressBar winPercBar = (ProgressBar) findViewById(R.id.progressBar);
+
+    final public ArrayList<Performance> alpBlue1 = new ArrayList<>();
+    final public ArrayList<Performance> alpBlue2 = new ArrayList<>();
+    final public ArrayList<Performance> alpBlue3 = new ArrayList<>();
+    final public ArrayList<Performance> alpRed1 = new ArrayList<>();
+    final public ArrayList<Performance> alpRed2 = new ArrayList<>();
+    final public ArrayList<Performance> alpRed3 = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +43,11 @@ public class MatchPreviewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_match_preview);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        textBlueWinPerc.setText(50 + "%");
+        textRedWinPerc.setText(50 + "%");
+
+        winPercBar.setProgress(progressStatus);
 
         Window window = getWindow();
         window.setStatusBarColor(getResources().getColor(R.color.neutral_activity_status_bar));
@@ -52,65 +69,8 @@ public class MatchPreviewActivity extends AppCompatActivity {
         TextView red2Number = (TextView) findViewById(R.id.red2);
         TextView red3Number = (TextView) findViewById(R.id.red3);
 
+
         final FirebaseInterface fbi = new FirebaseInterface();
-
-        ArrayList<Performance> alpBlue1 = new ArrayList<>();
-        ArrayList<Performance> alpBlue2 = new ArrayList<>();
-        ArrayList<Performance> alpBlue3 = new ArrayList<>();
-        ArrayList<Performance> alpRed1 = new ArrayList<>();
-        ArrayList<Performance> alpRed2 = new ArrayList<>();
-        ArrayList<Performance> alpRed3 = new ArrayList<>();
-        boolean reachedTimeout = false;
-        for( int ii = 0; ii < 6; ii++){
-            int timeoutCounter = 0;
-            fbi.startMatchPreviewData(teamNums[ii]);
-            while(!fbi.isGotCurrentPerfs()){
-                try {
-                    wait(100);
-                }catch (Exception e){
-                    reachedTimeout = true;
-                    break;
-                }
-                timeoutCounter++;
-                if(timeoutCounter > 10*20){
-                    reachedTimeout = true;
-                    break;
-                }
-            }
-            if(reachedTimeout){
-                break;
-            }
-            switch (ii){
-                case 0:
-                    alpBlue1 = fbi.getCurrentlyLoadedPerformances();
-                    break;
-                case 1:
-                    alpBlue2 = fbi.getCurrentlyLoadedPerformances();
-                    break;
-                case 2:
-                    alpBlue3 = fbi.getCurrentlyLoadedPerformances();
-                    break;
-                case 3:
-                    alpRed1 = fbi.getCurrentlyLoadedPerformances();
-                    break;
-                case 4:
-                    alpRed2 = fbi.getCurrentlyLoadedPerformances();
-                    break;
-                case 5:
-                    alpRed3  = fbi.getCurrentlyLoadedPerformances();
-                    break;
-            }
-        }
-        if(reachedTimeout){
-            blue1Number.setText("timeout");
-            blue2Number.setText("timeout");
-            blue3Number.setText("timeout");
-            red1Number.setText("timeout");
-            red2Number.setText("timeout");
-            red3Number.setText("timeout");
-        }else{
-
-        }
 
         blue1Number.setText(teamNums[0] + "");
         blue2Number.setText(teamNums[1] + "");
@@ -119,65 +79,61 @@ public class MatchPreviewActivity extends AppCompatActivity {
         red2Number.setText(teamNums[4] + "");
         red3Number.setText(teamNums[5] + "");
 
-        final int winPercBlue = 88;
-        final int winPercRed = 100 - winPercBlue;
+        fbi.startMatchPreviewData(alpBlue1 , teamNums[0] , this);
+        fbi.startMatchPreviewData(alpBlue2 , teamNums[1] , this);
+        fbi.startMatchPreviewData(alpBlue3 , teamNums[2] , this);
+        fbi.startMatchPreviewData(alpRed1 , teamNums[3] , this);
+        fbi.startMatchPreviewData(alpRed2 , teamNums[4] , this);
+        fbi.startMatchPreviewData(alpRed3 , teamNums[5] , this);
 
-        final ProgressBar winPercBar = (ProgressBar) findViewById(R.id.progressBar);
-        final TextView textBlueWinPerc = (TextView) findViewById(R.id.blue_win_perc_text);
-        final TextView textRedWinPerc = (TextView) findViewById(R.id.red_win_perc_text);
+    }
 
-        ArrayList<Performance>[] arrayForCalcs = new ArrayList[6];
-        arrayForCalcs[0] = alpBlue1;
-        arrayForCalcs[1] = alpBlue2;
-        arrayForCalcs[2] = alpBlue3;
-        arrayForCalcs[3] = alpRed1;
-        arrayForCalcs[4] = alpRed2;
-        arrayForCalcs[5] = alpRed3;
-        MatchPreviewCalculations mpCalcs = new MatchPreviewCalculations(arrayForCalcs);
+    public void updateUI(){
 
-        Log.v("databse" , "Blue1 Size: " + alpBlue1.size());
-        Log.v("calcs" , "WinChance: " + mpCalcs.winChance() + "");
+        if(gotThisManyTeamsData >= 6){
+            ArrayList<Performance>[] arrayForCalcs = new ArrayList[6];
+            arrayForCalcs[0] = alpBlue1;
+            arrayForCalcs[1] = alpBlue2;
+            arrayForCalcs[2] = alpBlue3;
+            arrayForCalcs[3] = alpRed1;
+            arrayForCalcs[4] = alpRed2;
+            arrayForCalcs[5] = alpRed3;
+            MatchPreviewCalculations mpCalcs = new MatchPreviewCalculations(arrayForCalcs);
 
+            final int winPercBlue = (int)Math.round(mpCalcs.winChance());
+            final int winPercRed = 100 - winPercBlue;
 
-        //winPercBar.getProgressDrawable().setColorFilter(0x303F9F , PorterDuff.Mode.SRC_IN);
-        // Start long running operation in a background thread
-        new Thread(new Runnable() {
-            public void run() {
-                int direction = -1;
-                int sleepTime = 25;
+            new Thread(new Runnable() {
+                public void run() {
+                    int direction = -1;
+                    int sleepTime = 25;
 
-                if(winPercBlue >= 50){
-                    direction = 1;
-                }
-
-                while (progressStatus != winPercBlue) {
-
-                    progressStatus += direction;
-                    // Update the progress bar and display the
-                    //current value in the text view
-
-                    if(Math.abs(winPercBlue - progressStatus) == 10){
-                        sleepTime *= 2;
+                    if(winPercBlue >= 50){
+                        direction = 1;
                     }
-                    handler.post(new Runnable() {
-                        public void run() {
-                            winPercBar.setProgress(progressStatus);
-                            textBlueWinPerc.setText(progressStatus + "");
-                            int rwp = 100-progressStatus;
-                            textRedWinPerc.setText(rwp + "");
 
+                    while (progressStatus != winPercBlue) {
+
+                        progressStatus += direction;
+                        // Update the progress bar and display the
+                        //current value in the text view
+
+                        if(Math.abs(winPercBlue - progressStatus) == 10){
+                            sleepTime *= 2;
                         }
-                    });
-                    try {
+                        handler.post(new Runnable() {
+                            public void run() {
+                                winPercBar.setProgress(progressStatus);
+                                textBlueWinPerc.setText(progressStatus + "");
+                                int rwp = 100-progressStatus;
+                                textRedWinPerc.setText(rwp + "");
 
-                        Thread.sleep(sleepTime);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
+                            }
+                        });
+
                     }
                 }
-            }
-        }).start();
-
-
+            }).start();
+        }
     }
 }

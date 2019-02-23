@@ -370,9 +370,11 @@ public class Ingame extends Fragment {
                     if(trueIfCargo){
                         currentMatch.setIndividualCargoBayCargo(1 , selectedItem);
                         cargoBayCargo[selectedItem].setAlpha((float)1.0);
+                        ssFlagsCargo[selectedItem].setVisibility(View.INVISIBLE);
                     }else{
                         currentMatch.setIndividualCargoBayPanel(1 , selectedItem);
                         cargoBayPanels[selectedItem].setAlpha((float)1.0);
+                        ssFlagsPanels[selectedItem].setVisibility(View.INVISIBLE);
                     }
                 }
             }

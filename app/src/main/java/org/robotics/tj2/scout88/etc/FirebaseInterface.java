@@ -20,6 +20,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import org.robotics.tj2.scout88.R;
+import org.robotics.tj2.scout88.activities.MatchPreviewActivity;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -37,8 +38,13 @@ public class FirebaseInterface {
     private DatabaseReference myRef;
     private Context context;
 
-    private ArrayList<Performance> alp = new ArrayList<>();
-    private boolean gotCurrentPerfs = false;
+    private boolean gotCurrentBlue1 = false;
+    private boolean gotCurrentBlue2 = false;
+    private boolean gotCurrentBlue3 = false;
+    private boolean gotCurrentRed1 = false;
+    private boolean gotCurrentRed2 = false;
+    private boolean gotCurrentRed3 = false;
+
 
     public FirebaseInterface(){
         database = FirebaseDatabase.getInstance();
@@ -64,13 +70,6 @@ public class FirebaseInterface {
         //csvStorageRef = storageRef.child(COMPETITION_FLAG + ".csv");
     }
 
-    public ArrayList<Performance> getCurrentlyLoadedPerformances() {
-        return alp;
-    }
-
-    public boolean isGotCurrentPerfs() {
-        return gotCurrentPerfs;
-    }
 
     public boolean testConnection(){
         //FirebaseApp.initializeApp(context);
@@ -250,34 +249,29 @@ public class FirebaseInterface {
         return returnVal;
     }
 
-    public void startMatchPreviewData(int[] teams){
-        gotCurrentPerfs = false;
-        alp.clear();
-        for(int n = 0; n < teams.length; n++) {
-            Query q = myRef.child("performances").orderByChild("teamNumber").equalTo(teams[n]);
-            q.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    if(dataSnapshot.exists()){
-                        for(DataSnapshot ds : dataSnapshot.getChildren()){
-                            Performance p = ds.getValue(Performance.class);
-                            alp.add(p);
-                            Log.v("databse" , "Added match for preview: " + p.getTeamNumber() + " " + p.getMatchNumber());
-                        }
+    public void startMatchPreviewData(final ArrayList<Performance> alp , int teamNum , final MatchPreviewActivity mpa){
+
+        Query q = myRef.child("performances").orderByChild("teamNumber").equalTo(teamNum);
+        q.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    for(DataSnapshot ds : dataSnapshot.getChildren()){
+                        Performance p = ds.getValue(Performance.class);
+                        alp.add(p);
+                        Log.v("databse" , "Added match for preview: " + p.getTeamNumber() + " " + p.getMatchNumber());
                     }
-                    gotCurrentPerfs = true;
+                    mpa.gotThisManyTeamsData++;
+                    mpa.updateUI();
                 }
+                //gotCurrentPerfs = true;
+            }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                }
-            });
-        }
-    }
+            }
+        });
 
-    public void startMatchPreviewData(int teamNumber){
-        int[] tn = {teamNumber};
-        startMatchPreviewData(tn);
     }
 }
