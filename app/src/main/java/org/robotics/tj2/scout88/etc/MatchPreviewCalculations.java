@@ -1,6 +1,8 @@
 package org.robotics.tj2.scout88.etc;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import org.apache.commons.math3.distribution.TDistribution;
 import org.apache.commons.math3.stat.descriptive.moment.StandardDeviation;
@@ -18,7 +20,10 @@ public class MatchPreviewCalculations {
     private double endRPChance;
     private double rocketRP;
     private final double ALPHA = 0.05;
-
+    private ArrayList<Double> allyInt = new ArrayList<>();
+    private ArrayList<Double> oppInt = new ArrayList<>();
+    private ArrayList<ArrayList<Performance>> competition = new ArrayList<ArrayList<Performance>>();
+    private int calcRP;
 
 
 
@@ -247,8 +252,8 @@ public class MatchPreviewCalculations {
     }
 
     //calculated predicted ranking points
-    public double predictedRP() {
-        double pRP = 0;
+    public int predictedRP() {
+        int pRP = 0;
         double w = winChance();
         double e = endChance();
         double r = rocketChance();
@@ -267,6 +272,86 @@ public class MatchPreviewCalculations {
         pRP += r;
 
         return(pRP);
+    }
+
+    //team score range
+    //allies
+    public ArrayList<Double> pointIntA() {
+        double m = mean(blue1Performances) + mean(blue2Performances) + mean(blue3Performances);
+        double s = Math.sqrt(Math.pow(sd(blue1Performances), 2) + Math.pow(sd(blue2Performances), 2) + Math.pow(sd(blue3Performances), 2));
+        int size = (int)((blue1Performances.size() + blue2Performances.size() + blue3Performances.size())/3);
+        double degf = size - 1;
+        TDistribution t = new TDistribution(degf);
+        double tvalue =(t.inverseCumulativeProbability(.025));
+        double tval = (Math.abs(tvalue));
+        double me = tval * (s/(Math.sqrt(size)));
+        double t1Max = m + me;
+        double t1Min = m - me;
+        allyInt.add(t1Min);
+        allyInt.add(t1Max);
+        return(allyInt);
+    }
+
+    //opponents
+    public ArrayList<Double> pointIntO() {
+        double m = mean(red1Performances) + mean(red2Performances) + mean(red3Performances);
+        double s = Math.sqrt(Math.pow(sd(red1Performances), 2) + Math.pow(sd(red2Performances), 2) + Math.pow(sd(red3Performances), 2));
+        double size = (int)((red1Performances.size() + red2Performances.size() + red3Performances.size())/3);
+        double degf = size - 1;
+        TDistribution t = new TDistribution(degf);
+        double tvalue =(t.inverseCumulativeProbability(.025));
+        double tval = (Math.abs(tvalue));
+        double me = tval * (s/(Math.sqrt(size)));
+        double t1Max = m + me;
+        double t1Min = m - me;
+        oppInt.add(t1Min);
+        oppInt.add(t1Max);
+        return(oppInt);
+    }
+
+
+
+    //total predicted ranking point
+
+    public int pTotalRP(ArrayList<Performance> t) {
+        calcRP = 0;
+        for (int i = 0; i < t.size(); i++) {
+            calcRP = calcRP + t.get(i).getEarnedRP() + predictedRP();
+        }
+        return(calcRP);
+    }
+
+
+    public void compSet(ArrayList<Performance> t) {
+        competition.add(t);
+    }
+
+    //sort teams into expected seeds, starting at index 0 = 1st seed
+    public int[] pSeeding(int numTeams){
+        int[] seeding = new int[numTeams];
+        ArrayList<ArrayList<Performance>> t = new ArrayList<ArrayList<Performance>>();
+        for(int i=0; i< numTeams; i++) {
+            t.add(competition.get(i));
+        }
+        Collections.sort(t, new SortbyRP());
+        for(int i =0; i < t.size(); i++) {
+            seeding[i] = t.get(i).get(i).getTeamNumber();
+        }
+        return(seeding);
+    }
+}
+
+class SortbyRP extends MatchPreviewCalculations implements Comparator<ArrayList<Performance>>
+{
+
+    public int compare(ArrayList<Performance> a, ArrayList<Performance> b) {
+
+
+        return pTotalRP(a) - pTotalRP(b);
+    }
+
+    public boolean equals(Object o){
+        return false;
     }
 
 }

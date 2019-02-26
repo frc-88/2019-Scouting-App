@@ -12,10 +12,12 @@ import android.view.Window;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+//import org.robotics.tj2.scout88.etc.MatchPreviewCalculations;
 import org.robotics.tj2.scout88.etc.MatchPreviewCalculations;
 import org.robotics.tj2.scout88.etc.Performance;
 import org.robotics.tj2.scout88.R;
 import org.robotics.tj2.scout88.etc.FirebaseInterface;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -26,9 +28,9 @@ public class MatchPreviewActivity extends AppCompatActivity {
     private Handler handler = new Handler();
     public int gotThisManyTeamsData = 0;
 
-    private final TextView textBlueWinPerc = (TextView) findViewById(R.id.blue_win_perc_text);
-    private final TextView textRedWinPerc = (TextView) findViewById(R.id.red_win_perc_text);
-    final ProgressBar winPercBar = (ProgressBar) findViewById(R.id.progressBar);
+    private TextView textBlueWinPerc;
+    private TextView textRedWinPerc;
+    private ProgressBar winPercBar;
 
     final public ArrayList<Performance> alpBlue1 = new ArrayList<>();
     final public ArrayList<Performance> alpBlue2 = new ArrayList<>();
@@ -43,6 +45,10 @@ public class MatchPreviewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_match_preview);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        textBlueWinPerc = (TextView) findViewById(R.id.blue_win_perc_text);
+        textRedWinPerc = (TextView) findViewById(R.id.red_win_perc_text);
+        winPercBar = (ProgressBar) findViewById(R.id.progressBar);
 
         textBlueWinPerc.setText(50 + "%");
         textRedWinPerc.setText(50 + "%");
@@ -91,6 +97,7 @@ public class MatchPreviewActivity extends AppCompatActivity {
     public void updateUI(){
 
         if(gotThisManyTeamsData >= 6){
+            Log.v("databse" , "Got all team data");
             ArrayList<Performance>[] arrayForCalcs = new ArrayList[6];
             arrayForCalcs[0] = alpBlue1;
             arrayForCalcs[1] = alpBlue2;
@@ -100,8 +107,32 @@ public class MatchPreviewActivity extends AppCompatActivity {
             arrayForCalcs[5] = alpRed3;
             MatchPreviewCalculations mpCalcs = new MatchPreviewCalculations(arrayForCalcs);
 
-            final int winPercBlue = (int)Math.round(mpCalcs.winChance());
-            final int winPercRed = 100 - winPercBlue;
+            Log.v("calculations" , "Blue Win Chance: " + mpCalcs.winChance());
+
+            ArrayList<Double> pointRangeBlue = mpCalcs.pointIntA();
+            ArrayList<Double> pointRangeRed = mpCalcs.pointIntO();
+
+            TextView textPointsBlue = (TextView) findViewById(R.id.text_proj_points_blue);
+            TextView textPointsRed = (TextView) findViewById(R.id.text_proj_points_red);
+
+            int vWinPercBlue;
+            double avgPointsBlue = (pointRangeBlue.get(0) + pointRangeBlue.get(1)) / 2.0;
+            double avgPointsRed = (pointRangeRed.get(0) + pointRangeRed.get(1)) / 2.0;
+
+            double rawPercBlue = ((avgPointsBlue / avgPointsRed));
+            if(rawPercBlue > 1){
+                vWinPercBlue = (int)((rawPercBlue - 1 + .5)*100);
+            }else if (rawPercBlue < 1){
+                vWinPercBlue = (int)((-1*(rawPercBlue - 1) + .5)*100);
+            }else{
+                vWinPercBlue = 50;
+            }
+
+            final int winPercBlue = vWinPercBlue;
+
+            textPointsBlue.setText(String.format("%.1f-%.1f" , pointRangeBlue.get(0) , pointRangeBlue.get(1)));
+            textPointsRed.setText(String.format("%.1f-%.1f" , pointRangeRed.get(0) , pointRangeRed.get(1)));
+            final double winPercRed = 100 - winPercBlue;
 
             new Thread(new Runnable() {
                 public void run() {
@@ -124,12 +155,18 @@ public class MatchPreviewActivity extends AppCompatActivity {
                         handler.post(new Runnable() {
                             public void run() {
                                 winPercBar.setProgress(progressStatus);
-                                textBlueWinPerc.setText(progressStatus + "");
+                                textBlueWinPerc.setText(progressStatus + "%");
                                 int rwp = 100-progressStatus;
-                                textRedWinPerc.setText(rwp + "");
+                                textRedWinPerc.setText(rwp + "%");
 
                             }
                         });
+                        try{
+                            Thread.sleep(sleepTime);
+                        } catch (Exception e){
+                            
+                        }
+
 
                     }
                 }

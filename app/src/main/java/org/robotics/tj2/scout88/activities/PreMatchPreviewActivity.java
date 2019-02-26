@@ -34,6 +34,7 @@ public class PreMatchPreviewActivity extends AppCompatActivity {
         inputBoxes[5] = (EditText) findViewById(R.id.input_red_6);
 
         goToNextBtn.setOnClickListener(new View.OnClickListener() {
+            Intent intent = new Intent();
             @Override
             public void onClick(View v) {
                 int[] teamNums = new int[6];
@@ -42,7 +43,7 @@ public class PreMatchPreviewActivity extends AppCompatActivity {
                     for (n = 0; n < inputBoxes.length; n++) {
                         teamNums[n] = Integer.parseInt(inputBoxes[n].getText().toString());
                     }
-                    Intent intent = new Intent();
+
                     intent.setClass(PreMatchPreviewActivity.this , MatchPreviewActivity.class);
                     Bundle bundle = new Bundle();
                     bundle.putIntArray("team_numbers" , teamNums);

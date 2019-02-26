@@ -85,10 +85,14 @@ public class Postgame extends Fragment{
         final EditText commentBox = (EditText) view.findViewById(R.id.comment_box);
 
         Button commitBtn = (Button) view.findViewById(R.id.commit_data_button);
-        if(currentMatch.getNoShow() == 1){
-            Log.v("performance" , "NO SHOW POSTGAME: " + currentMatch.getNoShow());
-            commitBtn.setBackgroundColor(Color.RED);
-            commitBtn.setText("Commit No Show");
+        try {
+            if (currentMatch.getNoShow() == 1) {
+                Log.v("performance", "NO SHOW POSTGAME: " + currentMatch.getNoShow());
+                commitBtn.setBackgroundColor(Color.RED);
+                commitBtn.setText("Commit No Show");
+            }
+        } catch (Exception e){
+
         }
 
         commitBtn.setOnClickListener(new View.OnClickListener() {

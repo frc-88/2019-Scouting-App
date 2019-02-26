@@ -258,6 +258,7 @@ public class FirebaseInterface {
                 if(dataSnapshot.exists()){
                     for(DataSnapshot ds : dataSnapshot.getChildren()){
                         Performance p = ds.getValue(Performance.class);
+                        p.totals();
                         alp.add(p);
                         Log.v("databse" , "Added match for preview: " + p.getTeamNumber() + " " + p.getMatchNumber());
                     }
