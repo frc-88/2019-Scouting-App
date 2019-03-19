@@ -109,6 +109,9 @@ public class MatchPreviewActivity extends AppCompatActivity {
 
             Log.v("calculations" , "Blue Win Chance: " + mpCalcs.winChance());
 
+            TextView p_value_text = (TextView) findViewById(R.id.p_value_txt);
+            p_value_text.setText("blue p = " + mpCalcs.winChance());
+
             ArrayList<Double> pointRangeBlue = mpCalcs.pointIntA();
             ArrayList<Double> pointRangeRed = mpCalcs.pointIntO();
 
@@ -116,6 +119,14 @@ public class MatchPreviewActivity extends AppCompatActivity {
             TextView textPointsRed = (TextView) findViewById(R.id.text_proj_points_red);
 
             int vWinPercBlue;
+
+            if(pointRangeBlue.get(0) < 0){
+                pointRangeBlue.set(0 , 0.0);
+            }
+            if(pointRangeRed.get(0) < 0){
+                pointRangeRed.set(0 , 0.0);
+            }
+
             double avgPointsBlue = (pointRangeBlue.get(0) + pointRangeBlue.get(1)) / 2.0;
             double avgPointsRed = (pointRangeRed.get(0) + pointRangeRed.get(1)) / 2.0;
 
@@ -128,8 +139,8 @@ public class MatchPreviewActivity extends AppCompatActivity {
                 vWinPercBlue = 50;
             }
 
-            final int winPercBlue = vWinPercBlue;
-
+            //final int winPercBlue = vWinPercBlue;
+            final int winPercBlue = 100 - (int) (mpCalcs.winChance() * 100);
             textPointsBlue.setText(String.format("%.1f-%.1f" , pointRangeBlue.get(0) , pointRangeBlue.get(1)));
             textPointsRed.setText(String.format("%.1f-%.1f" , pointRangeRed.get(0) , pointRangeRed.get(1)));
             final double winPercRed = 100 - winPercBlue;
@@ -164,7 +175,7 @@ public class MatchPreviewActivity extends AppCompatActivity {
                         try{
                             Thread.sleep(sleepTime);
                         } catch (Exception e){
-                            
+
                         }
 
 

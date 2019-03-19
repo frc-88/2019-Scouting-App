@@ -3,34 +3,34 @@ package org.robotics.tj2.scout88.etc;
 import java.util.ArrayList;
 
 public class Performance {
-    private String scouter;
-    private int teamNumber;
-    private int matchNumber;
-    private int numHighPanels;
-    private int numHighPanelsSS;
-    private int numHighCargo;
-    private int numHighCargoSS;
-    private int numMedPanels;
-    private int numMedPanelsSS;
-    private int numMedCargo;
-    private int numMedCargoSS;
-    private int numLowPanels;
-    private int numLowPanelsSS;
-    private int numLowCargo;
-    private int numLowCargoSS;
+    private String Scouter;
+    private int Team_Number;
+    private int Match_Number;
+    private int High_Panels;
+    private int Sandstorm_High_Panels;
+    private int High_Cargo;
+    private int Sandstorm_High_Cargo;
+    private int Middle_Panels;
+    private int Sandstorm_Middle_Panels;
+    private int Middle_Cargo;
+    private int Sandstorm_Middle_Cargo;
+    private int Low_Panels_Rocket;
+    private int Sandstorm_Low_Panels_Rocket;
+    private int Low_Cargo_Rocket;
+    private int Sandstorm_Low_Cargo_Rocket;
     private ArrayList<Integer> cargo;
     //0=not scored, 1=scored in teleop, 2=scored in sandstorm, 3=null panel
     private ArrayList<Integer> panels;
-    private int levelOfClimb;
-    private int startingLevel;
-    private String comments;
-    private String startingElement;
-    private int crossInSandstorm;
-    private int mvp;
-    private int strongDefense;
-    private int broken;
-    private int beans;
-    private int noShow;
+    private int Climb_Level;
+    private int Starting_Position;
+    private String Comments;
+    private String Starting_Game_Piece;
+    private int Sandstorm_Cross;
+    private int MVP;
+    private int Strong_Defense;
+    private int Broken_Or_DCed;
+    private int Oof;
+    private int No_Show;
 
     private int totalEandSS;
     private int totalPoints;
@@ -42,30 +42,30 @@ public class Performance {
 
 
     public Performance() {
-        teamNumber = 0;
-        matchNumber = 1;
+        Team_Number = 0;
+        Match_Number = 1;
         cargo = fillArrayList();
         panels = fillArrayList();
-        levelOfClimb = 0;
-        startingLevel = 0;
-        comments = "";
-        startingElement = "none";
+        Climb_Level = 0;
+        Starting_Position = 0;
+        Comments = "";
+        Starting_Game_Piece = "none";
         //defense = 0.0;
-        crossInSandstorm = 0;
-        scouter = "";
+        Sandstorm_Cross = 0;
+        Scouter = "";
     }
 
     @Override
     public String toString(){
-        return teamNumber + "_" + matchNumber + ": " + "\n" +
-                "scouter: " + scouter + "\n" +
+        return Team_Number + "_" + Match_Number + ": " + "\n" +
+                "Scouter: " + Scouter + "\n" +
                 "cargo: " + cargo + "\n" +
                 "panels: " + panels + "\n" +
-                "ss: " + crossInSandstorm + "\n" +
-                "start level: " + startingLevel + "with" + startingElement + "\n" +
+                "ss: " + Sandstorm_Cross + "\n" +
+                "start level: " + Starting_Position + "with" + Starting_Game_Piece + "\n" +
                 //"def time: " + defense + "\n" +
-                "climb level: " + levelOfClimb + "\n" +
-                "comments: " + comments + "\n";
+                "climb level: " + Climb_Level + "\n" +
+                "Comments: " + Comments + "\n";
 
     }
 
@@ -73,17 +73,17 @@ public class Performance {
     public boolean equals(Object o){
         if(o.getClass() == this.getClass()){
             Performance p = (Performance) o;
-            return (this.getMatchNumber() == p.getMatchNumber() && p.getTeamNumber() == this.getTeamNumber());
+            return (this.getMatch_Number() == p.getMatch_Number() && p.getTeam_Number() == this.getTeam_Number());
         }
         return false;
     }
 
-    public void setNoShow(int noShow) {
-        this.noShow = noShow;
+    public void setNo_Show(int no_Show) {
+        this.No_Show = no_Show;
     }
 
-    public int getNoShow() {
-        return noShow;
+    public int getNo_Show() {
+        return No_Show;
     }
 
     public int getEarnedRP() {
@@ -126,52 +126,52 @@ public class Performance {
         this.totalPoints = totalPoints;
     }
 
-    public int getBeans() {
-        return beans;
+    public int getOof() {
+        return Oof;
     }
 
-    public int getMvp() {
-        return mvp;
+    public int getMVP() {
+        return MVP;
     }
 
-    public int getBroken() {
-        return broken;
+    public int getBroken_Or_DCed() {
+        return Broken_Or_DCed;
     }
 
-    public int getStrongDefense() {
-        return strongDefense;
+    public int getStrong_Defense() {
+        return Strong_Defense;
     }
 
-    public void setBeans(int beans) {
-        this.beans = beans;
+    public void setOof(int oof) {
+        this.Oof = oof;
     }
 
-    public void setBroken(int broken) {
-        this.broken = broken;
+    public void setBroken_Or_DCed(int broken_Or_DCed) {
+        this.Broken_Or_DCed = broken_Or_DCed;
     }
 
-    public void setMvp(int mvp) {
-        this.mvp = mvp;
+    public void setMVP(int MVP) {
+        this.MVP = MVP;
     }
 
-    public void setStrongDefense(int strongDefense) {
-        this.strongDefense = strongDefense;
+    public void setStrong_Defense(int strong_Defense) {
+        this.Strong_Defense = strong_Defense;
     }
 
-    public int getTeamNumber() {
-        return teamNumber;
+    public int getTeam_Number() {
+        return Team_Number;
     }
 
-    public void setTeamNumber(int teamNumber) {
-        this.teamNumber = teamNumber;
+    public void setTeam_Number(int team_Number) {
+        this.Team_Number = team_Number;
     }
 
-    public int getMatchNumber() {
-        return matchNumber;
+    public int getMatch_Number() {
+        return Match_Number;
     }
 
-    public void setMatchNumber(int matchNumber) {
-        this.matchNumber = matchNumber;
+    public void setMatch_Number(int match_Number) {
+        this.Match_Number = match_Number;
     }
 
     public ArrayList<Integer> getCargo() {
@@ -190,20 +190,20 @@ public class Performance {
         this.panels = panels;
     }
 
-    public int getLevelOfClimb() {
-        return levelOfClimb;
+    public int getClimb_Level() {
+        return Climb_Level;
     }
 
-    public void setLevelOfClimb(int levelOfClimb) {
-        this.levelOfClimb = levelOfClimb;
+    public void setClimb_Level(int climb_Level) {
+        this.Climb_Level = climb_Level;
     }
 
-    public int getStartingLevel() {
-        return startingLevel;
+    public int getStarting_Position() {
+        return Starting_Position;
     }
 
-    public void setStartingLevel(int startingLevel) {
-        this.startingLevel = startingLevel;
+    public void setStarting_Position(int starting_Position) {
+        this.Starting_Position = starting_Position;
     }
 
 //    public double getDefense() {
@@ -215,167 +215,167 @@ public class Performance {
 //    }
 
     public String getComments() {
-        return comments;
+        return Comments;
     }
 
     public void setComments(String comments) {
-        this.comments = comments;
+        this.Comments = comments;
     }
 
-    public void setStartingElement(String startingElement) {
-        this.startingElement = startingElement;
+    public void setStarting_Game_Piece(String starting_Game_Piece) {
+        this.Starting_Game_Piece = starting_Game_Piece;
     }
 
     public String getScouter() {
-        return scouter;
+        return Scouter;
     }
 
     public void setScouter(String scouter) {
-        this.scouter = scouter;
+        this.Scouter = scouter;
     }
 
-    public int getNumHighCargo() {
-        return numHighCargo;
+    public int getHigh_Cargo() {
+        return High_Cargo;
     }
 
-    public int getNumHighCargoSS() {
-        return numHighCargoSS;
+    public int getSandstorm_High_Cargo() {
+        return Sandstorm_High_Cargo;
     }
 
-    public int getNumHighPanels() {
-        return numHighPanels;
+    public int getHigh_Panels() {
+        return High_Panels;
     }
 
-    public int getNumHighPanelsSS() {
-        return numHighPanelsSS;
+    public int getSandstorm_High_Panels() {
+        return Sandstorm_High_Panels;
     }
 
-    public int getNumLowCargo() {
-        return numLowCargo;
+    public int getLow_Cargo_Rocket() {
+        return Low_Cargo_Rocket;
     }
 
-    public int getNumLowCargoSS() {
-        return numLowCargoSS;
+    public int getSandstorm_Low_Cargo_Rocket() {
+        return Sandstorm_Low_Cargo_Rocket;
     }
 
-    public int getNumLowPanels() {
-        return numLowPanels;
+    public int getLow_Panels_Rocket() {
+        return Low_Panels_Rocket;
     }
 
-    public int getNumLowPanelsSS() {
-        return numLowPanelsSS;
+    public int getSandstorm_Low_Panels_Rocket() {
+        return Sandstorm_Low_Panels_Rocket;
     }
 
-    public int getNumMedCargo() {
-        return numMedCargo;
+    public int getMiddle_Cargo() {
+        return Middle_Cargo;
     }
 
-    public int getNumMedCargoSS() {
-        return numMedCargoSS;
+    public int getSandstorm_Middle_Cargo() {
+        return Sandstorm_Middle_Cargo;
     }
 
-    public int getNumMedPanels() {
-        return numMedPanels;
+    public int getMiddle_Panels() {
+        return Middle_Panels;
     }
 
-    public int getNumMedPanelsSS() {
-        return numMedPanelsSS;
+    public int getSandstorm_Middle_Panels() {
+        return Sandstorm_Middle_Panels;
     }
 
-    public void setNumHighCargo(int numHighCargo) {
-        if (numHighCargo + numHighCargoSS > 4 || numHighCargo < 0){
+    public void setHigh_Cargo(int high_Cargo) {
+        if (high_Cargo + Sandstorm_High_Cargo > 4 || high_Cargo < 0){
             return;
         }
-        this.numHighCargo = numHighCargo;
+        this.High_Cargo = high_Cargo;
     }
 
-    public void setNumHighPanels(int numHighPanels) {
-        if (numHighPanels + numHighPanelsSS > 4 || numHighPanels < 0){
+    public void setHigh_Panels(int high_Panels) {
+        if (high_Panels + Sandstorm_High_Panels > 4 || high_Panels < 0){
             return;
         }
-        this.numHighPanels = numHighPanels;
+        this.High_Panels = high_Panels;
     }
 
-    public void setNumHighCargoSS(int numHighCargoSS) {
-        if (numHighCargo + numHighCargoSS > 4 || numHighCargoSS < 0){
+    public void setSandstorm_High_Cargo(int sandstorm_High_Cargo) {
+        if (High_Cargo + sandstorm_High_Cargo > 4 || sandstorm_High_Cargo < 0){
             return;
         }
-        this.numHighCargoSS = numHighCargoSS;
+        this.Sandstorm_High_Cargo = sandstorm_High_Cargo;
     }
 
-    public void setNumHighPanelsSS(int numHighPanelsSS) {
-        if (numHighPanels + numHighPanelsSS > 4 || numHighPanelsSS < 0){
+    public void setSandstorm_High_Panels(int sandstorm_High_Panels) {
+        if (High_Panels + sandstorm_High_Panels > 4 || sandstorm_High_Panels < 0){
             return;
         }
-        this.numHighPanelsSS = numHighPanelsSS;
+        this.Sandstorm_High_Panels = sandstorm_High_Panels;
     }
 
-    public void setNumLowCargo(int numLowCargo) {
-        if (numLowCargo + numLowCargoSS > 4 || numLowCargo < 0){
+    public void setLow_Cargo_Rocket(int low_Cargo_Rocket) {
+        if (low_Cargo_Rocket + Sandstorm_Low_Cargo_Rocket > 4 || low_Cargo_Rocket < 0){
             return;
         }
-        this.numLowCargo = numLowCargo;
+        this.Low_Cargo_Rocket = low_Cargo_Rocket;
     }
 
-    public void setNumMedPanels(int numMedPanels) {
-        if (numMedPanels + numMedPanelsSS > 4 || numMedPanels < 0){
+    public void setMiddle_Panels(int middle_Panels) {
+        if (middle_Panels + Sandstorm_Middle_Panels > 4 || middle_Panels < 0){
             return;
         }
-        this.numMedPanels = numMedPanels;
+        this.Middle_Panels = middle_Panels;
     }
 
-    public void setNumLowCargoSS(int numLowCargoSS) {
-        if (numLowCargo + numLowCargoSS > 4 || numLowCargoSS < 0){
+    public void setSandstorm_Low_Cargo_Rocket(int sandstorm_Low_Cargo_Rocket) {
+        if (Low_Cargo_Rocket + sandstorm_Low_Cargo_Rocket > 4 || sandstorm_Low_Cargo_Rocket < 0){
             return;
         }
-        this.numLowCargoSS = numLowCargoSS;
+        this.Sandstorm_Low_Cargo_Rocket = sandstorm_Low_Cargo_Rocket;
     }
 
-    public void setNumMedCargo(int numMedCargo) {
-        if (numMedCargo + numMedCargoSS > 4 || numMedCargo < 0){
+    public void setMiddle_Cargo(int middle_Cargo) {
+        if (middle_Cargo + Sandstorm_Middle_Cargo > 4 || middle_Cargo < 0){
             return;
         }
-        this.numMedCargo = numMedCargo;
+        this.Middle_Cargo = middle_Cargo;
     }
 
-    public void setNumLowPanels(int numLowPanels) {
-        if (numLowPanels + numLowPanelsSS > 4 || numLowPanels < 0){
+    public void setLow_Panels_Rocket(int low_Panels_Rocket) {
+        if (low_Panels_Rocket + Sandstorm_Low_Panels_Rocket > 4 || low_Panels_Rocket < 0){
             return;
         }
-        this.numLowPanels = numLowPanels;
+        this.Low_Panels_Rocket = low_Panels_Rocket;
     }
 
-    public void setNumLowPanelsSS(int numLowPanelsSS) {
-        if (numLowPanels + numLowPanelsSS > 4 || numLowPanelsSS < 0){
+    public void setSandstorm_Low_Panels_Rocket(int sandstorm_Low_Panels_Rocket) {
+        if (Low_Panels_Rocket + sandstorm_Low_Panels_Rocket > 4 || sandstorm_Low_Panels_Rocket < 0){
             return;
         }
-        this.numLowPanelsSS = numLowPanelsSS;
+        this.Sandstorm_Low_Panels_Rocket = sandstorm_Low_Panels_Rocket;
     }
 
-    public void setNumMedCargoSS(int numMedCargoSS) {
-        if (numMedCargo + numMedCargoSS > 4 || numMedCargoSS < 0){
+    public void setSandstorm_Middle_Cargo(int sandstorm_Middle_Cargo) {
+        if (Middle_Cargo + sandstorm_Middle_Cargo > 4 || sandstorm_Middle_Cargo < 0){
             return;
         }
-        this.numMedCargoSS = numMedCargoSS;
+        this.Sandstorm_Middle_Cargo = sandstorm_Middle_Cargo;
     }
 
-    public void setNumMedPanelsSS(int numMedPanelsSS) {
-        if (numMedPanels + numMedPanelsSS > 4 || numMedPanelsSS < 0){
+    public void setSandstorm_Middle_Panels(int sandstorm_Middle_Panels) {
+        if (Middle_Panels + sandstorm_Middle_Panels > 4 || sandstorm_Middle_Panels < 0){
             return;
         }
-        this.numMedPanelsSS = numMedPanelsSS;
+        this.Sandstorm_Middle_Panels = sandstorm_Middle_Panels;
     }
 
-    public String getStartingElement() {
-        return startingElement;
+    public String getStarting_Game_Piece() {
+        return Starting_Game_Piece;
     }
 
-    public int getCrossInSandstorm(){
-        return crossInSandstorm;
+    public int getSandstorm_Cross(){
+        return Sandstorm_Cross;
     }
 
-    public void setCrossInSandstorm(int v){
-        crossInSandstorm = v;
+    public void setSandstorm_Cross(int v){
+        Sandstorm_Cross = v;
     }
 
     private ArrayList<Integer> fillArrayList(){
@@ -395,7 +395,7 @@ public class Performance {
     }
 
     public int getEndPoints() {
-        switch(levelOfClimb) {
+        switch(Climb_Level) {
             case 1:
                 return(3);
             case 2:
@@ -410,8 +410,8 @@ public class Performance {
     public void totals(){
 
         //panels and cargo
-        totalCargo = numHighCargo + numLowCargo + numMedCargo + numHighCargoSS + numLowCargoSS + numHighCargoSS;
-        totalPanel = numHighPanels + numLowPanels + numMedPanels + numHighPanelsSS + numLowPanelsSS + numMedPanelsSS;
+        totalCargo = High_Cargo + Low_Cargo_Rocket + Middle_Cargo + Sandstorm_High_Cargo + Sandstorm_Low_Cargo_Rocket + Sandstorm_High_Cargo;
+        totalPanel = High_Panels + Low_Panels_Rocket + Middle_Panels + Sandstorm_High_Panels + Sandstorm_Low_Panels_Rocket + Sandstorm_Middle_Panels;
 
         for(int i = 0; i < cargo.size(); i++) {
             if (cargo.get(i)== 1|| cargo.get(i) == 2) {
@@ -424,7 +424,7 @@ public class Performance {
             }
         }
         //endgame and sandstorm
-        switch(crossInSandstorm) {
+        switch(Sandstorm_Cross) {
             case 1:
                 totalEandSS = 3;
                 break;
@@ -435,7 +435,7 @@ public class Performance {
                 totalEandSS = 0;
                 break;
         }
-        switch(levelOfClimb) {
+        switch(Climb_Level) {
             case 1:
                 totalEandSS+=3;
                 break;

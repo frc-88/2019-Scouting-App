@@ -17,7 +17,7 @@
         android:inputType="number"
         android:textAlignment="center"
         android:textSize="26sp"
-        app:layout_constraintBottom_toBottomOf="@+id/team_number_edit_text"
+        app:layout_constraintBottom_toBottomOf="@+id/match_number_text"
         app:layout_constraintStart_toEndOf="@+id/match_number_text" />
 
     <TextView
@@ -75,19 +75,6 @@
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/hab_img" />
-
-    <EditText
-        android:id="@+id/team_number_edit_text"
-        android:layout_width="104dp"
-        android:layout_height="49dp"
-        android:layout_marginStart="4dp"
-        android:ems="10"
-        android:hint="8888"
-        android:inputType="number"
-        android:textAlignment="center"
-        android:textSize="26sp"
-        app:layout_constraintBottom_toBottomOf="@id/team_number_text"
-        app:layout_constraintStart_toEndOf="@id/team_number_text" />
 
     <TextView
         android:id="@+id/team_number_text"
@@ -206,4 +193,18 @@
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/no_show_button"
         app:layout_constraintStart_toStartOf="@+id/no_show_button" />
+
+    <AutoCompleteTextView
+        android:id="@+id/team_number_edit_text"
+        android:inputType="number"
+        android:layout_width="104dp"
+        android:layout_height="49dp"
+        android:layout_marginStart="4dp"
+        android:dropDownWidth="wrap_content"
+        android:dropDownHeight="wrap_content"
+        android:hint="8888"
+        android:textAlignment="center"
+        android:textSize="26sp"
+        app:layout_constraintBottom_toBottomOf="@+id/team_number_text"
+        app:layout_constraintStart_toEndOf="@+id/team_number_text" />
 </android.support.constraint.ConstraintLayout>

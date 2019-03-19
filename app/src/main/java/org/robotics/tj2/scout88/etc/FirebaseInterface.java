@@ -28,8 +28,10 @@ import java.util.ArrayList;
 
 public class FirebaseInterface {
 
-    private final String COMPETITION_NAME = "TestPreviewCalcs";
-    private final String COMPETITION_FLAG = "TP_";
+
+    private final String COMPETITION_NAME = "SEMA";
+    private final String COMPETITION_FLAG = "SE_";
+
 
     private FirebaseDatabase database;
     private FirebaseStorage storage;
@@ -89,20 +91,20 @@ public class FirebaseInterface {
         //p.setCargo(cgo);
         p.setComments("this was a great match");
         //p.setDefense(20.5);
-        p.setLevelOfClimb(2);
-        p.setMatchNumber(5);
-        p.setTeamNumber(8888);
-        p.setStartingLevel(2);
+        p.setClimb_Level(2);
+        p.setMatch_Number(5);
+        p.setTeam_Number(8888);
+        p.setStarting_Position(2);
         //String[] pnls = {"teleop","teleop","teleop","teleop","teleop","teleop","teleop","teleop","teleop","teleop","teleop","teleop","teleop","teleop","teleop","teleop","teleop","teleop","teleop","teleop"};
         //p.setPanels(pnls);
 
-        myRef.child("performances").child(COMPETITION_FLAG+p.getMatchNumber()+"_"+p.getTeamNumber()).setValue(p);
+        myRef.child("performances").child(COMPETITION_FLAG+p.getMatch_Number()+"_"+p.getTeam_Number()).setValue(p);
         return true;
     }
 
 
     public void addPerformance(Performance p){
-        myRef.child("performances").child(COMPETITION_FLAG+p.getMatchNumber()+"_"+p.getTeamNumber()).setValue(p);
+        myRef.child("performances").child(COMPETITION_FLAG+p.getMatch_Number()+"_"+p.getTeam_Number()).setValue(p);
     }
     public void init(){
         database.setPersistenceEnabled(true);
@@ -134,23 +136,23 @@ public class FirebaseInterface {
 
                         String row = "";
 
-                        row = row + p.getTeamNumber() + ",";
-                        row = row + p.getMatchNumber() + ",";
-                        row = row + p.getNumHighCargo() + ",";
-                        row = row + p.getNumMedCargo() + ",";
-                        row = row + p.getNumLowCargo() + ",";
-                        row = row + p.getNumHighCargoSS() + ",";
-                        row = row + p.getNumMedCargoSS() + ",";
-                        row = row + p.getNumLowCargoSS() + ",";
-                        int rocketCargo = p.getNumHighCargo() + p.getNumMedCargo() + p.getNumLowCargo() + p.getNumHighCargoSS() + p.getNumMedCargoSS() + p.getNumLowCargoSS();
+                        row = row + p.getTeam_Number() + ",";
+                        row = row + p.getMatch_Number() + ",";
+                        row = row + p.getHigh_Cargo() + ",";
+                        row = row + p.getMiddle_Cargo() + ",";
+                        row = row + p.getLow_Cargo_Rocket() + ",";
+                        row = row + p.getSandstorm_High_Cargo() + ",";
+                        row = row + p.getSandstorm_Middle_Cargo() + ",";
+                        row = row + p.getSandstorm_Low_Cargo_Rocket() + ",";
+                        int rocketCargo = p.getHigh_Cargo() + p.getMiddle_Cargo() + p.getLow_Cargo_Rocket() + p.getSandstorm_High_Cargo() + p.getSandstorm_Middle_Cargo() + p.getSandstorm_Low_Cargo_Rocket();
                         row = row + rocketCargo + ",";
-                        row = row + p.getNumHighPanels() + ",";
-                        row = row + p.getNumMedPanels() + ",";
-                        row = row + p.getNumLowPanels() + ",";
-                        row = row + p.getNumHighPanelsSS() + ",";
-                        row = row + p.getNumMedPanelsSS() + ",";
-                        row = row + p.getNumLowPanelsSS() + ",";
-                        int rocketPanels = p.getNumHighPanels() + p.getNumMedPanels() + p.getNumLowPanels() +p.getNumHighPanelsSS() + p.getNumMedPanelsSS() + p.getNumLowPanelsSS();
+                        row = row + p.getHigh_Panels() + ",";
+                        row = row + p.getMiddle_Panels() + ",";
+                        row = row + p.getLow_Panels_Rocket() + ",";
+                        row = row + p.getSandstorm_High_Panels() + ",";
+                        row = row + p.getSandstorm_Middle_Panels() + ",";
+                        row = row + p.getSandstorm_Low_Panels_Rocket() + ",";
+                        int rocketPanels = p.getHigh_Panels() + p.getMiddle_Panels() + p.getLow_Panels_Rocket() +p.getSandstorm_High_Panels() + p.getSandstorm_Middle_Panels() + p.getSandstorm_Low_Panels_Rocket();
                         row = row + rocketPanels + ",";
                         int totalRocket = rocketCargo + rocketPanels;
                         row = row + totalRocket + ",";
@@ -177,21 +179,21 @@ public class FirebaseInterface {
                         int totalPieces = totalCargo + totalPanels;
                         row = row + totalPieces + ",";
 
-                        row = row + p.getStartingElement() + ",";
-                        row = row + p.getStartingLevel() + ",";
-                        row = row + p.getCrossInSandstorm() + ",";
-                        row = row + p.getLevelOfClimb() + ",";
-                        row = row + p.getMvp() + ",";
-                        row = row + p.getStrongDefense() + ",";
-                        row = row + p.getBeans() + ",";
-                        row = row + p.getBroken() + ",";
-                        row = row + p.getNoShow() + "\n";
+                        row = row + p.getStarting_Game_Piece() + ",";
+                        row = row + p.getStarting_Position() + ",";
+                        row = row + p.getSandstorm_Cross() + ",";
+                        row = row + p.getClimb_Level() + ",";
+                        row = row + p.getMVP() + ",";
+                        row = row + p.getStrong_Defense() + ",";
+                        row = row + p.getOof() + ",";
+                        row = row + p.getBroken_Or_DCed() + ",";
+                        row = row + p.getNo_Show() + "\n";
 
                         Log.v("databse" , "csvRow: " + row);
                         osw.write(row.getBytes());
                         try{
-                            if(p.getMatchNumber() > lastLastMatchNumber){
-                                lastLastMatchNumber = p.getMatchNumber();
+                            if(p.getMatch_Number() > lastLastMatchNumber){
+                                lastLastMatchNumber = p.getMatch_Number();
                             }
                         } catch(Exception e){
                             Log.v("databse" , e.toString());
@@ -260,7 +262,7 @@ public class FirebaseInterface {
                         Performance p = ds.getValue(Performance.class);
                         p.totals();
                         alp.add(p);
-                        Log.v("databse" , "Added match for preview: " + p.getTeamNumber() + " " + p.getMatchNumber());
+                        Log.v("databse" , "Added match for preview: " + p.getTeam_Number() + " " + p.getMatch_Number());
                     }
                     mpa.gotThisManyTeamsData++;
                     mpa.updateUI();

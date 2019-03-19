@@ -10,6 +10,36 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Broken/Disconnected"
+            app:layout_constraintEnd_toEndOf="@+id/emoji_broken"
+            app:layout_constraintStart_toStartOf="@+id/emoji_broken"
+            app:layout_constraintTop_toBottomOf="@+id/emoji_broken" />
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Oof"
+            app:layout_constraintEnd_toEndOf="@+id/emoji_facepalm"
+            app:layout_constraintStart_toStartOf="@+id/emoji_facepalm"
+            app:layout_constraintTop_toBottomOf="@+id/emoji_facepalm" />
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Strong Defense"
+            app:layout_constraintEnd_toEndOf="@+id/emoji_flex"
+            app:layout_constraintStart_toStartOf="@+id/emoji_flex"
+            app:layout_constraintTop_toBottomOf="@+id/emoji_flex" />
+
         <ImageView
             android:id="@+id/middle_hab"
             android:layout_width="125dp"
@@ -36,7 +66,7 @@
             android:layout_width="189dp"
             android:layout_height="88dp"
             android:layout_marginStart="204dp"
-            android:layout_marginTop="48dp"
+            android:layout_marginTop="50dp"
             android:text="Commit Data"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/emoji_flex" />
@@ -138,6 +168,16 @@
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="@+id/no_climb"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="MVP"
+            app:layout_constraintEnd_toEndOf="@+id/emoji_100"
+            app:layout_constraintStart_toStartOf="@+id/emoji_100"
+            app:layout_constraintTop_toBottomOf="@+id/emoji_100" />
 
     </android.support.constraint.ConstraintLayout>
 </FrameLayout>
