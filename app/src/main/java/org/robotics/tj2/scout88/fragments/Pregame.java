@@ -10,12 +10,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import org.robotics.tj2.scout88.R;
 import org.robotics.tj2.scout88.etc.Performance;
+
+import java.util.Arrays;
 
 
 /**
@@ -31,6 +35,45 @@ public class Pregame extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
+    private final static String[] TEAM_NUMBERS = {"23",
+            "58",
+            "69",
+            "78",
+            "88",
+            "97",
+            "121",
+            "125",
+            "172",
+            "173",
+            "246",
+            "1100",
+            "1153",
+            "1786",
+            "1965",
+            "2079",
+            "2168",
+            "2523",
+            "2877",
+            "3205",
+            "3236",
+            "3566",
+            "4048",
+            "4151",
+            "4176",
+            "5000",
+            "5112",
+            "5422",
+            "5813",
+            "5846",
+            "6201",
+            "6224",
+            "6301",
+            "6333",
+            "6529",
+            "6731",
+            "6763"
+    };
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -100,27 +143,27 @@ public class Pregame extends Fragment {
 
         panel_btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if(!currentMatch.getStartingElement().equals("panel")){
+                if(!currentMatch.getStarting_Game_Piece().equals("panel")){
                     panel_btn.setAlpha((float)1.0);
                     cargo_btn.setAlpha((float)0.3);
-                    currentMatch.setStartingElement("panel");
+                    currentMatch.setStarting_Game_Piece("panel");
                 }
                 else{
                     panel_btn.setAlpha((float)0.3);
-                    currentMatch.setStartingElement("none");
+                    currentMatch.setStarting_Game_Piece("none");
                 }
             }
         });
         cargo_btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if(!currentMatch.getStartingElement().equals("cargo")){
+                if(!currentMatch.getStarting_Game_Piece().equals("cargo")){
                     panel_btn.setAlpha((float)0.3);
                     cargo_btn.setAlpha((float)1.0);
-                    currentMatch.setStartingElement("cargo");
+                    currentMatch.setStarting_Game_Piece("cargo");
                 }
                 else{
                     cargo_btn.setAlpha((float)0.3);
-                    currentMatch.setStartingElement("none");
+                    currentMatch.setStarting_Game_Piece("none");
                 }
 
             }
@@ -130,7 +173,7 @@ public class Pregame extends Fragment {
             public void onClick(View v) {
                 deployed_false_btn.setAlpha((float)1.0);
                 deployed_true_btn.setAlpha((float)0.3);
-                currentMatch.setCrossInSandstorm(0);
+                currentMatch.setSandstorm_Cross(0);
             }
         });
         deployed_true_btn.setOnClickListener(new View.OnClickListener() {
@@ -138,15 +181,16 @@ public class Pregame extends Fragment {
             public void onClick(View v) {
                 deployed_false_btn.setAlpha((float)0.3);
                 deployed_true_btn.setAlpha((float)1.0);
-                currentMatch.setCrossInSandstorm(1);
+                currentMatch.setSandstorm_Cross(1);
             }
         });
 
+        final AutoCompleteTextView teamNumberBox = (AutoCompleteTextView) view.findViewById(R.id.team_number_edit_text);
 
+        ArrayAdapter<String> teamNumAdapter = new ArrayAdapter<>(getContext() , android.R.layout.simple_list_item_1 , TEAM_NUMBERS);
+        teamNumberBox.setThreshold(0);
+        teamNumberBox.setAdapter(teamNumAdapter);
 
-        EditText teamNumberBox = (EditText) view.findViewById(R.id.team_number_edit_text);
-
-        teamNumberBox.requestFocus();
 
         teamNumberBox.addTextChangedListener(new TextWatcher() {
             @Override
@@ -162,10 +206,16 @@ public class Pregame extends Fragment {
             @Override
             public void afterTextChanged(Editable s) {
                 try{
-                    currentMatch.setTeamNumber(Integer.parseInt(s.toString()));
+                    if(Arrays.asList(TEAM_NUMBERS).contains(s.toString())){
+                        teamNumberBox.setError(null);
+                        currentMatch.setTeam_Number(Integer.parseInt(s.toString()));
+                    }else{
+                        teamNumberBox.setError("Enter a Valid Team Number.");
+                    }
+
                 }
                 catch(Exception e){
-
+                    Log.v("88error" , e.toString());
                 }
             }
         });
@@ -185,7 +235,7 @@ public class Pregame extends Fragment {
             @Override
             public void afterTextChanged(Editable s) {
                 try{
-                    currentMatch.setMatchNumber(Integer.parseInt(s.toString()));
+                    currentMatch.setMatch_Number(Integer.parseInt(s.toString()));
                 } catch (Exception e){
 
                 }
@@ -217,27 +267,27 @@ public class Pregame extends Fragment {
         level_1_hab_start_btn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                if(currentMatch.getStartingLevel() == 1){
+                if(currentMatch.getStarting_Position() == 1){
                     level_1_hab_start_btn.setImageResource(R.drawable.ic_starting_pos_uncheck);
-                    currentMatch.setStartingLevel(0);
+                    currentMatch.setStarting_Position(0);
                 }else {
                     level_1_hab_start_btn.setImageResource(R.drawable.ic_starting_pos_check);
                     level_2_hab_start_btn.setImageResource(R.drawable.ic_starting_pos_uncheck);
-                    currentMatch.setStartingLevel(1);
+                    currentMatch.setStarting_Position(1);
                 }
             }
         });
         level_2_hab_start_btn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                if(currentMatch.getStartingLevel() == 2){
+                if(currentMatch.getStarting_Position() == 2){
                     level_2_hab_start_btn.setImageResource(R.drawable.ic_starting_pos_uncheck);
-                    currentMatch.setStartingLevel(0);
+                    currentMatch.setStarting_Position(0);
                 }
                 else {
                     level_1_hab_start_btn.setImageResource(R.drawable.ic_starting_pos_uncheck);
                     level_2_hab_start_btn.setImageResource(R.drawable.ic_starting_pos_check);
-                    currentMatch.setStartingLevel(2);
+                    currentMatch.setStarting_Position(2);
                 }
             }
         });
@@ -245,14 +295,14 @@ public class Pregame extends Fragment {
         no_show_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(currentMatch.getNoShow() == 1){
+                if(currentMatch.getNo_Show() == 1){
                     no_show_button.setAlpha((float)0.4);
-                    currentMatch.setNoShow(0);
+                    currentMatch.setNo_Show(0);
                 }else{
                     no_show_button.setAlpha((float)1.0);
-                    currentMatch.setNoShow(1);
+                    currentMatch.setNo_Show(1);
                 }
-                Log.v("performance" , "NO SHOW: " + currentMatch.getNoShow());
+                Log.v("performance" , "NO SHOW: " + currentMatch.getNo_Show());
             }
         });
 

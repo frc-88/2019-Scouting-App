@@ -9,7 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import org.robotics.tj2.scout88.etc.Performance;
@@ -41,6 +43,8 @@ public class Ingame extends Fragment {
     private Performance currentMatch;
 
     private OnFragmentInteractionListener mListener;
+
+    private boolean sandstorm = true;
 
     public Ingame() {
         // Required empty public constructor
@@ -83,6 +87,20 @@ public class Ingame extends Fragment {
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_ingame, container, false);
 
+        final Switch sandstormToggle = (Switch) view.findViewById(R.id.sandstorm_switch);
+        final TextView sandstormModeText = (TextView) view.findViewById(R.id.sandstorm_mode_txt);
+        sandstormToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                sandstormToggle.setChecked(isChecked);
+                sandstorm = isChecked;
+                if(sandstorm){
+                    sandstormModeText.setVisibility(View.VISIBLE);
+                }else{
+                    sandstormModeText.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
 
         final ImageView[] cargoBayCargo = new ImageView[8];
         cargoBayCargo[0] = (ImageView) view.findViewById(R.id.cargo0);
@@ -325,58 +343,119 @@ public class Ingame extends Fragment {
         });
 
 
-        ImageView addButton = view.findViewById(R.id.add_button);
-        ImageView deleteButton = view.findViewById(R.id.delete_button);
-        Button sandstormButton = view.findViewById(R.id.sandstorm_button);
-        Button sandstormDelButton = view.findViewById(R.id.sandstorm_button_del);
+        Button addButton = view.findViewById(R.id.add_button);
+        Button deleteButton = view.findViewById(R.id.delete_button);
 
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(selectedItem == -1) {
+                if (selectedItem == -1) {
                     return;
                 }
-                if(trueIfRocket){
-                    switch (selectedItem){
-                        case 0:
-                            currentMatch.setNumHighCargo(currentMatch.getNumHighCargo() + 1);
-                            cargoHighText.setText(currentMatch.getNumHighCargo() + "");
-                            break;
-                        case 1:
-                            currentMatch.setNumMedCargo(currentMatch.getNumMedCargo() + 1);
-                            cargoMidText.setText(currentMatch.getNumMedCargo() + "");
-                            break;
-                        case 2:
-                            currentMatch.setNumLowCargo(currentMatch.getNumLowCargo() + 1);
-                            cargoLowText.setText(currentMatch.getNumLowCargo() + "");
-                            break;
-                        case 3:
-                            currentMatch.setNumHighPanels(currentMatch.getNumHighPanels() + 1);
-                            panelHighText.setText(currentMatch.getNumHighPanels() + "");
-                            break;
-                        case 4:
-                            currentMatch.setNumMedPanels(currentMatch.getNumMedPanels() + 1);
-                            panelMidText.setText(currentMatch.getNumMedPanels() + "");
-                            break;
-                        case 5:
-                            currentMatch.setNumLowPanels(currentMatch.getNumLowPanels() + 1);
-                            panelLowText.setText(currentMatch.getNumLowPanels() + "");
-                            break;
-                        default:
-                            break;
+                if (!sandstorm) {
+                    if (trueIfRocket) {
+                        switch (selectedItem) {
+                            case 0:
+                                currentMatch.setHigh_Cargo(currentMatch.getHigh_Cargo() + 1);
+                                cargoHighText.setText(currentMatch.getHigh_Cargo() + "");
+                                break;
+                            case 1:
+                                currentMatch.setMiddle_Cargo(currentMatch.getMiddle_Cargo() + 1);
+                                cargoMidText.setText(currentMatch.getMiddle_Cargo() + "");
+                                break;
+                            case 2:
+                                currentMatch.setLow_Cargo_Rocket(currentMatch.getLow_Cargo_Rocket() + 1);
+                                cargoLowText.setText(currentMatch.getLow_Cargo_Rocket() + "");
+                                break;
+                            case 3:
+                                currentMatch.setHigh_Panels(currentMatch.getHigh_Panels() + 1);
+                                panelHighText.setText(currentMatch.getHigh_Panels() + "");
+                                break;
+                            case 4:
+                                currentMatch.setMiddle_Panels(currentMatch.getMiddle_Panels() + 1);
+                                panelMidText.setText(currentMatch.getMiddle_Panels() + "");
+                                break;
+                            case 5:
+                                currentMatch.setLow_Panels_Rocket(currentMatch.getLow_Panels_Rocket() + 1);
+                                panelLowText.setText(currentMatch.getLow_Panels_Rocket() + "");
+                                break;
+                            default:
+                                break;
+                        }
+                    } else {
+                        if (trueIfCargo) {
+                            currentMatch.setIndividualCargoBayCargo(1, selectedItem);
+                            cargoBayCargo[selectedItem].setAlpha((float) 1.0);
+                            ssFlagsCargo[selectedItem].setVisibility(View.INVISIBLE);
+                        } else {
+                            currentMatch.setIndividualCargoBayPanel(1, selectedItem);
+                            cargoBayPanels[selectedItem].setAlpha((float) 1.0);
+                            ssFlagsPanels[selectedItem].setVisibility(View.INVISIBLE);
+                        }
+                    }
+                }else{
+                    if(trueIfRocket){
+                        switch (selectedItem){
+                            case 0:
+                                currentMatch.setSandstorm_High_Cargo(currentMatch.getSandstorm_High_Cargo() + 1);
+                                cargoHighTextSS.setText(currentMatch.getSandstorm_High_Cargo() + " Sandstorm");
+                                cargoHighTextSS.setVisibility(View.VISIBLE);
+                                break;
+                            case 1:
+                                currentMatch.setSandstorm_Middle_Cargo(currentMatch.getSandstorm_Middle_Cargo() + 1);
+                                cargoMidTextSS.setText(currentMatch.getSandstorm_Middle_Cargo() + " Sandstorm");
+                                cargoMidTextSS.setVisibility(View.VISIBLE);
+                                break;
+                            case 2:
+                                currentMatch.setSandstorm_Low_Cargo_Rocket(currentMatch.getSandstorm_Low_Cargo_Rocket() + 1);
+                                cargoLowTextSS.setText(currentMatch.getSandstorm_Low_Cargo_Rocket() + " Sandstorm");
+                                cargoLowTextSS.setVisibility(View.VISIBLE);
+                                break;
+                            case 3:
+                                currentMatch.setSandstorm_High_Panels(currentMatch.getSandstorm_High_Panels() + 1);
+                                panelHighTextSS.setText(currentMatch.getSandstorm_High_Panels() + " Sandstorm");
+                                panelHighTextSS.setVisibility(View.VISIBLE);
+                                break;
+                            case 4:
+                                currentMatch.setSandstorm_Middle_Panels(currentMatch.getSandstorm_Middle_Panels() + 1);
+                                panelMidTextSS.setText(currentMatch.getSandstorm_Middle_Panels() + " Sandstorm");
+                                panelMidTextSS.setVisibility(View.VISIBLE);
+                                break;
+                            case 5:
+                                currentMatch.setSandstorm_Low_Panels_Rocket(currentMatch.getSandstorm_Low_Panels_Rocket() + 1);
+                                panelLowTextSS.setText(currentMatch.getSandstorm_Low_Panels_Rocket() + " Sandstorm");
+                                panelLowTextSS.setVisibility(View.VISIBLE);
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                    else{
+                        if(trueIfCargo){
+                            currentMatch.setIndividualCargoBayCargo(2, selectedItem);
+                            cargoBayCargo[selectedItem].setAlpha((float)0.8);
+                            ssFlagsCargo[selectedItem].setVisibility(View.VISIBLE);
+                            ssFlagsCargo[selectedItem].bringToFront();
+                        }else{
+                            currentMatch.setIndividualCargoBayPanel(2 , selectedItem);
+                            cargoBayPanels[selectedItem].setAlpha((float)0.8);
+                            ssFlagsPanels[selectedItem].setVisibility(View.VISIBLE);
+                            ssFlagsPanels[selectedItem].bringToFront();
+                        }
                     }
                 }
-                else{
-                    if(trueIfCargo){
-                        currentMatch.setIndividualCargoBayCargo(1 , selectedItem);
-                        cargoBayCargo[selectedItem].setAlpha((float)1.0);
-                        ssFlagsCargo[selectedItem].setVisibility(View.INVISIBLE);
-                    }else{
-                        currentMatch.setIndividualCargoBayPanel(1 , selectedItem);
-                        cargoBayPanels[selectedItem].setAlpha((float)1.0);
-                        ssFlagsPanels[selectedItem].setVisibility(View.INVISIBLE);
-                    }
+                cargoHigh.setImageResource(R.drawable.cargo);
+                cargoMid.setImageResource(R.drawable.cargo);
+                cargoLow.setImageResource(R.drawable.cargo);
+                panelHigh.setImageResource(R.drawable.panel);
+                panelMid.setImageResource(R.drawable.panel);
+                panelLow.setImageResource(R.drawable.panel);
+
+                for(int n = 0;  n < cargoBayPanels.length; n++){
+                    cargoBayCargo[n].setImageResource(R.drawable.cargo);
+                    cargoBayPanels[n].setImageResource(R.drawable.panel);
                 }
+                selectedItem = -1;
             }
         });
 
@@ -386,31 +465,91 @@ public class Ingame extends Fragment {
                 if(selectedItem == -1) {
                     return;
                 }
-                if(trueIfRocket){
+                if(sandstorm && trueIfRocket){
                     switch (selectedItem){
                         case 0:
-                            currentMatch.setNumHighCargo(currentMatch.getNumHighCargo() - 1);
-                            cargoHighText.setText(currentMatch.getNumHighCargo() + "");
+                            currentMatch.setSandstorm_High_Cargo(currentMatch.getSandstorm_High_Cargo() - 1);
+                            if(currentMatch.getSandstorm_High_Cargo() == 0){
+                                cargoHighTextSS.setVisibility(View.INVISIBLE);
+                            }else{
+                                cargoHighTextSS.setText(currentMatch.getSandstorm_High_Cargo() + " Sandstorm");
+                                cargoHighTextSS.setVisibility(View.VISIBLE);
+                            }
                             break;
                         case 1:
-                            currentMatch.setNumMedCargo(currentMatch.getNumMedCargo() - 1);
-                            cargoMidText.setText(currentMatch.getNumMedCargo() + "");
+                            currentMatch.setSandstorm_Middle_Cargo(currentMatch.getSandstorm_Middle_Cargo() - 1);
+                            if(currentMatch.getSandstorm_Middle_Cargo() == 0){
+                                cargoMidTextSS.setVisibility(View.INVISIBLE);
+                            }else{
+                                cargoMidTextSS.setText(currentMatch.getSandstorm_Middle_Cargo() + " Sandstorm");
+                                cargoMidTextSS.setVisibility(View.VISIBLE);
+                            }
                             break;
                         case 2:
-                            currentMatch.setNumLowCargo(currentMatch.getNumLowCargo() - 1);
-                            cargoLowText.setText(currentMatch.getNumLowCargo() + "");
+                            currentMatch.setSandstorm_Low_Cargo_Rocket(currentMatch.getSandstorm_Low_Cargo_Rocket() - 1);
+                            if(currentMatch.getSandstorm_Low_Cargo_Rocket() == 0){
+                                cargoLowTextSS.setVisibility(View.INVISIBLE);
+                            }else{
+                                cargoLowTextSS.setText(currentMatch.getSandstorm_Low_Cargo_Rocket() + " Sandstorm");
+                                cargoLowTextSS.setVisibility(View.VISIBLE);
+                            }
                             break;
                         case 3:
-                            currentMatch.setNumHighPanels(currentMatch.getNumHighPanels() - 1);
-                            panelHighText.setText(currentMatch.getNumHighPanels() + "");
+                            currentMatch.setSandstorm_High_Panels(currentMatch.getSandstorm_High_Panels() - 1);
+                            if(currentMatch.getSandstorm_High_Panels() == 0){
+                                panelHighTextSS.setVisibility(View.INVISIBLE);
+                            }else{
+                                panelHighTextSS.setText(currentMatch.getSandstorm_High_Panels() + " Sandstorm");
+                                panelHighTextSS.setVisibility(View.VISIBLE);
+                            }
                             break;
                         case 4:
-                            currentMatch.setNumMedPanels(currentMatch.getNumMedPanels() - 1);
-                            panelMidText.setText(currentMatch.getNumMedPanels() + "");
+                            currentMatch.setSandstorm_Middle_Panels(currentMatch.getSandstorm_Middle_Panels() - 1);
+                            if(currentMatch.getSandstorm_Middle_Panels() == 0){
+                                panelMidTextSS.setVisibility(View.INVISIBLE);
+                            }else{
+                                panelMidTextSS.setText(currentMatch.getSandstorm_Middle_Panels() + " Sandstorm");
+                                panelMidTextSS.setVisibility(View.VISIBLE);
+                            }
                             break;
                         case 5:
-                            currentMatch.setNumLowPanels(currentMatch.getNumLowPanels() - 1);
-                            panelLowText.setText(currentMatch.getNumLowPanels() + "");
+                            currentMatch.setSandstorm_Low_Panels_Rocket(currentMatch.getSandstorm_Low_Panels_Rocket() - 1);
+                            if(currentMatch.getSandstorm_Low_Panels_Rocket() == 0){
+                                panelLowTextSS.setVisibility(View.INVISIBLE);
+                            }else{
+                                panelLowTextSS.setText(currentMatch.getSandstorm_Low_Panels_Rocket() + " Sandstorm");
+                                panelLowTextSS.setVisibility(View.VISIBLE);
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                else if(trueIfRocket){
+                    switch (selectedItem){
+                        case 0:
+                            currentMatch.setHigh_Cargo(currentMatch.getHigh_Cargo() - 1);
+                            cargoHighText.setText(currentMatch.getHigh_Cargo() + "");
+                            break;
+                        case 1:
+                            currentMatch.setMiddle_Cargo(currentMatch.getMiddle_Cargo() - 1);
+                            cargoMidText.setText(currentMatch.getMiddle_Cargo() + "");
+                            break;
+                        case 2:
+                            currentMatch.setLow_Cargo_Rocket(currentMatch.getLow_Cargo_Rocket() - 1);
+                            cargoLowText.setText(currentMatch.getLow_Cargo_Rocket() + "");
+                            break;
+                        case 3:
+                            currentMatch.setHigh_Panels(currentMatch.getHigh_Panels() - 1);
+                            panelHighText.setText(currentMatch.getHigh_Panels() + "");
+                            break;
+                        case 4:
+                            currentMatch.setMiddle_Panels(currentMatch.getMiddle_Panels() - 1);
+                            panelMidText.setText(currentMatch.getMiddle_Panels() + "");
+                            break;
+                        case 5:
+                            currentMatch.setLow_Panels_Rocket(currentMatch.getLow_Panels_Rocket() - 1);
+                            panelLowText.setText(currentMatch.getLow_Panels_Rocket() + "");
                             break;
                         default:
                             break;
@@ -427,116 +566,18 @@ public class Ingame extends Fragment {
                         ssFlagsPanels[selectedItem].setVisibility(View.INVISIBLE);
                     }
                 }
-            }
-        });
+                cargoHigh.setImageResource(R.drawable.cargo);
+                cargoMid.setImageResource(R.drawable.cargo);
+                cargoLow.setImageResource(R.drawable.cargo);
+                panelHigh.setImageResource(R.drawable.panel);
+                panelMid.setImageResource(R.drawable.panel);
+                panelLow.setImageResource(R.drawable.panel);
 
-        sandstormButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(selectedItem == -1) {
-                    return;
+                for(int n = 0;  n < cargoBayPanels.length; n++){
+                    cargoBayCargo[n].setImageResource(R.drawable.cargo);
+                    cargoBayPanels[n].setImageResource(R.drawable.panel);
                 }
-                if(trueIfRocket){
-                    switch (selectedItem){
-                        case 0:
-                            currentMatch.setNumHighCargoSS(currentMatch.getNumHighCargoSS() + 1);
-                            cargoHighTextSS.setText(currentMatch.getNumHighCargoSS() + "");
-                            cargoHighTextSS.setVisibility(View.VISIBLE);
-                            break;
-                        case 1:
-                            currentMatch.setNumMedCargoSS(currentMatch.getNumMedCargoSS() + 1);
-                            cargoMidTextSS.setText(currentMatch.getNumMedCargoSS() + "");
-                            cargoMidTextSS.setVisibility(View.VISIBLE);
-                            break;
-                        case 2:
-                            currentMatch.setNumLowCargoSS(currentMatch.getNumLowCargoSS() + 1);
-                            cargoLowTextSS.setText(currentMatch.getNumLowCargoSS() + "");
-                            cargoLowTextSS.setVisibility(View.VISIBLE);
-                            break;
-                        case 3:
-                            currentMatch.setNumHighPanelsSS(currentMatch.getNumHighPanelsSS() + 1);
-                            panelHighTextSS.setText(currentMatch.getNumHighPanelsSS() + "");
-                            panelHighTextSS.setVisibility(View.VISIBLE);
-                            break;
-                        case 4:
-                            currentMatch.setNumMedPanelsSS(currentMatch.getNumMedPanelsSS() + 1);
-                            panelMidTextSS.setText(currentMatch.getNumMedPanelsSS() + "");
-                            panelMidTextSS.setVisibility(View.VISIBLE);
-                            break;
-                        case 5:
-                            currentMatch.setNumLowPanelsSS(currentMatch.getNumLowPanelsSS() + 1);
-                            panelLowTextSS.setText(currentMatch.getNumLowPanelsSS() + "");
-                            panelLowTextSS.setVisibility(View.VISIBLE);
-                            break;
-                        default:
-                            break;
-                    }
-                }
-                else{
-                    if(trueIfCargo){
-                        currentMatch.setIndividualCargoBayCargo(2, selectedItem);
-                        cargoBayCargo[selectedItem].setAlpha((float)0.6);
-                        ssFlagsCargo[selectedItem].setVisibility(View.VISIBLE);
-                        ssFlagsCargo[selectedItem].bringToFront();
-                    }else{
-                        currentMatch.setIndividualCargoBayPanel(2 , selectedItem);
-                        cargoBayPanels[selectedItem].setAlpha((float)0.6);
-                        ssFlagsPanels[selectedItem].setVisibility(View.VISIBLE);
-                        ssFlagsPanels[selectedItem].bringToFront();
-                    }
-                }
-            }
-        });
-
-        sandstormDelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(selectedItem == -1) {
-                    return;
-                }
-                if(trueIfRocket){
-                    switch (selectedItem){
-                        case 0:
-                            currentMatch.setNumHighCargoSS(currentMatch.getNumHighCargoSS() - 1);
-                            cargoHighTextSS.setText(currentMatch.getNumHighCargoSS() + "");
-                            break;
-                        case 1:
-                            currentMatch.setNumMedCargoSS(currentMatch.getNumMedCargoSS() - 1);
-                            cargoMidTextSS.setText(currentMatch.getNumMedCargoSS() + "");
-                            break;
-                        case 2:
-                            currentMatch.setNumLowCargoSS(currentMatch.getNumLowCargoSS() - 1);
-                            cargoLowTextSS.setText(currentMatch.getNumLowCargoSS() + "");
-                            break;
-                        case 3:
-                            currentMatch.setNumHighPanelsSS(currentMatch.getNumHighPanelsSS() - 1);
-                            panelHighTextSS.setText(currentMatch.getNumHighPanelsSS() + "");
-                            break;
-                        case 4:
-                            currentMatch.setNumMedPanelsSS(currentMatch.getNumMedPanelsSS() - 1);
-                            panelMidTextSS.setText(currentMatch.getNumMedPanelsSS() + "");
-                            break;
-                        case 5:
-                            currentMatch.setNumLowPanelsSS(currentMatch.getNumLowPanelsSS() - 1);
-                            panelLowTextSS.setText(currentMatch.getNumLowPanelsSS() + "");
-                            break;
-                        default:
-                            break;
-                    }
-                }
-                else{
-                    if(trueIfCargo){
-                        currentMatch.setIndividualCargoBayCargo(0, selectedItem);
-                        cargoBayCargo[selectedItem].setAlpha((float)0.4);
-                        ssFlagsCargo[selectedItem].setVisibility(View.INVISIBLE);
-                        ssFlagsCargo[selectedItem].bringToFront();
-                    }else{
-                        currentMatch.setIndividualCargoBayPanel(2 , selectedItem);
-                        cargoBayPanels[selectedItem].setAlpha((float)0.6);
-                        ssFlagsPanels[selectedItem].setVisibility(View.INVISIBLE);
-                        ssFlagsPanels[selectedItem].bringToFront();
-                    }
-                }
+                selectedItem = -1;
             }
         });
 

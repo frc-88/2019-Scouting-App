@@ -86,8 +86,8 @@ public class Postgame extends Fragment{
 
         Button commitBtn = (Button) view.findViewById(R.id.commit_data_button);
         try {
-            if (currentMatch.getNoShow() == 1) {
-                Log.v("performance", "NO SHOW POSTGAME: " + currentMatch.getNoShow());
+            if (currentMatch.getNo_Show() == 1) {
+                Log.v("performance", "NO SHOW POSTGAME: " + currentMatch.getNo_Show());
                 commitBtn.setBackgroundColor(Color.RED);
                 commitBtn.setText("Commit No Show");
             }
@@ -105,7 +105,7 @@ public class Postgame extends Fragment{
                 intent.setClass(getContext() , MainActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("scouter_name" , currentMatch.getScouter());
-                bundle.putString("new_match_number" , (currentMatch.getMatchNumber()+1) + "");
+                bundle.putString("new_match_number" , (currentMatch.getMatch_Number()+1) + "");
                 intent.putExtras(bundle);
                 startActivity(intent);
 
@@ -125,7 +125,7 @@ public class Postgame extends Fragment{
                 midClimbBtn.setImageResource(R.drawable.ic_starting_pos_uncheck);
                 lowClimbBtn.setImageResource(R.drawable.ic_starting_pos_uncheck);
                 noClimnBtn.setAlpha((float)0.3);
-                currentMatch.setLevelOfClimb(3);
+                currentMatch.setClimb_Level(3);
             }
         });
         midClimbBtn.setOnClickListener(new View.OnClickListener(){
@@ -135,7 +135,7 @@ public class Postgame extends Fragment{
                 midClimbBtn.setImageResource(R.drawable.ic_starting_pos_check);
                 lowClimbBtn.setImageResource(R.drawable.ic_starting_pos_uncheck);
                 noClimnBtn.setAlpha((float)0.3);
-                currentMatch.setLevelOfClimb(2);
+                currentMatch.setClimb_Level(2);
             }
         });
         lowClimbBtn.setOnClickListener(new View.OnClickListener(){
@@ -145,7 +145,7 @@ public class Postgame extends Fragment{
                 midClimbBtn.setImageResource(R.drawable.ic_starting_pos_uncheck);
                 lowClimbBtn.setImageResource(R.drawable.ic_starting_pos_check);
                 noClimnBtn.setAlpha((float)0.3);
-                currentMatch.setLevelOfClimb(1);
+                currentMatch.setClimb_Level(1);
             }
         });
 
@@ -155,7 +155,7 @@ public class Postgame extends Fragment{
                 highClimbBtn.setImageResource(R.drawable.ic_starting_pos_uncheck);
                 midClimbBtn.setImageResource(R.drawable.ic_starting_pos_uncheck);
                 lowClimbBtn.setImageResource(R.drawable.ic_starting_pos_uncheck);
-                currentMatch.setLevelOfClimb(0);
+                currentMatch.setClimb_Level(0);
                 noClimnBtn.setAlpha((float)1.0);
             }
         });
@@ -173,12 +173,12 @@ public class Postgame extends Fragment{
         emoji100.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(currentMatch.getMvp() == 1){
+                if(currentMatch.getMVP() == 1){
                     emoji100.setAlpha((float)0.4);
-                    currentMatch.setMvp(0);
+                    currentMatch.setMVP(0);
                     return;
                 }
-                currentMatch.setMvp(1);
+                currentMatch.setMVP(1);
                 emoji100.setAlpha((float)1.0);
             }
         });
@@ -186,12 +186,12 @@ public class Postgame extends Fragment{
         emojiFlex.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(currentMatch.getStrongDefense() == 1){
+                if(currentMatch.getStrong_Defense() == 1){
                     emojiFlex.setAlpha((float)0.4);
-                    currentMatch.setStrongDefense(0);
+                    currentMatch.setStrong_Defense(0);
                     return;
                 }
-                currentMatch.setStrongDefense(1);
+                currentMatch.setStrong_Defense(1);
                 emojiFlex.setAlpha((float)1.0);
             }
         });
@@ -199,12 +199,12 @@ public class Postgame extends Fragment{
         emojiBroken.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(currentMatch.getBroken() == 1){
+                if(currentMatch.getBroken_Or_DCed() == 1){
                     emojiBroken.setAlpha((float)0.4);
-                    currentMatch.setBroken(0);
+                    currentMatch.setBroken_Or_DCed(0);
                     return;
                 }
-                currentMatch.setBroken(1);
+                currentMatch.setBroken_Or_DCed(1);
                 emojiBroken.setAlpha((float)1.0);
             }
         });
@@ -212,12 +212,12 @@ public class Postgame extends Fragment{
         emojiFacepalm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(currentMatch.getBeans() == 1){
+                if(currentMatch.getOof() == 1){
                     emojiFacepalm.setAlpha((float)0.4);
-                    currentMatch.setBeans(0);
+                    currentMatch.setOof(0);
                     return;
                 }
-                currentMatch.setBeans(1);
+                currentMatch.setOof(1);
                 emojiFacepalm.setAlpha((float)1.0);
             }
         });

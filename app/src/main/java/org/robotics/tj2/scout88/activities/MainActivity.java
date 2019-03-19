@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity
 
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
 
-        String teamPref = sharedPref.getString("example_list" , "Def");
+        String teamPref = sharedPref.getString("example_list" , "Master");
         getSupportActionBar().setTitle("Scout88: " + teamPref);
 
         if (teamPref.contains("Red")){

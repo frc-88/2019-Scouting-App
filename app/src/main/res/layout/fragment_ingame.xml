@@ -14,20 +14,37 @@
         tools:context=".activities.MainActivity">
 
         <Button
-            android:id="@+id/sandstorm_button_del"
-            android:layout_width="97dp"
-            android:layout_height="103dp"
-            android:layout_marginStart="20dp"
-            android:backgroundTint="@android:color/holo_red_dark"
-            android:text="Storm"
+            android:id="@+id/add_button"
+            android:layout_width="125dp"
+            android:layout_height="88dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="32dp"
+            android:backgroundTint="@android:color/holo_green_dark"
+            android:text="Add"
             android:textColor="#FFFFFF"
             android:textSize="18sp"
-            app:layout_constraintStart_toEndOf="@+id/sandstorm_button"
-            app:layout_constraintTop_toTopOf="@+id/sandstorm_button" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.99"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/panel_low_number_ss" />
+
+        <Button
+            android:id="@+id/delete_button"
+            android:layout_width="125dp"
+            android:layout_height="88dp"
+            android:layout_marginTop="8dp"
+            android:backgroundTint="@android:color/holo_red_dark"
+            android:text="Delete"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="@+id/add_button"
+            app:layout_constraintStart_toStartOf="@+id/add_button"
+            app:layout_constraintTop_toBottomOf="@+id/add_button" />
 
         <TextView
             android:id="@+id/cargo_high_number_ss"
-            android:layout_width="52dp"
+            android:layout_width="180dp"
             android:layout_height="40dp"
             android:text="0"
             android:textColor="@android:color/holo_green_dark"
@@ -39,7 +56,7 @@
 
         <TextView
             android:id="@+id/cargo_low_number_ss"
-            android:layout_width="52dp"
+            android:layout_width="180dp"
             android:layout_height="40dp"
             android:text="0"
             android:textColor="@android:color/holo_green_dark"
@@ -51,7 +68,7 @@
 
         <TextView
             android:id="@+id/panel_high_number_ss"
-            android:layout_width="52dp"
+            android:layout_width="180dp"
             android:layout_height="40dp"
             android:text="0"
             android:textColor="@android:color/holo_green_dark"
@@ -63,7 +80,7 @@
 
         <TextView
             android:id="@+id/panel_mid_number_ss"
-            android:layout_width="52dp"
+            android:layout_width="180dp"
             android:layout_height="40dp"
             android:text="0"
             android:textColor="@android:color/holo_green_dark"
@@ -75,7 +92,7 @@
 
         <TextView
             android:id="@+id/panel_low_number_ss"
-            android:layout_width="52dp"
+            android:layout_width="180dp"
             android:layout_height="40dp"
             android:text="0"
             android:textColor="@android:color/holo_green_dark"
@@ -99,7 +116,7 @@
 
         <TextView
             android:id="@+id/cargo_mid_number_ss"
-            android:layout_width="52dp"
+            android:layout_width="180dp"
             android:layout_height="40dp"
             android:text="0"
             android:textColor="@android:color/holo_green_dark"
@@ -360,6 +377,9 @@
             android:layout_width="@dimen/cargo_width"
             android:layout_height="@dimen/cargo_height"
             android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cargo0"
             app:srcCompat="@drawable/cargo" />
@@ -393,6 +413,9 @@
             android:layout_width="@dimen/cargo_width"
             android:layout_height="@dimen/cargo_height"
             android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/panel0"
             app:srcCompat="@drawable/cargo" />
@@ -402,7 +425,10 @@
             android:layout_width="@dimen/panel_width"
             android:layout_height="@dimen/panel_height"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/carg_bay_title"
             app:srcCompat="@drawable/panel" />
@@ -451,10 +477,10 @@
             android:id="@+id/ss_flag_panel4"
             android:layout_width="46dp"
             android:layout_height="48dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="19dp"
             android:text="S"
-            android:textColor="@android:color/holo_red_light"
+            android:textColor="@android:color/holo_purple"
             android:textSize="30sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/panel4"
@@ -464,10 +490,10 @@
             android:id="@+id/ss_flag_panel5"
             android:layout_width="46dp"
             android:layout_height="48dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="19dp"
             android:text="S"
-            android:textColor="@android:color/holo_red_light"
+            android:textColor="@android:color/holo_purple"
             android:textSize="30sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/panel5"
@@ -477,10 +503,10 @@
             android:id="@+id/ss_flag_panel0"
             android:layout_width="46dp"
             android:layout_height="48dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="19dp"
             android:text="S"
-            android:textColor="@android:color/holo_red_light"
+            android:textColor="@android:color/holo_purple"
             android:textSize="30sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/panel0"
@@ -490,10 +516,10 @@
             android:id="@+id/ss_flag_panel3"
             android:layout_width="42dp"
             android:layout_height="48dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="19dp"
             android:text="S"
-            android:textColor="@android:color/holo_red_light"
+            android:textColor="@android:color/holo_purple"
             android:textSize="30sp"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/cargo3"
@@ -516,10 +542,10 @@
             android:id="@+id/ss_flag_panel7"
             android:layout_width="46dp"
             android:layout_height="48dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="19dp"
             android:text="S"
-            android:textColor="@android:color/holo_red_light"
+            android:textColor="@android:color/holo_purple"
             android:textSize="30sp"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/cargo7"
@@ -529,10 +555,10 @@
             android:id="@+id/ss_flag_panel6"
             android:layout_width="46dp"
             android:layout_height="48dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="19dp"
             android:text="S"
-            android:textColor="@android:color/holo_red_light"
+            android:textColor="@android:color/holo_purple"
             android:textSize="30sp"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/panel5"
@@ -542,10 +568,10 @@
             android:id="@+id/ss_flag_panel2"
             android:layout_width="46dp"
             android:layout_height="48dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="19dp"
             android:text="S"
-            android:textColor="@android:color/holo_red_light"
+            android:textColor="@android:color/holo_purple"
             android:textSize="30sp"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/panel1"
@@ -581,10 +607,10 @@
             android:id="@+id/ss_flag_panel1"
             android:layout_width="41dp"
             android:layout_height="48dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="19dp"
             android:text="S"
-            android:textColor="@android:color/holo_red_light"
+            android:textColor="@android:color/holo_purple"
             android:textSize="30sp"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/panel0"
@@ -633,8 +659,8 @@
 
         <TextView
             android:id="@+id/rocket_ship_title"
-            android:layout_width="207dp"
-            android:layout_height="53dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="75dp"
             android:text="Rocket Ship"
@@ -643,37 +669,32 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/add_button"
-            android:layout_width="106dp"
-            android:layout_height="112dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="200dp"
-            android:src="@drawable/ic_add_circle_black_24dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/hatch_low_text" />
-
-        <ImageView
-            android:id="@+id/delete_button"
-            android:layout_width="110dp"
-            android:layout_height="117dp"
-            android:layout_marginStart="8dp"
-            android:src="@drawable/ic_delete_black_24dp"
-            app:layout_constraintStart_toEndOf="@+id/add_button"
-            app:layout_constraintTop_toTopOf="@+id/add_button" />
-
-        <Button
-            android:id="@+id/sandstorm_button"
-            android:layout_width="97dp"
-            android:layout_height="103dp"
-            android:layout_marginStart="8dp"
+        <Switch
+            android:id="@+id/sandstorm_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:backgroundTint="@android:color/holo_green_dark"
-            android:text="Storm"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="@+id/add_button"
-            app:layout_constraintTop_toBottomOf="@+id/cargo7" />
+            android:layout_marginEnd="32dp"
+            android:checked="true"
+            android:text="Sandstorm "
+            android:textColor="@android:color/holo_purple"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/rocket_ship_title" />
+
+        <TextView
+            android:id="@+id/sandstorm_mode_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="YOU ARE IN SANDSTORM MODE"
+            android:textColor="@android:color/holo_purple"
+            android:textSize="36sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/panel5" />
 
     </android.support.constraint.ConstraintLayout>
 

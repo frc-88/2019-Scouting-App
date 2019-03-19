@@ -19,7 +19,7 @@ public class MatchPreviewCalculations {
     private double winChance;
     private double endRPChance;
     private double rocketRP;
-    private final double ALPHA = 0.05;
+    private final double ALPHA = 0.15;
     private ArrayList<Double> allyInt = new ArrayList<>();
     private ArrayList<Double> oppInt = new ArrayList<>();
     private ArrayList<ArrayList<Performance>> competition = new ArrayList<ArrayList<Performance>>();
@@ -156,22 +156,22 @@ public class MatchPreviewCalculations {
 
         if (lvl.equalsIgnoreCase("low")) {
             for(Performance x: team) {
-                total += 3*(x.getNumLowCargo() + x.getNumLowCargoSS()) +
-                        2 * (x.getNumLowPanels() + x.getNumLowPanelsSS());
+                total += 3*(x.getLow_Cargo_Rocket() + x.getSandstorm_Low_Cargo_Rocket()) +
+                        2 * (x.getLow_Panels_Rocket() + x.getSandstorm_Low_Panels_Rocket());
             }
             avg = total/ (team.size());
         }
         else if (lvl.equalsIgnoreCase("mid")) {
             for(Performance x: team) {
-                total += 3*(x.getNumMedCargo() + x.getNumMedCargoSS()) +
-                        2 * (x.getNumMedPanels() + x.getNumMedPanelsSS());
+                total += 3*(x.getMiddle_Cargo() + x.getSandstorm_Middle_Cargo()) +
+                        2 * (x.getMiddle_Panels() + x.getSandstorm_Middle_Panels());
             }
             avg = total/ team.size();
         }
         else if (lvl.equalsIgnoreCase("high")) {
             for(Performance x: team) {
-                total += 3*(x.getNumHighCargo() + x.getNumHighCargoSS()) +
-                        2 * (x.getNumHighPanels() + x.getNumHighPanelsSS());
+                total += 3*(x.getHigh_Cargo() + x.getSandstorm_High_Cargo()) +
+                        2 * (x.getHigh_Panels() + x.getSandstorm_High_Panels());
             }
             avg = total/ team.size();
         }
@@ -185,24 +185,24 @@ public class MatchPreviewCalculations {
         if (lvl.equalsIgnoreCase("low")) {
             double[] t = new double[team.size()];
             for (int i = 0; i < t.length; i++) {
-                t[i] = 3*(team.get(i).getNumLowCargo() + team.get(i).getNumLowCargoSS()) +
-                        2 * (team.get(i).getNumLowPanels() + team.get(i).getNumLowPanelsSS());
+                t[i] = 3*(team.get(i).getLow_Cargo_Rocket() + team.get(i).getSandstorm_Low_Cargo_Rocket()) +
+                        2 * (team.get(i).getLow_Panels_Rocket() + team.get(i).getSandstorm_Low_Panels_Rocket());
             }
             sdP = s.evaluate(t);
         }
         else if (lvl.equalsIgnoreCase("mid")) {
             double[] t = new double[team.size()];
             for (int i = 0; i < t.length; i++) {
-                t[i] = 3*(team.get(i).getNumMedCargo() + team.get(i).getNumMedCargoSS()) +
-                        2 * (team.get(i).getNumMedPanels() + team.get(i).getNumMedPanelsSS());
+                t[i] = 3*(team.get(i).getMiddle_Cargo() + team.get(i).getSandstorm_Middle_Cargo()) +
+                        2 * (team.get(i).getMiddle_Panels() + team.get(i).getSandstorm_Middle_Panels());
             }
             sdP = s.evaluate(t);
         }
         else if (lvl.equalsIgnoreCase("high")) {
             double[] t = new double[team.size()];
             for (int i = 0; i < t.length; i++) {
-                t[i] = 3*(team.get(i).getNumHighCargo() + team.get(i).getNumHighCargo()) +
-                        2 * (team.get(i).getNumHighPanels() + team.get(i).getNumHighPanelsSS());
+                t[i] = 3*(team.get(i).getHigh_Cargo() + team.get(i).getHigh_Cargo()) +
+                        2 * (team.get(i).getHigh_Panels() + team.get(i).getSandstorm_High_Panels());
             }
             sdP = s.evaluate(t);
         }
@@ -282,7 +282,7 @@ public class MatchPreviewCalculations {
         int size = (int)((blue1Performances.size() + blue2Performances.size() + blue3Performances.size())/3);
         double degf = size - 1;
         TDistribution t = new TDistribution(degf);
-        double tvalue =(t.inverseCumulativeProbability(.025));
+        double tvalue =(t.inverseCumulativeProbability(ALPHA/2.0));
         double tval = (Math.abs(tvalue));
         double me = tval * (s/(Math.sqrt(size)));
         double t1Max = m + me;
@@ -299,7 +299,7 @@ public class MatchPreviewCalculations {
         double size = (int)((red1Performances.size() + red2Performances.size() + red3Performances.size())/3);
         double degf = size - 1;
         TDistribution t = new TDistribution(degf);
-        double tvalue =(t.inverseCumulativeProbability(.025));
+        double tvalue =(t.inverseCumulativeProbability(ALPHA/2.0));
         double tval = (Math.abs(tvalue));
         double me = tval * (s/(Math.sqrt(size)));
         double t1Max = m + me;
@@ -335,7 +335,7 @@ public class MatchPreviewCalculations {
         }
         Collections.sort(t, new SortbyRP());
         for(int i =0; i < t.size(); i++) {
-            seeding[i] = t.get(i).get(i).getTeamNumber();
+            seeding[i] = t.get(i).get(i).getTeam_Number();
         }
         return(seeding);
     }
