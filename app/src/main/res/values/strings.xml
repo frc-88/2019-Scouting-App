@@ -16,7 +16,7 @@
   -->
 
 <resources>
-    <string name="COMPETITION">SEMA</string>
+    <string name="COMPETITION">CMA</string>
 
     <string name="app_name">Scout88</string>
     <string name="title_postgame">Post-Game</string>

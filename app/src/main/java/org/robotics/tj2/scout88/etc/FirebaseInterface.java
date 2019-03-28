@@ -29,8 +29,8 @@ import java.util.ArrayList;
 public class FirebaseInterface {
 
 
-    private final String COMPETITION_NAME = "SEMA";
-    private final String COMPETITION_FLAG = "SE_";
+    private final String COMPETITION_NAME = "CMA";
+    private final String COMPETITION_FLAG = "CM_";
 
 
     private FirebaseDatabase database;
